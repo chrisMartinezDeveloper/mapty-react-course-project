@@ -35,6 +35,7 @@ const model = {
   //     });
   // };
 
+  // Loads the map from the Leaflet Library
   loadMap: async function (position) {
     try {
       // From JS Course
@@ -60,33 +61,6 @@ const model = {
       throw error;
     }
   },
-
-  // Loads the map from the Leaflet Library
-  //   loadMap: async function (position) {
-  //     try {
-  //       // From JS Course
-  //       // ---
-  //       // const { latitude } = position.coords;
-  //       // const { longitude } = position.coords;
-
-  //       // Lattitude and Longitude for New York City
-  //       this.state.latitude = 40.7591703;
-  //       this.state.longitude = -74.0394429;
-  //       const coords = [this.state.latitude, this.state.longitude];
-
-  //       this.state.map = await L.map("map").setView(coords, MAP_ZOOM_LEVEL);
-
-  //       await L.tileLayer(
-  //         "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-  //         {
-  //           attribution:
-  //             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  //         }
-  //       ).addTo(this.state.map);
-  //     } catch (error) {
-  //       throw error;
-  //     }
-  //   },
 
   // Gets the map from the state
   getMap: () => this.state.map,

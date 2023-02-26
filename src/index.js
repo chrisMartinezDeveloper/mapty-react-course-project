@@ -1,8 +1,14 @@
 import React from "react";
+import model from "./Model";
+import View from "./View";
 import ReactDOM from "react-dom/client";
-import Controller from "./Controller";
+import Controller from "./View";
 import "./css/style.css";
 import reportWebVitals from "./tests/reportWebVitals";
+
+/* ////////////////// */
+/* Controller         */
+/* ////////////////// */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -10,6 +16,10 @@ root.render(
     <Controller />
   </React.StrictMode>
 );
+
+/* ////////////////// */
+/* Analytics          */
+/* ////////////////// */
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

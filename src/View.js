@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import model from "./Model";
 import Sidebar from "./components/sidebarComponent";
 import Map from "./components/mapComponent";
 import "./css/style.css";
 
-class Controller extends Component {
-  /* //////////////////// */
-  /* View                 */
-  /* //////////////////// */
+class View extends Component {
   render() {
     return (
-      <div className="Controller">
+      <div className="View">
         <Sidebar />
         <Map />
       </div>
@@ -18,4 +14,4 @@ class Controller extends Component {
   }
 }
 
-export default Controller;
+export default View;
