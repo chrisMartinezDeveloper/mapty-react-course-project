@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Sidebar from "./components/sidebarComponent";
 import Map from "./components/mapComponent";
 import "./css/style.css";
-import { MAP_ZOOM_LEVEL } from "../config";
+import { L } from "leaflet";
+import { MAP_ZOOM_LEVEL } from "./config";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 library.add(faXmark);
@@ -17,7 +18,6 @@ const inputDistance = document.querySelector(".form__input--distance");
 const inputDuration = document.querySelector(".form__input--duration");
 const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
-
 
 class View extends Component {
   /* ////////////////////// */
@@ -36,7 +36,6 @@ class View extends Component {
     inputDistance.focus();
   }
 
-  
   /* ////////////////////// */
   /* Publis Functions       */
   /* ////////////////////// */
@@ -98,18 +97,6 @@ class View extends Component {
 
     return workoutData;
   }
-
-  render() {
-    return (
-      <div className="View">
-        <Sidebar />
-        <Map />
-      </div>
-    );
-  }
-}
-
-export default View;
 
   // Displays an error when the user inputs invalid data
   displayInputErrorMessage(event = undefined) {
@@ -562,4 +549,15 @@ export default View;
       handler(event, workoutElement, editFormElement);
     });
   }
+
+  render() {
+    return (
+      <div className="View">
+        <Sidebar />
+        <Map />
+      </div>
+    );
+  }
 }
+
+export default View;
