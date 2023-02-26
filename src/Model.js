@@ -2,8 +2,8 @@ import { L } from "leaflet";
 import { MAP_ZOOM_LEVEL } from "./config";
 import { validInputs, allPositive } from "./helpers";
 
-const model = {
-  state: {
+class Model {
+  state = {
     latitude: 0,
     longitude: 0,
     map: ``,
@@ -23,7 +23,7 @@ const model = {
     ],
     workout: {},
     workouts: [],
-  },
+  };
 
   // From JS Course
   // ---
@@ -36,7 +36,7 @@ const model = {
   // };
 
   // Loads the map from the Leaflet Library
-  loadMap: async function (position) {
+  async loadMap(position) {
     try {
       // From JS Course
       // ---
@@ -60,19 +60,19 @@ const model = {
     } catch (error) {
       throw error;
     }
-  },
+  }
 
   // Gets the map from the state
-  getMap: () => this.state.map,
+  getMap = () => this.state.map;
 
   // Gets the current workout from the state
-  getWorkout: () => this.state.workout,
+  getWorkou = () => this.state.workout;
 
   // Gets all the workouts from the state
-  getWorkouts: () => this.state.workouts,
+  getWorkouts = () => this.state.workouts;
 
   // Create a new user defined workout
-  createNewWorkout: function (workoutData) {
+  createNewWorkout(workoutData) {
     const inputs = workoutData.getInputs();
     if (!validInputs(inputs) || !allPositive(inputs))
       throw new Error(`Invalid Inputs`);
@@ -96,10 +96,10 @@ const model = {
     } ${this.state.workout.date.getDate()}`;
 
     this.state.workouts.push(this.state.workout);
-  },
+  }
 
   // Deletes the given workout
-  deleteWorkout: function (id) {
+  deleteWorkout(id) {
     this.state.workouts.forEach((workout, i) => {
       if (workout.id === id) {
         this.state.workouts.splice(i, 1);
@@ -107,10 +107,10 @@ const model = {
     });
 
     this.updateLocalStorage();
-  },
+  }
 
   // Makes user requested edits to the given workout
-  editWorkout: function (editFormData) {
+  editWorkout(editFormData) {
     const inputs = editFormData.getInputs();
     if (!validInputs(inputs) || !allPositive(inputs))
       throw new Error(`Invalid Inputs`);
@@ -144,35 +144,35 @@ const model = {
     this.updateLocalStorage();
 
     return workout;
-  },
+  }
 
   // Gets the current workout
-  getCurrentWorkout: function (id) {
+  getCurrentWorkout(id) {
     return this.state.workouts.find((wrkt) => wrkt.id === id);
-  },
+  }
 
   // Saves the workouts to local storage
-  setLocalStorage: function () {
+  setLocalStorage() {
     // Browser provided API
     // Only to be used for small amounts of data
     // Bad because it is Blocking
     localStorage.setItem(`workouts`, JSON.stringify(this.state.workouts));
-  },
+  }
 
   // Gets the workouts from local storage
-  getLocalStorage: function () {
+  getLocalStorage() {
     const data = JSON.parse(localStorage.getItem(`workouts`));
 
     if (!data) return;
 
     this.state.workouts = data;
-  },
+  }
 
   // Updates local storage
-  updateLocalStorage: function () {
+  updateLocalStorage() {
     localStorage.removeItem(`workouts`);
     this.setLocalStorage();
-  },
-};
+  }
+}
 
-export default model;
+export default Model;

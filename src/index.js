@@ -1,13 +1,20 @@
 import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./tests/reportWebVitals";
 import model from "./Model";
 import View from "./View";
-import ReactDOM from "react-dom/client";
 import "./css/style.css";
-import reportWebVitals from "./tests/reportWebVitals";
 
 /* ////////////////// */
 /* Controller         */
 /* ////////////////// */
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <View />
+  </React.StrictMode>
+);
 
 // Controls loading the map from the Leaflet API
 const controlLoadMap = async function () {
@@ -125,13 +132,6 @@ const init = function () {
   View.addHandlerMoveToWorkouts(controlMoveToMarker);
 };
 init();
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <View />
-  </React.StrictMode>
-);
 
 /* ////////////////// */
 /* Analytics          */

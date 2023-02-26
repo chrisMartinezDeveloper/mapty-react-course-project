@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Sidebar from "./components/sidebarComponent";
-import Map from "./components/mapComponent";
-import "./css/style.css";
 import { L } from "leaflet";
 import { MAP_ZOOM_LEVEL } from "./config";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "./components/sidebarComponent";
+import Map from "./components/mapComponent";
+import "./css/style.css";
 library.add(faXmark);
 
 /* ////////////// */
