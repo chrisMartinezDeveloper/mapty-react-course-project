@@ -464,9 +464,9 @@ class View extends Component {
       .openPopup();
   }
 
-  ////////////////////
-  // Event Listeners
-
+  /* ////////////////////// */
+  /* Event Listeners        */
+  /* ////////////////////// */
   // Handles the map once it is loaded
   addHandlerLoadMap(handler) {
     window.addEventListener(`load`, handler);

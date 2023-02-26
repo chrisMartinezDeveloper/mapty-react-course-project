@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./tests/reportWebVitals";
-import model from "./Model";
+import Model from "./Model";
 import View from "./View";
 import "./css/style.css";
 
@@ -20,23 +20,23 @@ root.render(
 const controlLoadMap = async function () {
   try {
     // Loads the map
-    await model.loadMap();
+    await Model.loadMap();
 
     // Event Listener
-    View.addHandlerMapClick(model.getMap());
+    View.addHandlerMapClick(Model.getMap());
 
     // Gets local storage
-    model.getLocalStorage();
+    Model.getLocalStorage();
 
     // Awaiting the FontAwesome xIcon loading
-    await View.renderWorkouts(model.getWorkouts());
+    await View.renderWorkouts(Model.getWorkouts());
 
     // Event Listeners
     View.addHandlerDeleteWorkout(controlDeleteWorkout);
     View.addHandlerEditWorkouts(controlEditWorkout);
 
     // Renders the workout marker
-    View.renderWorkoutMarkers(model.getMap(), model.getWorkouts());
+    View.renderWorkoutMarkers(Model.getMap(), Model.getWorkouts());
   } catch (error) {
     console.error(`🔥 ${error}`);
   }
@@ -54,11 +54,11 @@ const controlSubmitWorkout = async function () {
     View.clearInputErrorMessage();
 
     // Create workout in state
-    model.createNewWorkout(View.getWorkoutFormData());
+    Model.createNewWorkout(View.getWorkoutFormData());
 
     // Render workout and marker
-    await View.renderWorkout(model.getWorkout());
-    View.renderWorkoutMarker(model.getMap(), model.getWorkout());
+    await View.renderWorkout(Model.getWorkout());
+    View.renderWorkoutMarker(Model.getMap(), Model.getWorkout());
     View.hideForm();
 
     // Event Listeners
@@ -66,7 +66,7 @@ const controlSubmitWorkout = async function () {
     View.addHandlerNewWorkoutEdit(controlEditWorkout);
 
     // Set Local Storage
-    model.setLocalStorage();
+    Model.setLocalStorage();
   } catch (error) {
     if (error.message === "Invalid Inputs") View.displayInputErrorMessage();
     console.error(`🔥 ${error}`);
@@ -75,20 +75,20 @@ const controlSubmitWorkout = async function () {
 
 // Controls moving the map view to the workout clicked by the user
 const controlMoveToMarker = function (event) {
-  View.moveToMarker(event, model.getMap(), model.getWorkouts());
+  View.moveToMarker(event, Model.getMap(), Model.getWorkouts());
 };
 
 const controlDeleteWorkout = function (event) {
   View.deleteWorkoutElement(event);
 
-  const workout = model.getCurrentWorkout(View.getElementID(event));
-  View.removeMarker(model.getMap(), workout);
+  const workout = Model.getCurrentWorkout(View.getElementID(event));
+  View.removeMarker(Model.getMap(), workout);
 
-  model.deleteWorkout(View.getElementID(event));
+  Model.deleteWorkout(View.getElementID(event));
 };
 
 const controlEditWorkout = function (event, workoutElement) {
-  View.renderEditView(event, model.getWorkouts());
+  View.renderEditView(event, Model.getWorkouts());
 
   View.addHandlerSubmitWorkoutEdits(controlSubmitWorkoutEdits, workoutElement);
 };
@@ -100,9 +100,9 @@ const controlSubmitWorkoutEdits = function (
   editFormElement
 ) {
   try {
-    // model.editWorkout() returns the editedWorkout
+    // Model.editWorkout() returns the editedWorkout
     const editFormData = View.getEditFormData(editFormElement);
-    const editedWorkout = model.editWorkout(editFormData);
+    const editedWorkout = Model.editWorkout(editFormData);
 
     View.updateWorkout(workoutElement, editedWorkout);
 
