@@ -35,6 +35,10 @@ class Model {
   //     });
   // };
 
+  test() {
+    console.log("TEST - Model");
+  }
+
   // Loads the map from the Leaflet Library
   async loadMap(position) {
     try {

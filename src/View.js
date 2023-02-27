@@ -39,6 +39,10 @@ class View extends Component {
   /* ////////////////////// */
   /* Publis Functions       */
   /* ////////////////////// */
+  test() {
+    console.log("TEST - View");
+  }
+
   // Hides the workout form
   hideForm() {
     // Empty the imputs

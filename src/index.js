@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./tests/reportWebVitals";
-import Model from "./Model";
-import View from "./View";
+import * as Model from "./Model";
+import * as View from "./View";
 import "./css/style.css";
 
 /* ////////////////// */
@@ -15,6 +15,8 @@ root.render(
     <View />
   </React.StrictMode>
 );
+
+View.test();
 
 // Controls loading the map from the Leaflet API
 const controlLoadMap = async function () {
@@ -126,6 +128,7 @@ const welcome = function () {
 const init = function () {
   // Publisher/Subscriber method
   welcome();
+  View.test();
   View.addHandlerLoadMap(controlLoadMap);
   View.addHandlerWorkoutSubmit(controlSubmitWorkout);
   View.addHandlerToggleInputType(controlToggleInputType);
