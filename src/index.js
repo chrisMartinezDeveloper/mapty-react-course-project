@@ -13,7 +13,7 @@ root.render(
 );
 
 // Controller.init();
-Controller.loadMap();
+// Controller.loadMap();
 
 /* ////////////////// */
 /* Analytics          */
