@@ -1,5 +1,3 @@
-import leaflet, { L } from "leaflet";
-import { MAP_ZOOM_LEVEL } from "./config";
 import { validInputs, allPositive } from "./helpers";
 
 class Model {
@@ -40,7 +38,7 @@ class Model {
   }
 
   // Gets the map from the state
-  getMap = () => this.state.map;
+  // getMap = () => this.state.map;
 
   // Gets the current workout from the state
   getWorkout = () => this.state.workout;
