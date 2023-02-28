@@ -39,41 +39,11 @@ class Model {
     console.log("TEST - Model");
   }
 
-  // Loads the map from the Leaflet Library
-  async loadMap(position) {
-    try {
-      // From JS Course
-      // ---
-      // const { latitude } = position.coords;
-      // const { longitude } = position.coords;
-
-      // Lattitude and Longitude for New York City
-      this.state.latitude = 40.7591703;
-      this.state.longitude = -74.0394429;
-      const coords = [this.state.latitude, this.state.longitude];
-
-      console.log(L);
-      this.state.map = await L.map("map").setView(coords, MAP_ZOOM_LEVEL);
-      console.log("TEST - Map");
-      console.log(this.state.map);
-
-      await L.tileLayer(
-        "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }
-      ).addTo(this.state.map);
-    } catch (error) {
-      throw error;
-    }
-  }
-
   // Gets the map from the state
   getMap = () => this.state.map;
 
   // Gets the current workout from the state
-  getWorkou = () => this.state.workout;
+  getWorkout = () => this.state.workout;
 
   // Gets all the workouts from the state
   getWorkouts = () => this.state.workouts;

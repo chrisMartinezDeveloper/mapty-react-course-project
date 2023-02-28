@@ -1,7 +1,20 @@
+import React from "react";
+import { Component } from "react";
+import { ViewComponent } from "./View";
 import Model from "./Model";
 import View from "./View";
 
-class Controller {
+export class ControllerComponent extends Component {
+  render() {
+    return (
+      <React.StrictMode>
+        <ViewComponent />
+      </React.StrictMode>
+    );
+  }
+}
+
+class controller {
   test() {
     console.log("TEST - Controller");
   }
@@ -122,4 +135,4 @@ class Controller {
   }
 }
 
-export default new Controller();
+export default new controller();
