@@ -11,9 +11,9 @@ class Sidebar extends Component {
       <div className="sidebar">
         <img src={logo} alt="Logo" className="logo" />
 
-        <ul className="workouts">
-          <WorkoutForm />
-        </ul>
+        <WorkoutForm />
+
+        <ul className="workouts"></ul>
 
         <Copyright />
       </div>

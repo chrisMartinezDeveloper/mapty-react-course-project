@@ -19,7 +19,18 @@ const inputDuration = document.querySelector(".form__input--duration");
 const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
-class View extends Component {
+export class ViewComponent extends Component {
+  render() {
+    return (
+      <div className="View">
+        <Sidebar />
+        <Map />
+      </div>
+    );
+  }
+}
+
+class View {
   /* ////////////////////// */
   /* Private Variables      */
   /* ////////////////////// */
@@ -553,15 +564,6 @@ class View extends Component {
       handler(event, workoutElement, editFormElement);
     });
   }
-
-  render() {
-    return (
-      <div className="View">
-        <Sidebar />
-        <Map />
-      </div>
-    );
-  }
 }
 
-export default View;
+export default new View();

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "../css/style.css";
 
 class WorkoutForm extends Component {
-  state = {};
-
   render() {
     return (
       <form className="form hidden">
