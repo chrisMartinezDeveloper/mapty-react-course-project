@@ -1,4 +1,4 @@
-import { L } from "leaflet";
+import leaflet, { L } from "leaflet";
 import { MAP_ZOOM_LEVEL } from "./config";
 import { validInputs, allPositive } from "./helpers";
 
@@ -50,9 +50,12 @@ class Model {
       // Lattitude and Longitude for New York City
       this.state.latitude = 40.7591703;
       this.state.longitude = -74.0394429;
-      const coords = [this.state.latitude, this.tate.longitude];
+      const coords = [this.state.latitude, this.state.longitude];
 
+      console.log(L);
       this.state.map = await L.map("map").setView(coords, MAP_ZOOM_LEVEL);
+      console.log("TEST - Map");
+      console.log(this.state.map);
 
       await L.tileLayer(
         "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",

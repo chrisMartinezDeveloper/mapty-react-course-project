@@ -2,8 +2,12 @@ import Model from "./Model";
 import View from "./View";
 
 class Controller {
+  test() {
+    console.log("TEST - Controller");
+  }
+
   // Controls loading the map from the Leaflet API
-  async controlLoadMap() {
+  async loadMap() {
     try {
       // Loads the map
       await Model.loadMap();
@@ -18,8 +22,8 @@ class Controller {
       await View.renderWorkouts(Model.getWorkouts());
 
       // Event Listeners
-      View.addHandlerDeleteWorkout(controlDeleteWorkout);
-      View.addHandlerEditWorkouts(controlEditWorkout);
+      View.addHandlerDeleteWorkout(this.controlDeleteWorkout);
+      View.addHandlerEditWorkouts(this.controlEditWorkout);
 
       // Renders the workout marker
       View.renderWorkoutMarkers(Model.getMap(), Model.getWorkouts());
@@ -29,12 +33,12 @@ class Controller {
   }
 
   // Controls toggling the workout form input type
-  controlToggleInputType() {
+  toggleInputType() {
     View.toggleElevationField();
   }
 
   // Controls submitting the workout form
-  async controlSubmitWorkout() {
+  async submitWorkout() {
     try {
       // Clear error message, if any
       View.clearInputErrorMessage();
@@ -48,8 +52,8 @@ class Controller {
       View.hideForm();
 
       // Event Listeners
-      View.addHandlerDeleteWorkout(controlDeleteWorkout);
-      View.addHandlerNewWorkoutEdit(controlEditWorkout);
+      View.addHandlerDeleteWorkout(this.controlDeleteWorkout);
+      View.addHandlerNewWorkoutEdit(this.controlEditWorkout);
 
       // Set Local Storage
       Model.setLocalStorage();
@@ -60,7 +64,7 @@ class Controller {
   }
 
   // Controls moving the map view to the workout clicked by the user
-  controlMoveToMarker = function (event) {
+  moveToMarker = function (event) {
     View.moveToMarker(event, Model.getMap(), Model.getWorkouts());
   };
 
@@ -77,24 +81,24 @@ class Controller {
     View.renderEditView(event, Model.getWorkouts());
 
     View.addHandlerSubmitWorkoutEdits(
-      controlSubmitWorkoutEdits,
-      workoutElement
+      this.controlSubmitWorkoutEdits,
+      this.workoutElement
     );
   }
 
   // Controls submitting edits to the workout
-  controlSubmitWorkoutEdits(event, workoutElement, editFormElement) {
+  submitWorkoutEdits(event, workoutElement, editFormElement) {
     try {
       // Model.editWorkout() returns the editedWorkout
-      const editFormData = View.getEditFormData(editFormElement);
-      const editedWorkout = Model.editWorkout(editFormData);
+      const editFormData = View.getEditFormData(this.editFormElement);
+      const editedWorkout = Model.editWorkout(this.editFormData);
 
       View.updateWorkout(workoutElement, editedWorkout);
 
       // Event Listeners
-      View.addHandlerDeleteWorkout(controlDeleteWorkout);
+      View.addHandlerDeleteWorkout(this.controlDeleteWorkout);
       // Allows the edit btn to be clicked after edits have been submitted
-      View.addHandlerEditWorkout(controlEditWorkout, workoutElement);
+      View.addHandlerEditWorkout(this.controlEditWorkout, this.workoutElement);
     } catch (error) {
       if (error.message === "Invalid Inputs")
         View.displayInputErrorMessage(event);
@@ -110,11 +114,11 @@ class Controller {
   // Initializes the application
   init() {
     // Publisher/Subscriber method
-    welcome();
-    View.addHandlerLoadMap(controlLoadMap);
-    View.addHandlerWorkoutSubmit(controlSubmitWorkout);
-    View.addHandlerToggleInputType(controlToggleInputType);
-    View.addHandlerMoveToWorkouts(controlMoveToMarker);
+    this.welcome();
+    View.addHandlerLoadMap(this.controlLoadMap);
+    View.addHandlerWorkoutSubmit(this.controlSubmitWorkout);
+    View.addHandlerToggleInputType(this.controlToggleInputType);
+    View.addHandlerMoveToWorkouts(this.controlMoveToMarker);
   }
 }
 

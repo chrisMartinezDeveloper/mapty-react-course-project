@@ -2,20 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./tests/reportWebVitals";
 import { ViewComponent } from "./View";
+import Controller from "./Controller";
 import "./css/style.css";
-
-/* ////////////////// */
-/* Controller         */
-/* ////////////////// */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ViewComponent />
+    <ViewComponent loadMap={Controller.controlLoadMap} />
   </React.StrictMode>
 );
 
-// init();
+// Controller.init();
+Controller.loadMap();
 
 /* ////////////////// */
 /* Analytics          */

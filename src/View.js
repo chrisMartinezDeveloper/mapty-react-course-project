@@ -23,7 +23,7 @@ export class ViewComponent extends Component {
   render() {
     return (
       <div className="View">
-        <Sidebar />
+        <Sidebar loadMap={this.props.loadMap} />
         <Map />
       </div>
     );
