@@ -19,32 +19,6 @@ class controller {
     console.log("TEST - Controller");
   }
 
-  // Controls loading the map from the Leaflet API
-  async loadMap() {
-    try {
-      // Loads the map
-      await Model.loadMap();
-
-      // Event Listener
-      View.addHandlerMapClick(Model.getMap());
-
-      // Gets local storage
-      Model.getLocalStorage();
-
-      // Awaiting the FontAwesome xIcon loading
-      await View.renderWorkouts(Model.getWorkouts());
-
-      // Event Listeners
-      View.addHandlerDeleteWorkout(this.controlDeleteWorkout);
-      View.addHandlerEditWorkouts(this.controlEditWorkout);
-
-      // Renders the workout marker
-      View.renderWorkoutMarkers(Model.getMap(), Model.getWorkouts());
-    } catch (error) {
-      console.error(`🔥 ${error}`);
-    }
-  }
-
   // Controls toggling the workout form input type
   toggleInputType() {
     View.toggleElevationField();

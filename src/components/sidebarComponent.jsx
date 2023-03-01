@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from "../img/logo.png";
 import "../css/style.css";
 import WorkoutForm from "./workoutFormComponent";
+import Workouts from "./WorkoutsComponent";
 import Copyright from "./copyrightComponent";
 
 class Sidebar extends Component {
@@ -13,7 +14,7 @@ class Sidebar extends Component {
 
         <WorkoutForm />
 
-        <ul className="workouts"></ul>
+        <Workouts />
 
         <Copyright />
       </div>
