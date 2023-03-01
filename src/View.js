@@ -20,11 +20,18 @@ const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
 export class ViewComponent extends Component {
+  showForm(event) {
+    // this.#mapEvent = event;
+    console.log("Click - Map");
+    // form.classList.remove(`hidden`);
+    // inputDistance.focus();
+  }
+
   render() {
     return (
       <div className="View">
         <Sidebar />
-        <Map />
+        <Map onShowForm={this.showForm} />
       </div>
     );
   }
@@ -41,11 +48,6 @@ class View {
   /* ////////////////////// */
   /* Private Functions      */
   /* ////////////////////// */
-  _showForm(mapE) {
-    this.#mapEvent = mapE;
-    form.classList.remove(`hidden`);
-    inputDistance.focus();
-  }
 
   /* ////////////////////// */
   /* Public Functions       */

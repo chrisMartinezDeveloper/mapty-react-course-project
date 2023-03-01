@@ -7,6 +7,7 @@ class Map extends Component {
   render() {
     return (
       <MapContainer
+        onClick={this.props.onShowForm}
         center={COORDS}
         zoom={MAP_ZOOM_LEVEL}
         scrollWheelZoom={true}
