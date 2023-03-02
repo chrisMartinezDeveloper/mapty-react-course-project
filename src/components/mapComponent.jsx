@@ -36,24 +36,7 @@ function MapEventHandler({ onRenderMarker }) {
   ));
 }
 
-// function RenderMarker(coords) {
-//   console.log("TEST - render marker");
-//   let marker = <Marker position={coords}></Marker>;
-//   console.log("Marker: ", marker);
-
-//   return marker;
-// }
-
 class Map extends Component {
-  RenderMarker(coords) {
-    console.log("TEST - render marker");
-    let marker = <Marker position={coords}></Marker>;
-    // this.setState(marker);
-    console.log("Marker: ", marker);
-
-    return marker;
-  }
-
   render() {
     return (
       <div id="map">
@@ -70,10 +53,6 @@ class Map extends Component {
             <Popup>Hello</Popup>
           </Marker>
           <MapEventHandler />
-          {/* {markers.map((marker) =>
-        // <Marker position={marker.coords}></Marker>
-        RenderMarker(marker.coords)
-      )} */}
         </MapContainer>
       </div>
     );
