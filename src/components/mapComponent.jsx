@@ -49,9 +49,6 @@ class Map extends Component {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={COORDS}>
-            <Popup>Hello</Popup>
-          </Marker>
           <MapEventHandler />
         </MapContainer>
       </div>
