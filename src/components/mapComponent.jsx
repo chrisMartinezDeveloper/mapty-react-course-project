@@ -19,13 +19,18 @@ function MapEventHandler({ onRenderMarker }) {
   const map = useMapEvents({
     click(e) {
       map.locate();
-      setMarkers((prevMarkers) => prevMarkers.concat({ coords: e.latlng }));
+      setMarkers((prevMarkers) =>
+        prevMarkers.concat({
+          key: `${e.latlng.lat}, ${e.latlng.lng}}`,
+          coords: e.latlng,
+        })
+      );
       map.flyTo(e.latlng, map.getZoom());
     },
   });
 
-  return markers.map((marker, i) => (
-    <Marker key={i} position={marker.coords}>
+  return markers.map((marker) => (
+    <Marker key={marker.key} position={marker.coords}>
       <Popup>Hello</Popup>
     </Marker>
   ));
