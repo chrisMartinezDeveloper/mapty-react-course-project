@@ -22,7 +22,7 @@ const inputElevation = document.querySelector(".form__input--elevation");
 export class ViewComponent extends Component {
   showForm(event) {
     // this.#mapEvent = event;
-    console.log("Click - Map");
+    console.log("Click - Map - 2");
     // form.classList.remove(`hidden`);
     // inputDistance.focus();
   }
