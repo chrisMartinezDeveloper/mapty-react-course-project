@@ -13,45 +13,38 @@ import "../css/style.css";
 const markers = [];
 let coords = [];
 
-function MapEventHandler(props) {
-  const [position, setPosition] = useState(null);
-  let marker;
+function MapEventHandler({ onRenderMarker }) {
+  const [markers, setMarkers] = useState([]);
+
   const map = useMapEvents({
     click(e) {
-      // coords = e.latlng;
       map.locate();
-      setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
-      marker = props.onRenderMarker(e.latlng);
-      // console.log("TEST - Click");
-    },
-    locationfound(e) {
-      setPosition(e.latlng);
+      setMarkers((prevMarkers) => prevMarkers.concat({ coords: e.latlng }));
       map.flyTo(e.latlng, map.getZoom());
     },
   });
 
-  console.log("Marker: ", marker);
-  return marker;
-  // return position === null ? null : (
-  //   <Marker position={position}>
-  //     <Popup>Hello</Popup>
-  //   </Marker>
-  // );
+  return markers.map((marker, i) => (
+    <Marker key={i} position={marker.coords}>
+      <Popup>Hello</Popup>
+    </Marker>
+  ));
 }
 
 // function RenderMarker(coords) {
 //   console.log("TEST - render marker");
-//   console.log(coords);
+//   let marker = <Marker position={coords}></Marker>;
+//   console.log("Marker: ", marker);
 
-//   return <Marker position={coords}></Marker>;
+//   return marker;
 // }
 
 class Map extends Component {
   RenderMarker(coords) {
     console.log("TEST - render marker");
-    console.log(coords);
     let marker = <Marker position={coords}></Marker>;
+    // this.setState(marker);
+    console.log("Marker: ", marker);
 
     return marker;
   }
@@ -71,9 +64,7 @@ class Map extends Component {
           <Marker position={COORDS}>
             <Popup>Hello</Popup>
           </Marker>
-          <MapEventHandler onRenderMarker={this.RenderMarker} />
-          {}
-          {/* {this.setState(RenderMarker(coords))} */}
+          <MapEventHandler />
           {/* {markers.map((marker) =>
         // <Marker position={marker.coords}></Marker>
         RenderMarker(marker.coords)
