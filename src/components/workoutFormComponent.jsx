@@ -4,7 +4,7 @@ import "../css/style.css";
 class WorkoutForm extends Component {
   render() {
     return (
-      <form className="form hidden">
+      <form className="form">
         <div className="form__row">
           <label className="form__label">Type</label>
           <select className="form__input form__input--type">

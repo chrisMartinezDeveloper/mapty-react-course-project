@@ -10,7 +10,7 @@ export class ControllerComponent extends Component {
     super(props);
     this.state = {
       markers: [],
-      isMapClicked: false,
+      shouldShowForm: false,
     };
   }
 
@@ -31,7 +31,7 @@ export class ControllerComponent extends Component {
     return (
       <React.StrictMode>
         <ViewComponent
-          isMapClicked={this.state.isMapClicked}
+          isMapClicked={this.state.shouldShowForm}
           showForm={this.showForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}
