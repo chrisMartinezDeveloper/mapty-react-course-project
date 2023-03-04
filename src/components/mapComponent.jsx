@@ -17,12 +17,13 @@ const customIcon = new Icon({
 });
 
 function MapEventHandler({ markers, addMarker }) {
-  const [renderMarkers, setRenderMarkers] = useState([]);
+  const [renderMarkers, setRenderMarkers] = useState(0);
   const map = useMapEvents({
     click(e) {
       map.locate();
       addMarker(e);
-      setRenderMarkers((prevFnMarkers) => prevFnMarkers.concat(markers));
+      // setRenderMarkers((prevFnMarkers) => prevFnMarkers.concat(markers));
+      setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
       map.flyTo(e.latlng, map.getZoom());
     },
   });
