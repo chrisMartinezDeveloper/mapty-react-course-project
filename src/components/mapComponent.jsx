@@ -17,24 +17,21 @@ const customIcon = new Icon({
 });
 
 function MapEventHandler({ markers, addMarker }) {
-  // const [renderMarkers, setRenderMarkers] = useState(null);
+  const [renderMarkers, setRenderMarkers] = useState([]);
   const map = useMapEvents({
     click(e) {
       map.locate();
-      addMarker(e, customIcon);
-      // setRenderMarkers(markers);
+      addMarker(e);
+      setRenderMarkers((prevFnMarkers) => prevFnMarkers.concat(markers));
       map.flyTo(e.latlng, map.getZoom());
     },
   });
 
-  return markers === null
-    ? null
-    : markers.map((marker) => (
-        <Marker key={marker.key} position={marker.coords} icon={customIcon}>
-          {console.log("Markers: ", marker.coords)}
-          <Popup>Hello</Popup>
-        </Marker>
-      ));
+  return markers.map((marker) => (
+    <Marker key={marker.key} position={marker.coords} icon={customIcon}>
+      <Popup>Hello</Popup>
+    </Marker>
+  ));
 }
 
 class Map extends Component {
