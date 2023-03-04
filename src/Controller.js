@@ -5,10 +5,17 @@ import Model from "./Model";
 import View from "./View";
 
 export class ControllerComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markers: [],
+    };
+  }
+
   render() {
     return (
       <React.StrictMode>
-        <ViewComponent />
+        <ViewComponent markers={this.state.markers} />
       </React.StrictMode>
     );
   }
@@ -109,4 +116,4 @@ class controller {
   }
 }
 
-export default new controller();
+// export default new controller();

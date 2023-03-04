@@ -16,7 +16,7 @@ const customIcon = new Icon({
   iconSize: [38, 38],
 });
 
-function MapEventHandler({ onRenderMarker }) {
+function MapEventHandler({ onRenderMarker, markers }) {
   const [markers, setMarkers] = useState([]);
 
   const map = useMapEvents({
@@ -48,6 +48,7 @@ class Map extends Component {
           zoom={MAP_ZOOM_LEVEL}
           scrollWheelZoom={true}
         >
+          {/* Default */}
           {/* <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -63,7 +64,7 @@ class Map extends Component {
             url="https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token={accessToken}"
             accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
           />
-          <MapEventHandler />
+          <MapEventHandler markers={this.props.markers} />
         </MapContainer>
       </div>
     );

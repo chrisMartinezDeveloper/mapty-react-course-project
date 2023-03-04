@@ -31,7 +31,7 @@ export class ViewComponent extends Component {
     return (
       <div className="View">
         <Sidebar />
-        <Map onShowForm={this.showForm} />
+        <Map onShowForm={this.showForm} markers={this.props.markers} />
       </div>
     );
   }
