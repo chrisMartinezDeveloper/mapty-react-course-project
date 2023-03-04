@@ -1,5 +1,5 @@
 import React from "react";
-import { Component } from "react";
+import { Component, createRef } from "react";
 import { ViewComponent } from "./View";
 import { Marker, Popup } from "react-leaflet";
 import Model from "./Model";
@@ -8,6 +8,7 @@ import View from "./View";
 export class ControllerComponent extends Component {
   constructor(props) {
     super(props);
+    this.viewRef = createRef();
     this.state = {
       markers: [],
     };
@@ -22,10 +23,16 @@ export class ControllerComponent extends Component {
     });
   }
 
+  showForm() {
+    console.log(this.viewRef);
+  }
+
   render() {
     return (
       <React.StrictMode>
         <ViewComponent
+          ref={this.viewRef}
+          showForm={this.showForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}
         />

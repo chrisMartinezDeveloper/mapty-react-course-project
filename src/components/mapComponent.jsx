@@ -16,7 +16,7 @@ const customIcon = new Icon({
   iconSize: [38, 38],
 });
 
-function MapEventHandler({ markers, addMarker }) {
+function MapEventHandler({ markers, addMarker, showForm }) {
   const [renderMarkers, setRenderMarkers] = useState(0);
   const map = useMapEvents({
     click(e) {
@@ -24,6 +24,8 @@ function MapEventHandler({ markers, addMarker }) {
       addMarker(e);
       setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
       map.flyTo(e.latlng, map.getZoom());
+
+      showForm();
     },
   });
 
@@ -60,6 +62,7 @@ class Map extends Component {
             accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
           />
           <MapEventHandler
+            showForm={this.props.showForm}
             markers={this.props.markers}
             addMarker={this.props.addMarker}
           />

@@ -20,19 +20,12 @@ const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
 export class ViewComponent extends Component {
-  showForm(event) {
-    // this.#mapEvent = event;
-    console.log("Click - Map - 2");
-    // form.classList.remove(`hidden`);
-    // inputDistance.focus();
-  }
-
   render() {
     return (
       <div className="View">
         <Sidebar />
         <Map
-          onShowForm={this.showForm}
+          showForm={this.props.showForm}
           markers={this.props.markers}
           addMarker={this.props.addMarker}
         />
