@@ -6,7 +6,6 @@ import Workouts from "./WorkoutsComponent";
 import Copyright from "./copyrightComponent";
 
 class Sidebar extends Component {
-  state = {};
   render() {
     return (
       <div className="sidebar">

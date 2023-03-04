@@ -7,7 +7,7 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
-// import { L } from "leaflet";
+import WorkoutForm from "./workoutFormComponent";
 import { MAP_ZOOM_LEVEL, COORDS } from "../config";
 import "../css/style.css";
 
