@@ -1,6 +1,7 @@
 import React from "react";
 import { Component } from "react";
 import { ViewComponent } from "./View";
+import { Marker, Popup } from "react-leaflet";
 import Model from "./Model";
 import View from "./View";
 
@@ -13,12 +14,12 @@ export class ControllerComponent extends Component {
   }
 
   addMarker(e) {
-    this.setState((state) =>
-      state.markers.concat({
-        key: `${e.latlng.lat}, ${e.latlng.lng}}`,
+    this.setState((state) => {
+      markers: state.markers.push({
+        key: `${e.latlng.lat}, ${e.latlng.lng}`,
         coords: e.latlng,
-      })
-    );
+      });
+    });
   }
 
   render() {
@@ -26,7 +27,7 @@ export class ControllerComponent extends Component {
       <React.StrictMode>
         <ViewComponent
           markers={this.state.markers}
-          addMarker={this.addMarker}
+          addMarker={this.addMarker.bind(this)}
         />
       </React.StrictMode>
     );

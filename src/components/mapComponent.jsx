@@ -16,20 +16,25 @@ const customIcon = new Icon({
   iconSize: [38, 38],
 });
 
-function MapEventHandler({ onRenderMarker, markers, addMarker }) {
+function MapEventHandler({ markers, addMarker }) {
+  // const [renderMarkers, setRenderMarkers] = useState(null);
   const map = useMapEvents({
     click(e) {
       map.locate();
-      addMarker(e);
+      addMarker(e, customIcon);
+      // setRenderMarkers(markers);
       map.flyTo(e.latlng, map.getZoom());
     },
   });
 
-  return markers.map((marker) => (
-    <Marker key={marker.key} position={marker.coords} icon={customIcon}>
-      <Popup>Hello</Popup>
-    </Marker>
-  ));
+  return markers === null
+    ? null
+    : markers.map((marker) => (
+        <Marker key={marker.key} position={marker.coords} icon={customIcon}>
+          {console.log("Markers: ", marker.coords)}
+          <Popup>Hello</Popup>
+        </Marker>
+      ));
 }
 
 class Map extends Component {
