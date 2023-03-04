@@ -1,24 +1,22 @@
-import React, { Component } from "react";
+import React, { forwardRef } from "react";
 import logo from "../img/logo.png";
 import "../css/style.css";
 import WorkoutForm from "./workoutFormComponent";
 import Workouts from "./WorkoutsComponent";
 import Copyright from "./copyrightComponent";
 
-class Sidebar extends Component {
-  render() {
-    return (
-      <div className="sidebar">
-        <img src={logo} alt="Logo" className="logo" />
+function SidebarComponent(props) {
+  return (
+    <div className="sidebar">
+      <img src={logo} alt="Logo" className="logo" />
 
-        <WorkoutForm />
+      {props.isMappClicked && <WorkoutForm />}
 
-        <Workouts />
+      <Workouts />
 
-        <Copyright />
-      </div>
-    );
-  }
+      <Copyright />
+    </div>
+  );
 }
 
-export default Sidebar;
+export default SidebarComponent;

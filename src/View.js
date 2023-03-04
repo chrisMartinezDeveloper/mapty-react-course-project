@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, forwardRef } from "react";
 import { L } from "leaflet";
 import { MAP_ZOOM_LEVEL } from "./config";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "./components/sidebarComponent";
+import SidebarComponent from "./components/sidebarComponent";
 import Map from "./components/mapComponent";
 import "./css/style.css";
 library.add(faXmark);
@@ -19,19 +19,17 @@ const inputDuration = document.querySelector(".form__input--duration");
 const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
-export class ViewComponent extends Component {
-  render() {
-    return (
-      <div className="View">
-        <Sidebar />
-        <Map
-          showForm={this.props.showForm}
-          markers={this.props.markers}
-          addMarker={this.props.addMarker}
-        />
-      </div>
-    );
-  }
+export function ViewComponent(props) {
+  return (
+    <div className="View">
+      <SidebarComponent isMapClicked={props.isMapClicked} />
+      <Map
+        showForm={props.showForm}
+        markers={props.markers}
+        addMarker={props.addMarker}
+      />
+    </div>
+  );
 }
 
 class View {

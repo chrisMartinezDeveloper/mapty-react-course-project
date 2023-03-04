@@ -8,9 +8,9 @@ import View from "./View";
 export class ControllerComponent extends Component {
   constructor(props) {
     super(props);
-    this.viewRef = createRef();
     this.state = {
       markers: [],
+      isMapClicked: false,
     };
   }
 
@@ -24,14 +24,14 @@ export class ControllerComponent extends Component {
   }
 
   showForm() {
-    console.log(this.viewRef);
+    this.setState({ isMapClicked: true });
   }
 
   render() {
     return (
       <React.StrictMode>
         <ViewComponent
-          ref={this.viewRef}
+          isMapClicked={this.state.isMapClicked}
           showForm={this.showForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}
