@@ -22,7 +22,6 @@ function MapEventHandler({ markers, addMarker }) {
     click(e) {
       map.locate();
       addMarker(e);
-      // setRenderMarkers((prevFnMarkers) => prevFnMarkers.concat(markers));
       setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
       map.flyTo(e.latlng, map.getZoom());
     },
