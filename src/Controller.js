@@ -12,10 +12,22 @@ export class ControllerComponent extends Component {
     };
   }
 
+  addMarker(e) {
+    this.setState((state) =>
+      state.markers.concat({
+        key: `${e.latlng.lat}, ${e.latlng.lng}}`,
+        coords: e.latlng,
+      })
+    );
+  }
+
   render() {
     return (
       <React.StrictMode>
-        <ViewComponent markers={this.state.markers} />
+        <ViewComponent
+          markers={this.state.markers}
+          addMarker={this.addMarker}
+        />
       </React.StrictMode>
     );
   }

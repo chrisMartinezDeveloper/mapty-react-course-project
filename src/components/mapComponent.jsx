@@ -16,18 +16,11 @@ const customIcon = new Icon({
   iconSize: [38, 38],
 });
 
-function MapEventHandler({ onRenderMarker, markers }) {
-  const [markers, setMarkers] = useState([]);
-
+function MapEventHandler({ onRenderMarker, markers, addMarker }) {
   const map = useMapEvents({
     click(e) {
       map.locate();
-      setMarkers((prevMarkers) =>
-        prevMarkers.concat({
-          key: `${e.latlng.lat}, ${e.latlng.lng}}`,
-          coords: e.latlng,
-        })
-      );
+      addMarker(e);
       map.flyTo(e.latlng, map.getZoom());
     },
   });
@@ -64,7 +57,10 @@ class Map extends Component {
             url="https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token={accessToken}"
             accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
           />
-          <MapEventHandler markers={this.props.markers} />
+          <MapEventHandler
+            markers={this.props.markers}
+            addMarker={this.props.addMarker}
+          />
         </MapContainer>
       </div>
     );
