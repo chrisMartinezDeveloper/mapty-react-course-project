@@ -3,7 +3,7 @@ import "../css/style.css";
 
 function WorkoutForm(props) {
   return (
-    <form className="form" onSubmit={props.submitWorkout}>
+    <form className="form" onSubmit={props.submitWorkoutForm}>
       <div className="form__row type">
         <label className="form__label">Type</label>
         <select

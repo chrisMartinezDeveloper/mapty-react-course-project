@@ -14,6 +14,8 @@ function SidebarComponent(props) {
         <WorkoutForm
           shouldShowElevation={props.shouldShowElevation}
           showElevation={props.showElevation}
+          submitWorkoutForm={props.submitWorkoutForm}
+          test={props.test}
         />
       )}
 

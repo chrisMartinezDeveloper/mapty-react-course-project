@@ -30,13 +30,29 @@ export class ControllerComponent extends Component {
   }
 
   submitWorkoutForm(e) {
-    this.setState((state) => {
-      workouts: state.workouts.push({
-        id: 0,
-        distance: e.target.closest(""),
-      });
-    });
-    this.setState({ shouldShowForm: false });
+    console.log("Submit");
+    console.log(e);
+    // console.log(this.state.markers.slice(-1).key);
+    // let workoutType = e.target.closest("type").value;
+    // this.setState((state) => {
+    //   workouts: state.workouts.push({
+    //     id: 0,
+    //     // id: state.markers.slice(-1).key,
+    //     // type: workoutType,
+    //     // distance: e.target.closest("distance").value,
+    //     // duration: e.target.closest("duration").value,
+    //     // cadence:
+    //     //   workoutType === "running" ? e.target.closest("duration").value : null,
+    //     // elevation:
+    //     //   workoutType === "cycling" ? e.target.closest("duration").value : null,
+    //   });
+    // });
+    // console.log(this.state.workouts);
+    // this.setState({ shouldShowForm: false });
+  }
+
+  test() {
+    console.log("TEST - Submit");
   }
 
   showElevation(e) {
@@ -52,6 +68,8 @@ export class ControllerComponent extends Component {
           shouldShowForm={this.state.shouldShowForm}
           shouldShowElevation={this.state.shouldShowElevation}
           showElevation={this.showElevation.bind(this)}
+          submitWorkoutForm={this.submitWorkoutForm.bind(this)}
+          test={this.test.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}
