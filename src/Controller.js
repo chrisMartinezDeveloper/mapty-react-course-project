@@ -30,28 +30,24 @@ export class ControllerComponent extends Component {
   }
 
   submitWorkoutForm(e) {
-    // console.log("Submit");
-    console.log(e.target.closest("form"));
     const formElement = e.target.closest("form");
     let workoutType = formElement.querySelector(".type").value;
-    console.log(workoutType);
     this.setState((state) => {
       workouts: state.workouts.push({
-        id: state.markers.slice(-1).key,
-        type: workoutType.value,
-        distance: formElement.querySelector(".distance").value,
-        duration: formElement.querySelector(".duration").value,
+        id: state.markers.slice(-1)[0].key,
+        type: workoutType,
+        distance: +formElement.querySelector(".distance").value,
+        duration: +formElement.querySelector(".duration").value,
         cadence:
           workoutType === "running"
-            ? formElement.querySelector(".cadence").value
+            ? +formElement.querySelector(".cadence").value
             : null,
         elevation:
           workoutType === "cycling"
-            ? formElement.querySelector(".elevation").value
+            ? +formElement.querySelector(".elevation").value
             : null,
       });
     });
-    console.log(this.state.workouts);
     // this.setState({ shouldShowForm: false });
   }
 
