@@ -27,6 +27,7 @@ export function ViewComponent(props) {
         shouldShowElevation={props.shouldShowElevation}
         showElevation={props.showElevation}
         submitWorkoutForm={props.submitWorkoutForm}
+        workouts={props.workouts}
         test={props.test}
       />
       <Map

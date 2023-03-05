@@ -30,11 +30,14 @@ export class ControllerComponent extends Component {
   }
 
   submitWorkoutForm(e) {
+    e.preventDefault();
+
     const formElement = e.target.closest("form");
     let workoutType = formElement.querySelector(".type").value;
     this.setState((state) => {
       workouts: state.workouts.push({
-        id: state.markers.slice(-1)[0].key,
+        key: state.markers.slice(-1)[0].key,
+        discription: "hello",
         type: workoutType,
         distance: +formElement.querySelector(".distance").value,
         duration: +formElement.querySelector(".duration").value,
@@ -48,7 +51,7 @@ export class ControllerComponent extends Component {
             : null,
       });
     });
-    // this.setState({ shouldShowForm: false });
+    this.setState({ shouldShowForm: true });
   }
 
   test() {
@@ -69,6 +72,7 @@ export class ControllerComponent extends Component {
           shouldShowElevation={this.state.shouldShowElevation}
           showElevation={this.showElevation.bind(this)}
           submitWorkoutForm={this.submitWorkoutForm.bind(this)}
+          workouts={this.state.workouts}
           test={this.test.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}

@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import logo from "../img/logo.png";
 import "../css/style.css";
 import WorkoutForm from "./workoutFormComponent";
-import Workouts from "./WorkoutsComponent";
+import WorkoutsComponent from "./WorkoutsComponent";
 import Copyright from "./copyrightComponent";
 
 function SidebarComponent(props) {
@@ -19,7 +19,7 @@ function SidebarComponent(props) {
         />
       )}
 
-      <Workouts />
+      <WorkoutsComponent workouts={props.workouts} />
 
       <Copyright />
     </div>

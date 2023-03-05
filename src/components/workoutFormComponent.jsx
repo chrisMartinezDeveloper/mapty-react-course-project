@@ -3,7 +3,7 @@ import "../css/style.css";
 
 function WorkoutForm(props) {
   return (
-    <form className="form" onChange={props.submitWorkoutForm}>
+    <form className="form" onSubmit={props.submitWorkoutForm}>
       <div className="form__row">
         <label className="form__label">Type</label>
         <select className="form__input type" onChange={props.showElevation}>

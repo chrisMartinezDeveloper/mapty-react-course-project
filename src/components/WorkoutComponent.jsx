@@ -16,65 +16,63 @@ async function getXIcon() {
   }
 }
 
-class Workout extends Component {
-  #xIcon;
-
-  render() {
-    this.#xIcon = getXIcon();
-    return (
-      <React.Fragment>
-        <li class="workout workout--${workout.type}" data-id="${workout.id}">
-          <h2 class="workout__title">${workout.discription}</h2>
-          {this.xIcon}
-          <div class="workout__data">
-            <div class="workout__details">
-              <span class="workout__icon">
-                ${workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
-              </span>
-              <span class="workout__value">${workout.distance}</span>
-              <span class="workout__unit">km</span>
+function WorkoutComponent(props) {
+  console.log("Workout - - ");
+  // const xIcon = getXIcon();
+  let workout = props.workout;
+  return (
+    <li className={`workout workout--${workout.type}`} data-id={workout.id}>
+      <div className="workout__header">
+        <h2 className="workout__title">{workout.discription}</h2>
+        <p className="workout__delete-icon">x</p>
+      </div>
+      <div className="workout__data">
+        <div className="workout__details">
+          <span className="workout__icon">
+            {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
+          </span>
+          <span className="workout__value">{workout.distance}</span>
+          <span className="workout__unit">km</span>
+        </div>
+        <div className="workout__details">
+          <span className="workout__icon">⏱</span>
+          <span className="workout__value">{workout.duration}</span>
+          <span className="workout__unit">min</span>
+        </div>
+        {workout.type === `running` && (
+          <React.Fragment>
+            <div className="workout__details">
+              <span className="workout__icon">⚡️</span>
+              <span className="workout__value">${workout.pace}</span>
+              <span className="workout__unit">min/km</span>
             </div>
-            <div class="workout__details">
-              <span class="workout__icon">⏱</span>
-              <span class="workout__value">${workout.duration}</span>
-              <span class="workout__unit">min</span>
+            <div className="workout__details">
+              <span className="workout__icon">🦶🏼</span>
+              <span className="workout__value">{workout.cadence}</span>
+              <span className="workout__unit">spm</span>
             </div>
-            {workout.type === `running` && (
-              <React.Fragment>
-                <div class="workout__details">
-                  <span class="workout__icon">⚡️</span>
-                  <span class="workout__value">${workout.pace}</span>
-                  <span class="workout__unit">min/km</span>
-                </div>
-                <div class="workout__details">
-                  <span class="workout__icon">🦶🏼</span>
-                  <span class="workout__value">${workout.cadence}</span>
-                  <span class="workout__unit">spm</span>
-                </div>
-              </React.Fragment>
-            )}
-            {workout.type === `cycling` && (
-              <React.Fragment>
-                <div class="workout__details">
-                  <span class="workout__icon">⚡️</span>
-                  <span class="workout__value">${workout.speed}</span>
-                  <span class="workout__unit">km/h</span>
-                </div>
-                <div class="workout__details">
-                  <span class="workout__icon">⛰</span>
-                  <span class="workout__value">${workout.elevation}</span>
-                  <span class="workout__unit">m</span>
-                </div>
-              </React.Fragment>
-            )}
-            <div class="btn__container">
-              <button class="btn workout__edit">Edit</button>
+          </React.Fragment>
+        )}
+        {workout.type === `cycling` && (
+          <React.Fragment>
+            <div className="workout__details">
+              <span className="workout__icon">⚡️</span>
+              <span className="workout__value">{workout.speed}</span>
+              <span className="workout__unit">km/h</span>
             </div>
-          </div>
-        </li>
-      </React.Fragment>
-    );
-  }
+            <div className="workout__details">
+              <span className="workout__icon">⛰</span>
+              <span className="workout__value">{workout.elevation}</span>
+              <span className="workout__unit">m</span>
+            </div>
+          </React.Fragment>
+        )}
+      </div>
+      <div className="btn__container">
+        <button className="btn workout__edit">Edit</button>
+      </div>
+    </li>
+  );
 }
 
-export default Workout;
+export default WorkoutComponent;
