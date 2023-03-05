@@ -4,9 +4,12 @@ import "../css/style.css";
 function WorkoutForm(props) {
   return (
     <form className="form" onSubmit={props.submitWorkout}>
-      <div className="form__row">
+      <div className="form__row type">
         <label className="form__label">Type</label>
-        <select className="form__input form__input--type">
+        <select
+          className="form__input form__input--type"
+          onChange={props.showElevation}
+        >
           <option value="running">Running</option>
           <option value="cycling">Cycling</option>
         </select>
@@ -26,20 +29,24 @@ function WorkoutForm(props) {
           placeholder="min"
         />
       </div>
-      <div className="form__row cadence">
-        <label className="form__label">Cadence</label>
-        <input
-          className="form__input form__input--cadence"
-          placeholder="step/min"
-        />
-      </div>
-      <div className="form__row form__row--hidden elevation">
-        <label className="form__label">Elev Gain</label>
-        <input
-          className="form__input form__input--elevation"
-          placeholder="meters"
-        />
-      </div>
+      {!props.shouldShowElevation && (
+        <div className="form__row cadence">
+          <label className="form__label">Cadence</label>
+          <input
+            className="form__input form__input--cadence"
+            placeholder="step/min"
+          />
+        </div>
+      )}
+      {props.shouldShowElevation && (
+        <div className="form__row elevation">
+          <label className="form__label">Elevation Gain</label>
+          <input
+            className="form__input form__input--elevation"
+            placeholder="meters"
+          />
+        </div>
+      )}
       <div className="form__row btnSubmit">
         <input type="submit" className="btn submit" />
       </div>

@@ -12,6 +12,7 @@ export class ControllerComponent extends Component {
       markers: [],
       workouts: [],
       shouldShowForm: true,
+      shouldShowElevation: false,
     };
   }
 
@@ -38,11 +39,19 @@ export class ControllerComponent extends Component {
     this.setState({ shouldShowForm: false });
   }
 
+  showElevation(e) {
+    this.setState({
+      shouldShowElevation: e.target.value === "cycling" ? true : false,
+    });
+  }
+
   render() {
     return (
       <React.StrictMode>
         <ViewComponent
           shouldShowForm={this.state.shouldShowForm}
+          shouldShowElevation={this.state.shouldShowElevation}
+          showElevation={this.showElevation.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}

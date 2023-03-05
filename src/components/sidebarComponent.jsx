@@ -10,7 +10,12 @@ function SidebarComponent(props) {
     <div className="sidebar">
       <img src={logo} alt="Logo" className="logo" />
 
-      {props.shouldShowForm && <WorkoutForm />}
+      {props.shouldShowForm && (
+        <WorkoutForm
+          shouldShowElevation={props.shouldShowElevation}
+          showElevation={props.showElevation}
+        />
+      )}
 
       <Workouts />
 
