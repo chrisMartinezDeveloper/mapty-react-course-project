@@ -10,7 +10,8 @@ export class ControllerComponent extends Component {
     super(props);
     this.state = {
       markers: [],
-      shouldShowForm: false,
+      workouts: [],
+      shouldShowForm: true,
     };
   }
 
@@ -23,16 +24,26 @@ export class ControllerComponent extends Component {
     });
   }
 
-  showForm() {
-    this.setState({ isMapClicked: true });
+  showWorkoutForm() {
+    this.setState({ shouldShowForm: true });
+  }
+
+  submitWorkoutForm(e) {
+    this.setState((state) => {
+      workouts: state.workouts.push({
+        id: 0,
+        distance: e.target.closest(""),
+      });
+    });
+    this.setState({ shouldShowForm: false });
   }
 
   render() {
     return (
       <React.StrictMode>
         <ViewComponent
-          isMapClicked={this.state.shouldShowForm}
-          showForm={this.showForm.bind(this)}
+          shouldShowForm={this.state.shouldShowForm}
+          showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}
         />

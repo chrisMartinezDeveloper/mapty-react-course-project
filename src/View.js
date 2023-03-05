@@ -22,7 +22,7 @@ const inputElevation = document.querySelector(".form__input--elevation");
 export function ViewComponent(props) {
   return (
     <div className="View">
-      <SidebarComponent isMapClicked={props.isMapClicked} />
+      <SidebarComponent shouldShowForm={props.shouldShowForm} />
       <Map
         showForm={props.showForm}
         markers={props.markers}
