@@ -78,8 +78,13 @@ export class ControllerComponent extends Component {
   }
 
   editWorkout(e) {
-    console.log("Edit: ", e.target.closest("workout"));
-    this.setState({ workoutToEdit: e.target.closest("workout") });
+    let workoutToEditElement = e.target.closest(".workout");
+    let workoutId = workoutToEditElement.id;
+    let selectedWorkout = this.state.workouts.find(
+      (workout) => workout.key === workoutId
+    );
+
+    this.setState({ workoutToEdit: selectedWorkout });
     this.setState({ shouldShowEditWorkoutForm: true });
   }
 
@@ -122,7 +127,7 @@ export class ControllerComponent extends Component {
           flyToMarker={this.flyToMarker.bind(this)}
           deleteWorkout={this.deleteWorkout.bind(this)}
           editWorkout={this.editWorkout.bind(this)}
-          shouldShowEditWorkoutForm={this.shouldShowEditWorkoutForm}
+          shouldShowEditWorkoutForm={this.state.shouldShowEditWorkoutForm}
           workoutToEdit={this.state.workoutToEdit}
           submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}

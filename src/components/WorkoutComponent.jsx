@@ -7,6 +7,8 @@ function WorkoutComponent({
   flyToMarker,
   deleteWorkout,
   editWorkout,
+  shouldShowElevation,
+  showElevation,
   shouldShowEditWorkoutForm,
   workoutToEdit,
   submitEditWorkoutForm,
@@ -80,7 +82,10 @@ function WorkoutComponent({
           <form className="form edit" onSubmit={submitEditWorkoutForm}>
             <div className="form__row">
               <label className="form__label">Type</label>
-              <select className="form__input form__input--type">
+              <select
+                className="form__input form__input--type"
+                onChange={showElevation}
+              >
                 {workoutToEdit.type === "running" && (
                   <React.Fragment>
                     <option value="running">Running</option>
@@ -111,43 +116,25 @@ function WorkoutComponent({
                 value={workoutToEdit.duration}
               />
             </div>
-            {workoutToEdit.type === "running" && (
-              <React.Fragment>
-                <div className="form__row">
-                  <label className="form__label">Cadence</label>
-                  <input
-                    className="form__input form__input--cadence"
-                    placeholder="step/min"
-                    value={workoutToEdit.cadence}
-                  />
-                </div>
-                <div className="form__row form__row--hidden">
-                  <label className="form__label">Elev Gain</label>
-                  <input
-                    className="form__input form__input--elevation"
-                    placeholder="meters"
-                    value={workoutToEdit.elevation}
-                  />
-                </div>
-              </React.Fragment>
+            {!shouldShowElevation && (
+              <div className="form__row">
+                <label className="form__label">Cadence</label>
+                <input
+                  className="form__input form__input--cadence"
+                  placeholder="step/min"
+                  value={workoutToEdit.cadence}
+                />
+              </div>
             )}
-            {workoutToEdit.type === "cycling" && (
-              <React.Fragment>
-                <div className="form__row form__row--hidden">
-                  <label className="form__label">Cadence</label>
-                  <input
-                    className="form__input form__input--cadence"
-                    value="${workoutToEdit.cadence}"
-                  />
-                </div>
-                <div className="form__row">
-                  <label className="form__label">Elev Gain</label>
-                  <input
-                    className="form__input form__input--elevation"
-                    value={workoutToEdit.elevation}
-                  />
-                </div>
-              </React.Fragment>
+            {!shouldShowElevation && (
+              <div className="form__row form__row--hidden">
+                <label className="form__label">Elev Gain</label>
+                <input
+                  className="form__input form__input--elevation"
+                  placeholder="meters"
+                  value={workoutToEdit.elevation}
+                />
+              </div>
             )}
             <div className="form__row submit__edit">
               <input type="submit" className="btn submit" />
