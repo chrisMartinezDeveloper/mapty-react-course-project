@@ -86,13 +86,13 @@ function WorkoutComponent({
                 className="form__input form__input--type"
                 onChange={showElevation}
               >
-                {workoutToEdit.type === "running" && (
+                {workoutToEdit && workoutToEdit.type === "running" && (
                   <React.Fragment>
                     <option value="running">Running</option>
                     <option value="cycling">Cycling</option>
                   </React.Fragment>
                 )}
-                {workoutToEdit.type === "cycling" && (
+                {workoutToEdit && workoutToEdit.type === "cycling" && (
                   <React.Fragment>
                     <option value="cycling">Cycling</option>
                     <option value="running">Running</option>
@@ -105,7 +105,7 @@ function WorkoutComponent({
               <input
                 className="form__input form__input--distance"
                 placeholder="km"
-                value={workoutToEdit.distance}
+                value={workoutToEdit && workoutToEdit.distance}
               />
             </div>
             <div className="form__row">
@@ -113,7 +113,7 @@ function WorkoutComponent({
               <input
                 className="form__input form__input--duration"
                 placeholder="min"
-                value={workoutToEdit.duration}
+                value={workoutToEdit && workoutToEdit.duration}
               />
             </div>
             {!shouldShowElevation && (
@@ -122,7 +122,7 @@ function WorkoutComponent({
                 <input
                   className="form__input form__input--cadence"
                   placeholder="step/min"
-                  value={workoutToEdit.cadence}
+                  value={workoutToEdit && workoutToEdit.cadence}
                 />
               </div>
             )}
@@ -132,7 +132,7 @@ function WorkoutComponent({
                 <input
                   className="form__input form__input--elevation"
                   placeholder="meters"
-                  value={workoutToEdit.elevation}
+                  value={workoutToEdit && workoutToEdit.elevation}
                 />
               </div>
             )}
