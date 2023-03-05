@@ -94,23 +94,19 @@ function WorkoutComponent({
           <form className="form edit" onSubmit={submitEditWorkoutForm}>
             <div className="form__row">
               <label className="form__label">Type</label>
-              <select className="form__input type" onChange={showElevation}>
-                {workoutToEdit
-                  ? workoutToEdit.type === "running" && (
-                      <React.Fragment>
-                        <option value="running">Running</option>
-                        <option value="cycling">Cycling</option>
-                      </React.Fragment>
-                    )
-                  : ""}
-                {workoutToEdit
-                  ? workoutToEdit.type === "cycling" && (
-                      <React.Fragment>
-                        <option value="cycling">Cycling</option>
-                        <option value="running">Running</option>
-                      </React.Fragment>
-                    )
-                  : ""}
+              <select
+                className="form__input type"
+                defaultValue={
+                  workoutToEdit
+                    ? workoutToEdit.type === "running"
+                      ? "running"
+                      : "cycling"
+                    : ""
+                }
+                onChange={showElevation}
+              >
+                <option value="running">Running</option>
+                <option value="cycling">Cycling</option>
               </select>
             </div>
             <div className="form__row edit">
@@ -118,7 +114,7 @@ function WorkoutComponent({
               <input
                 className="form__input distance"
                 placeholder="km"
-                value={workoutToEdit ? workoutToEdit.distance : ""}
+                defaultValue={workoutToEdit ? workoutToEdit.distance : ""}
                 autoFocus
               />
             </div>
@@ -127,7 +123,7 @@ function WorkoutComponent({
               <input
                 className="form__input duration"
                 placeholder="min"
-                value={workoutToEdit ? workoutToEdit.duration : ""}
+                defaultValue={workoutToEdit ? workoutToEdit.duration : ""}
               />
             </div>
             {!shouldShowElevation && (
@@ -136,7 +132,7 @@ function WorkoutComponent({
                 <input
                   className="form__input cadence"
                   placeholder="step/min"
-                  value={workoutToEdit ? workoutToEdit.cadence : ""}
+                  defaultValue={workoutToEdit ? workoutToEdit.cadence : ""}
                 />
               </div>
             )}
@@ -146,7 +142,7 @@ function WorkoutComponent({
                 <input
                   className="form__input elevation"
                   placeholder="meters"
-                  value={workoutToEdit ? workoutToEdit.elevation : ""}
+                  defaultValue={workoutToEdit ? workoutToEdit.elevation : ""}
                 />
               </div>
             )}
