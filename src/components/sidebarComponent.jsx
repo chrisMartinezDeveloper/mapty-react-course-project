@@ -19,7 +19,12 @@ function SidebarComponent(props) {
         />
       )}
 
-      <Workouts workouts={props.workouts} flyToMarker={props.flyToMarker} />
+      <Workouts
+        workouts={props.workouts}
+        flyToMarker={props.flyToMarker}
+        editWorkout={props.editWorkout}
+        deleteWorkout={props.deleteWorkout}
+      />
 
       <Copyright />
     </div>

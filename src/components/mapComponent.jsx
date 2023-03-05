@@ -38,11 +38,6 @@ function MapEventHandler({
     },
   });
 
-  // function flyToMarker() {
-  //   map.flyTo(shouldFlyToMarker[1], map.getZoom());
-  //   resetShouldFlyToMarker();
-  // }
-
   // console.log("Before: ", shouldFlyToMarker);
   shouldFlyToMarker[0] && map.flyTo(shouldFlyToMarker[1], map.getZoom());
   // console.log("After: ", shouldFlyToMarker);

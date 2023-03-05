@@ -1,20 +1,5 @@
 import React, { Component } from "react";
 import "../css/style.css";
-// import { library, icon } from "@fortawesome/fontawesome-svg-core";
-// import { faXmark } from "@fortawesome/free-solid-svg-icons";
-// library.add(faXmark);
-
-// async function getXIcon() {
-//   try {
-//     const x = await icon(faXmark, {
-//       classes: ["workout__delete-icon"],
-//     }).html;
-
-//     return x;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
 function WorkoutComponent({
   workout,
@@ -79,7 +64,9 @@ function WorkoutComponent({
         )}
       </div>
       <div className="btn__container">
-        <button className="btn workout__edit">Edit</button>
+        <button className="btn workout__edit" onClick={editWorkout}>
+          Edit
+        </button>
       </div>
     </li>
   );
