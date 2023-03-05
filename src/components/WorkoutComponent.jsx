@@ -13,15 +13,21 @@ function WorkoutComponent({
   workoutToEdit,
   submitEditWorkoutForm,
 }) {
+  const editLiStyle = {
+    height: "40%",
+    display: "flex",
+    padding: "0rem",
+  };
+
   return (
-    <li
-      className={`workout workout--${workout.type}`}
-      data-id={workout.id}
-      onClick={flyToMarker}
-      id={coords}
-    >
+    <React.Fragment>
       {!shouldShowEditWorkoutForm && (
-        <React.Fragment>
+        <li
+          className={`workout workout--${workout.type}`}
+          data-id={workout.id}
+          onClick={flyToMarker}
+          id={coords}
+        >
           <div className="workout__header">
             <h2 className="workout__title">{workout.discription}</h2>
             <p className="workout__delete-icon" onClick={deleteWorkout}>
@@ -75,78 +81,82 @@ function WorkoutComponent({
               Edit
             </button>
           </div>
-        </React.Fragment>
+        </li>
       )}
       {shouldShowEditWorkoutForm && (
-        <React.Fragment>
+        <li
+          className={`workout workout--${workout.type}`}
+          style={editLiStyle}
+          data-id={workout.id}
+          onClick={flyToMarker}
+          id={coords}
+        >
           <form className="form edit" onSubmit={submitEditWorkoutForm}>
             <div className="form__row">
               <label className="form__label">Type</label>
-              <select
-                className="form__input form__input--type"
-                onChange={showElevation}
-              >
+              <select className="form__input type" onChange={showElevation}>
                 {workoutToEdit
-                  ? workoutToEdit.type
-                  : "" === "running" && (
+                  ? workoutToEdit.type === "running" && (
                       <React.Fragment>
                         <option value="running">Running</option>
                         <option value="cycling">Cycling</option>
                       </React.Fragment>
-                    )}
+                    )
+                  : ""}
                 {workoutToEdit
-                  ? workoutToEdit.type
-                  : "" === "cycling" && (
+                  ? workoutToEdit.type === "cycling" && (
                       <React.Fragment>
                         <option value="cycling">Cycling</option>
                         <option value="running">Running</option>
                       </React.Fragment>
-                    )}
+                    )
+                  : ""}
               </select>
             </div>
-            <div className="form__row">
+            <div className="form__row edit">
               <label className="form__label">Distance</label>
               <input
-                className="form__input form__input--distance"
+                className="form__input distance"
                 placeholder="km"
                 value={workoutToEdit ? workoutToEdit.distance : ""}
+                autoFocus
               />
             </div>
-            <div className="form__row">
+            <div className="form__row edit">
               <label className="form__label">Duration</label>
               <input
-                className="form__input form__input--duration"
+                className="form__input duration"
                 placeholder="min"
                 value={workoutToEdit ? workoutToEdit.duration : ""}
               />
             </div>
             {!shouldShowElevation && (
-              <div className="form__row">
+              <div className="form__row edit">
                 <label className="form__label">Cadence</label>
                 <input
-                  className="form__input form__input--cadence"
+                  className="form__input cadence"
                   placeholder="step/min"
                   value={workoutToEdit ? workoutToEdit.cadence : ""}
                 />
               </div>
             )}
-            {!shouldShowElevation && (
-              <div className="form__row form__row--hidden">
+            {shouldShowElevation && (
+              <div className="form__row edit">
                 <label className="form__label">Elev Gain</label>
                 <input
-                  className="form__input form__input--elevation"
+                  className="form__input elevation"
                   placeholder="meters"
                   value={workoutToEdit ? workoutToEdit.elevation : ""}
                 />
               </div>
             )}
-            <div className="form__row submit__edit">
+            <div className="form__row edit submit__edit">
               <input type="submit" className="btn submit" />
             </div>
           </form>
-        </React.Fragment>
+        </li>
       )}
-    </li>
+    </React.Fragment>
   );
 }
 
