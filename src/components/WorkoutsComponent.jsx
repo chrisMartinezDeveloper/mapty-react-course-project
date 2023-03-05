@@ -6,7 +6,6 @@ function WorkoutsComponent(props) {
   return (
     <React.Fragment>
       <ul className="workouts">
-        {console.log(props.workouts)}
         {props.workouts.map((workout) => (
           <WorkoutComponent
             key={workout.key}
@@ -15,6 +14,9 @@ function WorkoutsComponent(props) {
             flyToMarker={props.flyToMarker}
             editWorkout={props.editWorkout}
             deleteWorkout={props.deleteWorkout}
+            shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
+            workoutToEdit={props.workoutToEdit}
+            submitEditWorkoutForm={props.submitEditWorkoutForm}
           />
         ))}
       </ul>

@@ -29,8 +29,11 @@ export function ViewComponent(props) {
         submitWorkoutForm={props.submitWorkoutForm}
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
-        editWorkout={props.editWorkout}
         deleteWorkout={props.deleteWorkout}
+        editWorkout={props.editWorkout}
+        shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
+        workoutToEdit={props.workoutToEdit}
+        submitEditWorkoutForm={props.submitEditWorkoutForm}
       />
       <Map
         showForm={props.showForm}

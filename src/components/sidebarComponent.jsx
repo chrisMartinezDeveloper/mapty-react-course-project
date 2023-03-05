@@ -24,6 +24,9 @@ function SidebarComponent(props) {
         flyToMarker={props.flyToMarker}
         editWorkout={props.editWorkout}
         deleteWorkout={props.deleteWorkout}
+        shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
+        workoutToEdit={props.workoutToEdit}
+        submitEditWorkoutForm={props.submitEditWorkoutForm}
       />
 
       <Copyright />

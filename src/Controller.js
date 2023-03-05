@@ -11,7 +11,9 @@ export class ControllerComponent extends Component {
     this.state = {
       markers: [],
       workouts: [],
+      workoutToEdit: null,
       shouldShowForm: false,
+      shouldShowEditWorkoutForm: false,
       shouldShowElevation: false,
       shouldFlyToMarker: [false, []],
     };
@@ -75,17 +77,35 @@ export class ControllerComponent extends Component {
     this.setState({ shouldFlyToMarker: [false, []] });
   }
 
-  editWorkout(e) {}
+  editWorkout(e) {
+    console.log("Edit: ", e.target.closest("workout"));
+    this.setState({ workoutToEdit: e.target.closest("workout") });
+    this.setState({ shouldShowEditWorkoutForm: true });
+  }
+
+  submitEditWorkoutForm(e) {
+    console.log(e.target);
+  }
 
   deleteWorkout(e) {
     let workoutlement = e.target.closest(".workout");
+    let workoutId = workoutlement.id;
+    let workoutsCopy = this.state.workouts;
+    let filteredWorkoutsCopy = workoutsCopy.filter(
+      (workout) => workout.key !== workoutId
+    );
+    let markersCopy = this.state.markers;
+    let filteredMarkersCopy = markersCopy.filter(
+      (marker) => marker.key !== workoutId
+    );
 
-    this.setState((state) => {
-      workouts: state.workouts.filter(
-        (workout) => workout.key !== workoutlement.id
-      );
-    });
-    console.log("Delete");
+    this.setState({ workouts: filteredWorkoutsCopy });
+    // this.setState((state) => {
+    //   workouts: state.workouts.filter(
+    //     (workout) => workout.key !== workoutlement.id
+    //   );
+    // });
+    this.setState({ markers: filteredMarkersCopy });
   }
 
   render() {
@@ -100,8 +120,11 @@ export class ControllerComponent extends Component {
           shouldFlyToMarker={this.state.shouldFlyToMarker}
           resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
           flyToMarker={this.flyToMarker.bind(this)}
-          editWorkout={this.editWorkout.bind(this)}
           deleteWorkout={this.deleteWorkout.bind(this)}
+          editWorkout={this.editWorkout.bind(this)}
+          shouldShowEditWorkoutForm={this.shouldShowEditWorkoutForm}
+          workoutToEdit={this.state.workoutToEdit}
+          submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}
           addMarker={this.addMarker.bind(this)}

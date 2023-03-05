@@ -7,6 +7,9 @@ function WorkoutComponent({
   flyToMarker,
   deleteWorkout,
   editWorkout,
+  shouldShowEditWorkoutForm,
+  workoutToEdit,
+  submitEditWorkoutForm,
 }) {
   return (
     <li
@@ -15,59 +18,143 @@ function WorkoutComponent({
       onClick={flyToMarker}
       id={coords}
     >
-      <div className="workout__header">
-        <h2 className="workout__title">{workout.discription}</h2>
-        <p className="workout__delete-icon" onClick={deleteWorkout}>
-          x
-        </p>
-      </div>
-      <div className="workout__data">
-        <div className="workout__details">
-          <span className="workout__icon">
-            {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
-          </span>
-          <span className="workout__value">{workout.distance}</span>
-          <span className="workout__unit">km</span>
-        </div>
-        <div className="workout__details">
-          <span className="workout__icon">⏱</span>
-          <span className="workout__value">{workout.duration}</span>
-          <span className="workout__unit">min</span>
-        </div>
-        {workout.type === `running` && (
-          <React.Fragment>
+      {!shouldShowEditWorkoutForm && (
+        <React.Fragment>
+          <div className="workout__header">
+            <h2 className="workout__title">{workout.discription}</h2>
+            <p className="workout__delete-icon" onClick={deleteWorkout}>
+              x
+            </p>
+          </div>
+          <div className="workout__data">
             <div className="workout__details">
-              <span className="workout__icon">⚡️</span>
-              <span className="workout__value">${workout.pace}</span>
-              <span className="workout__unit">min/km</span>
+              <span className="workout__icon">
+                {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
+              </span>
+              <span className="workout__value">{workout.distance}</span>
+              <span className="workout__unit">km</span>
             </div>
             <div className="workout__details">
-              <span className="workout__icon">🦶🏼</span>
-              <span className="workout__value">{workout.cadence}</span>
-              <span className="workout__unit">spm</span>
+              <span className="workout__icon">⏱</span>
+              <span className="workout__value">{workout.duration}</span>
+              <span className="workout__unit">min</span>
             </div>
-          </React.Fragment>
-        )}
-        {workout.type === `cycling` && (
-          <React.Fragment>
-            <div className="workout__details">
-              <span className="workout__icon">⚡️</span>
-              <span className="workout__value">{workout.speed}</span>
-              <span className="workout__unit">km/h</span>
+            {workout.type === `running` && (
+              <React.Fragment>
+                <div className="workout__details">
+                  <span className="workout__icon">⚡️</span>
+                  <span className="workout__value">${workout.pace}</span>
+                  <span className="workout__unit">min/km</span>
+                </div>
+                <div className="workout__details">
+                  <span className="workout__icon">🦶🏼</span>
+                  <span className="workout__value">{workout.cadence}</span>
+                  <span className="workout__unit">spm</span>
+                </div>
+              </React.Fragment>
+            )}
+            {workout.type === `cycling` && (
+              <React.Fragment>
+                <div className="workout__details">
+                  <span className="workout__icon">⚡️</span>
+                  <span className="workout__value">{workout.speed}</span>
+                  <span className="workout__unit">km/h</span>
+                </div>
+                <div className="workout__details">
+                  <span className="workout__icon">⛰</span>
+                  <span className="workout__value">{workout.elevation}</span>
+                  <span className="workout__unit">m</span>
+                </div>
+              </React.Fragment>
+            )}
+          </div>
+          <div className="btn__container">
+            <button className="btn workout__edit" onClick={editWorkout}>
+              Edit
+            </button>
+          </div>
+        </React.Fragment>
+      )}
+      {shouldShowEditWorkoutForm && (
+        <React.Fragment>
+          <form className="form edit" onSubmit={submitEditWorkoutForm}>
+            <div className="form__row">
+              <label className="form__label">Type</label>
+              <select className="form__input form__input--type">
+                {workoutToEdit.type === "running" && (
+                  <React.Fragment>
+                    <option value="running">Running</option>
+                    <option value="cycling">Cycling</option>
+                  </React.Fragment>
+                )}
+                {workoutToEdit.type === "cycling" && (
+                  <React.Fragment>
+                    <option value="cycling">Cycling</option>
+                    <option value="running">Running</option>
+                  </React.Fragment>
+                )}
+              </select>
             </div>
-            <div className="workout__details">
-              <span className="workout__icon">⛰</span>
-              <span className="workout__value">{workout.elevation}</span>
-              <span className="workout__unit">m</span>
+            <div className="form__row">
+              <label className="form__label">Distance</label>
+              <input
+                className="form__input form__input--distance"
+                placeholder="km"
+                value={workoutToEdit.distance}
+              />
             </div>
-          </React.Fragment>
-        )}
-      </div>
-      <div className="btn__container">
-        <button className="btn workout__edit" onClick={editWorkout}>
-          Edit
-        </button>
-      </div>
+            <div className="form__row">
+              <label className="form__label">Duration</label>
+              <input
+                className="form__input form__input--duration"
+                placeholder="min"
+                value={workoutToEdit.duration}
+              />
+            </div>
+            {workoutToEdit.type === "running" && (
+              <React.Fragment>
+                <div className="form__row">
+                  <label className="form__label">Cadence</label>
+                  <input
+                    className="form__input form__input--cadence"
+                    placeholder="step/min"
+                    value={workoutToEdit.cadence}
+                  />
+                </div>
+                <div className="form__row form__row--hidden">
+                  <label className="form__label">Elev Gain</label>
+                  <input
+                    className="form__input form__input--elevation"
+                    placeholder="meters"
+                    value={workoutToEdit.elevation}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+            {workoutToEdit.type === "cycling" && (
+              <React.Fragment>
+                <div className="form__row form__row--hidden">
+                  <label className="form__label">Cadence</label>
+                  <input
+                    className="form__input form__input--cadence"
+                    value="${workoutToEdit.cadence}"
+                  />
+                </div>
+                <div className="form__row">
+                  <label className="form__label">Elev Gain</label>
+                  <input
+                    className="form__input form__input--elevation"
+                    value={workoutToEdit.elevation}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+            <div className="form__row submit__edit">
+              <input type="submit" className="btn submit" />
+            </div>
+          </form>
+        </React.Fragment>
+      )}
     </li>
   );
 }
