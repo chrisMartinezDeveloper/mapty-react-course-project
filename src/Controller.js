@@ -11,8 +11,9 @@ export class ControllerComponent extends Component {
     this.state = {
       markers: [],
       workouts: [],
-      shouldShowForm: true,
+      shouldShowForm: false,
       shouldShowElevation: false,
+      shouldFlyToMarker: [false, []],
     };
   }
 
@@ -51,7 +52,7 @@ export class ControllerComponent extends Component {
             : null,
       });
     });
-    this.setState({ shouldShowForm: true });
+    this.setState({ shouldShowForm: false });
   }
 
   test() {
@@ -64,6 +65,20 @@ export class ControllerComponent extends Component {
     });
   }
 
+  flyToMarker(e) {
+    let workout = e.target.closest(".workout");
+    let id = workout.id.split(" ");
+    let lat = +id[0].slice(0, -1);
+    let lng = +id[1];
+    let coords = [lat, lng];
+
+    this.setState({ shouldFlyToMarker: [true, coords] });
+  }
+
+  resetShouldFlyToMarker() {
+    this.setState({ shouldFlyToMarker: [false, []] });
+  }
+
   render() {
     return (
       <React.StrictMode>
@@ -73,6 +88,9 @@ export class ControllerComponent extends Component {
           showElevation={this.showElevation.bind(this)}
           submitWorkoutForm={this.submitWorkoutForm.bind(this)}
           workouts={this.state.workouts}
+          shouldFlyToMarker={this.state.shouldFlyToMarker}
+          resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
+          flyToMarker={this.flyToMarker.bind(this)}
           test={this.test.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}
           markers={this.state.markers}

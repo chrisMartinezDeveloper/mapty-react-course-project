@@ -28,12 +28,16 @@ export function ViewComponent(props) {
         showElevation={props.showElevation}
         submitWorkoutForm={props.submitWorkoutForm}
         workouts={props.workouts}
+        flyToMarker={props.flyToMarker}
         test={props.test}
       />
       <Map
         showForm={props.showForm}
+        shouldShowForm={props.shouldShowForm}
         markers={props.markers}
         addMarker={props.addMarker}
+        shouldFlyToMarker={props.shouldFlyToMarker}
+        resetShouldFlyToMarker={props.resetShouldFlyToMarker}
       />
     </div>
   );

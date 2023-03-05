@@ -16,18 +16,36 @@ const customIcon = new Icon({
   iconSize: [38, 38],
 });
 
-function MapEventHandler({ markers, addMarker, showForm }) {
+function MapEventHandler({
+  shouldShowForm,
+  markers,
+  addMarker,
+  showForm,
+  shouldFlyToMarker,
+  resetShouldFlyToMarker,
+}) {
   const [renderMarkers, setRenderMarkers] = useState(0);
   const map = useMapEvents({
     click(e) {
-      map.locate();
-      addMarker(e);
-      setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
-      map.flyTo(e.latlng, map.getZoom());
+      if (!shouldShowForm) {
+        map.locate();
+        addMarker(e);
+        setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
+        map.flyTo(e.latlng, map.getZoom());
 
-      showForm();
+        showForm();
+      }
     },
   });
+
+  // function flyToMarker() {
+  //   map.flyTo(shouldFlyToMarker[1], map.getZoom());
+  //   resetShouldFlyToMarker();
+  // }
+
+  // console.log("Before: ", shouldFlyToMarker);
+  shouldFlyToMarker[0] && map.flyTo(shouldFlyToMarker[1], map.getZoom());
+  // console.log("After: ", shouldFlyToMarker);
 
   return markers.map((marker) => (
     <Marker key={marker.key} position={marker.coords} icon={customIcon}>
@@ -63,8 +81,11 @@ class Map extends Component {
           />
           <MapEventHandler
             showForm={this.props.showForm}
+            shouldShowForm={this.props.shouldShowForm}
             markers={this.props.markers}
             addMarker={this.props.addMarker}
+            shouldFlyToMarker={this.props.shouldFlyToMarker}
+            resetShouldFlyToMarker={this.props.resetShouldFlyToMarker}
           />
         </MapContainer>
       </div>

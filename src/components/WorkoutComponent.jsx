@@ -1,30 +1,40 @@
 import React, { Component } from "react";
 import "../css/style.css";
-import { library, icon } from "@fortawesome/fontawesome-svg-core";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-library.add(faXmark);
+// import { library, icon } from "@fortawesome/fontawesome-svg-core";
+// import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// library.add(faXmark);
 
-async function getXIcon() {
-  try {
-    const x = await icon(faXmark, {
-      classes: ["workout__delete-icon"],
-    }).html;
+// async function getXIcon() {
+//   try {
+//     const x = await icon(faXmark, {
+//       classes: ["workout__delete-icon"],
+//     }).html;
 
-    return x;
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     return x;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-function WorkoutComponent(props) {
-  console.log("Workout - - ");
-  // const xIcon = getXIcon();
-  let workout = props.workout;
+function WorkoutComponent({
+  workout,
+  coords,
+  flyToMarker,
+  deleteWorkout,
+  editWorkout,
+}) {
   return (
-    <li className={`workout workout--${workout.type}`} data-id={workout.id}>
+    <li
+      className={`workout workout--${workout.type}`}
+      data-id={workout.id}
+      onClick={flyToMarker}
+      id={coords}
+    >
       <div className="workout__header">
         <h2 className="workout__title">{workout.discription}</h2>
-        <p className="workout__delete-icon">x</p>
+        <p className="workout__delete-icon" onClick={deleteWorkout}>
+          x
+        </p>
       </div>
       <div className="workout__data">
         <div className="workout__details">
