@@ -3,48 +3,32 @@ import "../css/style.css";
 
 function WorkoutForm(props) {
   return (
-    <form className="form" onSubmit={props.submitWorkoutForm}>
-      <div className="form__row type">
+    <form className="form" onChange={props.submitWorkoutForm}>
+      <div className="form__row">
         <label className="form__label">Type</label>
-        <select
-          className="form__input form__input--type"
-          onChange={props.showElevation}
-        >
+        <select className="form__input type" onChange={props.showElevation}>
           <option value="running">Running</option>
           <option value="cycling">Cycling</option>
         </select>
       </div>
-      <div className="form__row distance">
+      <div className="form__row">
         <label className="form__label">Distance</label>
-        <input
-          className="form__input form__input--distance"
-          placeholder="km"
-          autoFocus
-        />
+        <input className="form__input distance" placeholder="km" autoFocus />
       </div>
-      <div className="form__row duration">
+      <div className="form__row">
         <label className="form__label">Duration</label>
-        <input
-          className="form__input form__input--duration"
-          placeholder="min"
-        />
+        <input className="form__input duration" placeholder="min" />
       </div>
       {!props.shouldShowElevation && (
-        <div className="form__row cadence">
+        <div className="form__row">
           <label className="form__label">Cadence</label>
-          <input
-            className="form__input form__input--cadence"
-            placeholder="step/min"
-          />
+          <input className="form__input cadence" placeholder="step/min" />
         </div>
       )}
       {props.shouldShowElevation && (
-        <div className="form__row elevation">
+        <div className="form__row">
           <label className="form__label">Elevation Gain</label>
-          <input
-            className="form__input form__input--elevation"
-            placeholder="meters"
-          />
+          <input className="form__input elevation" placeholder="meters" />
         </div>
       )}
       <div className="form__row btnSubmit">

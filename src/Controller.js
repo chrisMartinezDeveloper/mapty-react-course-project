@@ -30,24 +30,28 @@ export class ControllerComponent extends Component {
   }
 
   submitWorkoutForm(e) {
-    console.log("Submit");
-    console.log(e);
-    // console.log(this.state.markers.slice(-1).key);
-    // let workoutType = e.target.closest("type").value;
-    // this.setState((state) => {
-    //   workouts: state.workouts.push({
-    //     id: 0,
-    //     // id: state.markers.slice(-1).key,
-    //     // type: workoutType,
-    //     // distance: e.target.closest("distance").value,
-    //     // duration: e.target.closest("duration").value,
-    //     // cadence:
-    //     //   workoutType === "running" ? e.target.closest("duration").value : null,
-    //     // elevation:
-    //     //   workoutType === "cycling" ? e.target.closest("duration").value : null,
-    //   });
-    // });
-    // console.log(this.state.workouts);
+    // console.log("Submit");
+    console.log(e.target.closest("form"));
+    const formElement = e.target.closest("form");
+    let workoutType = formElement.querySelector(".type").value;
+    console.log(workoutType);
+    this.setState((state) => {
+      workouts: state.workouts.push({
+        id: state.markers.slice(-1).key,
+        type: workoutType.value,
+        distance: formElement.querySelector(".distance").value,
+        duration: formElement.querySelector(".duration").value,
+        cadence:
+          workoutType === "running"
+            ? formElement.querySelector(".cadence").value
+            : null,
+        elevation:
+          workoutType === "cycling"
+            ? formElement.querySelector(".elevation").value
+            : null,
+      });
+    });
+    console.log(this.state.workouts);
     // this.setState({ shouldShowForm: false });
   }
 
