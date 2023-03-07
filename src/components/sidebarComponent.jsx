@@ -15,7 +15,7 @@ function SidebarComponent(props) {
           shouldShowElevation={props.shouldShowElevation}
           showElevation={props.showElevation}
           submitWorkoutForm={props.submitWorkoutForm}
-          test={props.test}
+          closeWorkoutForm={props.closeWorkoutForm}
         />
       )}
 

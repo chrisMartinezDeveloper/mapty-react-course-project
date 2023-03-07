@@ -6,7 +6,11 @@ function WorkoutForm(props) {
     <form className="form" onSubmit={props.submitWorkoutForm}>
       <div className="form__row">
         <label className="form__label">Type</label>
-        <select className="form__input type" onChange={props.showElevation}>
+        <select
+          className="form__input type"
+          defaultValue="running"
+          onChange={props.showElevation}
+        >
           <option value="running">Running</option>
           <option value="cycling">Cycling</option>
         </select>
@@ -33,6 +37,9 @@ function WorkoutForm(props) {
       )}
       <div className="form__row btnSubmit">
         <input type="submit" className="btn submit" />
+        <button className="btn cancel" onClick={props.closeWorkoutForm}>
+          Cancel
+        </button>
       </div>
     </form>
   );

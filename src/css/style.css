@@ -69,6 +69,7 @@ a:visited {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 
 .logo {
@@ -90,11 +91,14 @@ a:visited {
 }
 
 .workouts::-webkit-scrollbar {
-  width: 0;
+  width: 100%;
+  height: auto;
+  overflow: auto;
 }
 
 .workout {
   width: 87%;
+  height: auto;
   background-color: var(--color-dark--2);
   border-radius: 5px;
   padding: 1.5rem 2.25rem;
@@ -107,6 +111,11 @@ a:visited {
   grid-template-columns: 100%;
   grid-template-rows: 33% 33% 33%;
   /* gap: 0.75rem 1.5rem; */
+
+  overflow: auto;
+  position: relative;
+  /* scroll-margin: 100px; */
+  scroll-behavior: smooth;
 }
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
@@ -143,12 +152,14 @@ a:visited {
 .workout__data {
   display: flex;
   align-items: center;
+  /* flex-wrap: wrap; */
 }
 
 .workout__details {
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  flex-grow: 0;
   margin: 1.5rem 2.5rem 1.5rem 0rem;
 }
 
@@ -195,7 +206,8 @@ a:visited {
 }
 
 .btn.submit {
-  width: 40%;
+  width: 20%;
+  flex-grow: 0;
   padding: 0.4rem 0.5rem 0.4rem 0.5rem;
   margin: 0.5rem 0rem 0rem 0rem;
   border-radius: 0.5rem;
@@ -203,7 +215,30 @@ a:visited {
 }
 
 .btn.submit:hover {
-  width: 45%;
+  width: 22%;
+}
+
+.btn.cancel {
+  width: 20%;
+  flex-grow: 0;
+  justify-self: flex-end;
+  padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+  margin: 0.5rem 0rem 0rem 0.7rem;
+  border-radius: 0.5rem;
+  transition: ease-out 0.3s;
+}
+
+.btn.cancel:hover {
+  width: 22%;
+}
+
+.form__row.btnSubmit {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  grid-column: span 2;
 }
 
 .form {
@@ -260,9 +295,9 @@ a:visited {
   flex-direction: column;
 }
 
-.form__row--hidden {
+/* .form__row--hidden {
   display: none;
-}
+} */
 
 .form__label {
   width: 100%;
