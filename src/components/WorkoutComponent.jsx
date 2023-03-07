@@ -36,26 +36,36 @@ function WorkoutComponent({
           </div>
           <div className="workout__data">
             <div className="workout__details">
-              {/* <span className="workout__icon">
-                {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
-              </span> */}
-              <span className="workout__value">{workout.distance}</span>
-              <span className="workout__unit">km</span>
+              <span className="workout__label">
+                {/* {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`} */}
+                Distance
+              </span>
+              <span className="workout__value">
+                {workout.distance}
+                <span className="workout__unit">km</span>
+              </span>
             </div>
             <div className="workout__details">
-              {/* <span className="workout__icon">⏱</span> */}
-              <span className="workout__value">{workout.duration}</span>
-              <span className="workout__unit">min</span>
+              {/* <span className="workout__label">⏱</span> */}
+              <span className="workout__label">Duration</span>
+              <span className="workout__value">
+                {workout.duration}
+                <span className="workout__unit">min</span>
+              </span>
             </div>
             {workout.type === `running` && (
               <React.Fragment>
                 <div className="workout__details">
-                  {/* <span className="workout__icon">⚡️</span> */}
-                  <span className="workout__value">{workout.pace}</span>
-                  <span className="workout__unit">min/km</span>
+                  {/* <span className="workout__label">⚡️</span> */}
+                  <span className="workout__label">Pace</span>
+                  <span className="workout__value">
+                    {workout.pace}
+                    <span className="workout__unit">min/km</span>
+                  </span>
                 </div>
                 <div className="workout__details">
-                  {/* <span className="workout__icon">🦶🏼</span> */}
+                  {/* <span className="workout__label">🦶🏼</span> */}
+                  <span className="workout__label">Cadence</span>
                   <span className="workout__value">
                     {workout.cadence}
                     <span className="workout__unit">spm</span>
@@ -66,14 +76,20 @@ function WorkoutComponent({
             {workout.type === `cycling` && (
               <React.Fragment>
                 <div className="workout__details">
-                  {/* <span className="workout__icon">⚡️</span> */}
-                  <span className="workout__value">{workout.speed}</span>
-                  <span className="workout__unit">km/h</span>
+                  {/* <span className="workout__label">⚡️</span> */}
+                  <span className="workout__label">Speed</span>
+                  <span className="workout__value">
+                    {workout.speed}
+                    <span className="workout__unit">km/h</span>
+                  </span>
                 </div>
                 <div className="workout__details">
-                  {/* <span className="workout__icon">⛰</span> */}
-                  <span className="workout__value">{workout.elevation}</span>
-                  <span className="workout__unit">m</span>
+                  {/* <span className="workout__label">⛰</span> */}
+                  <span className="workout__label">Elevation</span>
+                  <span className="workout__value">
+                    {workout.elevation}
+                    <span className="workout__unit">m</span>
+                  </span>
                 </div>
               </React.Fragment>
             )}
