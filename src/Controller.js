@@ -111,6 +111,7 @@ export class ControllerComponent extends Component {
     let workoutId = workoutElement.id;
     let workoutEditForm = e.target;
     let workoutType = workoutEditForm.querySelector(".type").value;
+    console.log(workoutType);
     let distance = +workoutEditForm.querySelector(".distance").value;
     let duration = +workoutEditForm.querySelector(".duration").value;
     let cadence =
@@ -161,7 +162,7 @@ export class ControllerComponent extends Component {
       this.setState({ shouldShowEditWorkoutForm: false });
       this.setState({ shouldShowErrorMessage: false });
     } else {
-      workoutElement.style.height = "33vh";
+      workoutElement.style.height = "24.7vh";
       this.setState({ shouldShowErrorMessage: true });
     }
   }
@@ -208,6 +209,9 @@ export class ControllerComponent extends Component {
       (workout) => workout.key === workoutId
     );
 
+    this.setState({
+      shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
+    });
     this.setState({ workoutToEdit: selectedWorkout });
     this.setState({ shouldShowEditWorkoutForm: true });
   }
