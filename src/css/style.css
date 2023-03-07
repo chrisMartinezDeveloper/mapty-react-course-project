@@ -62,7 +62,7 @@ a:visited {
 /* ///////////////// */
 .sidebar {
   height: 100%;
-  width: 15%;
+  width: 20%;
   flex-basis: 50rem;
   background-color: var(--color-dark--1);
   border-radius: 1rem 0rem 0rem 1rem;
@@ -290,7 +290,7 @@ a:visited {
 } */
 
 .copyright {
-  margin: 0rem 5rem 3rem 5rem;
+  margin: 1rem 5rem 3rem 5rem;
   font-size: 1.3rem;
   text-align: center;
   color: var(--color-light--1);
@@ -311,7 +311,7 @@ a:visited {
 /* MAP               */
 /* ///////////////// */
 #map {
-  width: 85%;
+  width: 80%;
   height: 100%;
 }
 

@@ -16,6 +16,20 @@ export class ControllerComponent extends Component {
       shouldShowEditWorkoutForm: false,
       shouldShowElevation: false,
       shouldFlyToMarker: [false, []],
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
     };
   }
 
@@ -37,10 +51,21 @@ export class ControllerComponent extends Component {
 
     const formElement = e.target.closest("form");
     let workoutType = formElement.querySelector(".type").value;
+    let distance = +formElement.querySelector(".distance").value;
+    let duration = +formElement.querySelector(".duration").value;
+    let pace = (duration / distance).toFixed(2);
+    let speed = (distance / (duration / 60)).toFixed(2);
+    let today = new Date();
+    let month = this.state.months[today.getMonth()];
+    let day = today.getDate();
+    let date = `${month} ${day}`;
+
     this.setState((state) => {
       workouts: state.workouts.push({
         key: state.markers.slice(-1)[0].key,
-        discription: "hello",
+        discription: `${workoutType
+          .slice(0, 1)
+          .toUpperCase()}${workoutType.slice(1)} on ${date}`,
         type: workoutType,
         distance: +formElement.querySelector(".distance").value,
         duration: +formElement.querySelector(".duration").value,
@@ -52,6 +77,8 @@ export class ControllerComponent extends Component {
           workoutType === "cycling"
             ? +formElement.querySelector(".elevation").value
             : null,
+        pace: pace,
+        speed: speed,
       });
     });
     this.setState({ shouldShowForm: false });
@@ -89,7 +116,46 @@ export class ControllerComponent extends Component {
   }
 
   submitEditWorkoutForm(e) {
-    console.log(e.target);
+    e.preventDefault();
+
+    let workoutElement = e.target.closest(".workout");
+    let workoutId = workoutElement.id;
+    let workoutEditForm = e.target;
+    let workoutType = workoutEditForm.querySelector(".type").value;
+    let editFormData = {
+      type: workoutType,
+      distance: +workoutEditForm.querySelector(".distance").value,
+      duration: +workoutEditForm.querySelector(".duration").value,
+      cadence:
+        workoutType === "running"
+          ? +workoutEditForm.querySelector(".cadence").value
+          : null,
+      elevation:
+        workoutType === "cycling"
+          ? +workoutEditForm.querySelector(".elevation").value
+          : null,
+    };
+
+    this.setState(function (state) {
+      let selectedWorkoutIndex = state.workouts.findIndex(
+        (workout) => workout.key === workoutId
+      );
+
+      state.workouts[selectedWorkoutIndex].type = editFormData.type;
+      state.workouts[selectedWorkoutIndex].distance = editFormData.distance;
+      state.workouts[selectedWorkoutIndex].duration = editFormData.duration;
+      state.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
+      state.workouts[selectedWorkoutIndex].elevation = editFormData.elevation;
+
+      return {
+        workouts: state.workouts,
+      };
+    });
+
+    console.log(workoutEditForm);
+    console.log(workoutId);
+
+    this.setState({ shouldShowEditWorkoutForm: false });
   }
 
   deleteWorkout(e) {

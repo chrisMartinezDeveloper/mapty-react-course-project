@@ -51,7 +51,7 @@ function WorkoutComponent({
               <React.Fragment>
                 <div className="workout__details">
                   <span className="workout__icon">⚡️</span>
-                  <span className="workout__value">${workout.pace}</span>
+                  <span className="workout__value">{workout.pace}</span>
                   <span className="workout__unit">min/km</span>
                 </div>
                 <div className="workout__details">
