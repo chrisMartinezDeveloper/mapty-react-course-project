@@ -19,6 +19,7 @@ function WorkoutsComponent(props) {
             shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
             workoutToEdit={props.workoutToEdit}
             submitEditWorkoutForm={props.submitEditWorkoutForm}
+            closeWorkoutEditForm={props.closeWorkoutEditForm}
           />
         ))}
       </ul>

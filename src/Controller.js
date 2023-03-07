@@ -148,6 +148,10 @@ export class ControllerComponent extends Component {
     });
   }
 
+  closeWorkoutEditForm() {
+    this.setState({ shouldShowForm: false });
+  }
+
   showElevation(e) {
     this.setState({
       shouldShowElevation: e.target.value === "cycling" ? true : false,
@@ -209,6 +213,7 @@ export class ControllerComponent extends Component {
           showElevation={this.showElevation.bind(this)}
           submitWorkoutForm={this.submitWorkoutForm.bind(this)}
           closeWorkoutForm={this.closeWorkoutForm.bind(this)}
+          closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
           workouts={this.state.workouts}
           shouldFlyToMarker={this.state.shouldFlyToMarker}
           resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}

@@ -12,6 +12,7 @@ function WorkoutComponent({
   shouldShowEditWorkoutForm,
   workoutToEdit,
   submitEditWorkoutForm,
+  closeWorkoutEditForm,
 }) {
   const editLiStyle = {
     height: "40%",
@@ -166,6 +167,9 @@ function WorkoutComponent({
             )}
             <div className="form__row edit submit__edit">
               <input type="submit" className="btn submit" />
+              <button className="btn cancel" onClick={closeWorkoutEditForm}>
+                Cancel
+              </button>
             </div>
           </form>
         </li>

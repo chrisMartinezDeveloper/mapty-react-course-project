@@ -28,6 +28,7 @@ export function ViewComponent(props) {
         showElevation={props.showElevation}
         submitWorkoutForm={props.submitWorkoutForm}
         closeWorkoutForm={props.closeWorkoutForm}
+        closeWorkoutEditForm={props.closeWorkoutEditForm}
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
         deleteWorkout={props.deleteWorkout}
