@@ -36,40 +36,42 @@ function WorkoutComponent({
           </div>
           <div className="workout__data">
             <div className="workout__details">
-              <span className="workout__icon">
+              {/* <span className="workout__icon">
                 {workout.type === `running` ? `🏃‍♂️` : `🚴‍♀️`}
-              </span>
+              </span> */}
               <span className="workout__value">{workout.distance}</span>
               <span className="workout__unit">km</span>
             </div>
             <div className="workout__details">
-              <span className="workout__icon">⏱</span>
+              {/* <span className="workout__icon">⏱</span> */}
               <span className="workout__value">{workout.duration}</span>
               <span className="workout__unit">min</span>
             </div>
             {workout.type === `running` && (
               <React.Fragment>
                 <div className="workout__details">
-                  <span className="workout__icon">⚡️</span>
+                  {/* <span className="workout__icon">⚡️</span> */}
                   <span className="workout__value">{workout.pace}</span>
                   <span className="workout__unit">min/km</span>
                 </div>
                 <div className="workout__details">
-                  <span className="workout__icon">🦶🏼</span>
-                  <span className="workout__value">{workout.cadence}</span>
-                  <span className="workout__unit">spm</span>
+                  {/* <span className="workout__icon">🦶🏼</span> */}
+                  <span className="workout__value">
+                    {workout.cadence}
+                    <span className="workout__unit">spm</span>
+                  </span>
                 </div>
               </React.Fragment>
             )}
             {workout.type === `cycling` && (
               <React.Fragment>
                 <div className="workout__details">
-                  <span className="workout__icon">⚡️</span>
+                  {/* <span className="workout__icon">⚡️</span> */}
                   <span className="workout__value">{workout.speed}</span>
                   <span className="workout__unit">km/h</span>
                 </div>
                 <div className="workout__details">
-                  <span className="workout__icon">⛰</span>
+                  {/* <span className="workout__icon">⛰</span> */}
                   <span className="workout__value">{workout.elevation}</span>
                   <span className="workout__unit">m</span>
                 </div>
