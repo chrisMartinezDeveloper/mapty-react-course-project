@@ -35,6 +35,11 @@ function WorkoutForm(props) {
           <input className="form__input elevation" placeholder="meters" />
         </div>
       )}
+      {props.shouldShowErrorMessage && (
+        <p className="input__error__message">
+          Invalid Inputs: Please enter positive numbers only
+        </p>
+      )}
       <div className="form__row btnSubmit">
         <input type="submit" className="btn submit" />
         <button className="btn cancel" onClick={props.closeWorkoutForm}>

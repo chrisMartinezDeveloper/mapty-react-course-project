@@ -1,6 +1,8 @@
-export const validInputs = function (inputs) {
-  return inputs.every(inp => Number.isFinite(inp));
+export const validInputs = function (data) {
+  let formData = [...data];
+  return formData.every((inp) => Number.isFinite(inp));
 };
-export const allPositive = function (inputs) {
-  return inputs.every(inp => inp >= 0);
+export const allPositive = function (data) {
+  let formData = [...data];
+  return formData.every((inp) => inp >= 0);
 };

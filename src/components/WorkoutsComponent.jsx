@@ -20,6 +20,7 @@ function WorkoutsComponent(props) {
             workoutToEdit={props.workoutToEdit}
             submitEditWorkoutForm={props.submitEditWorkoutForm}
             closeWorkoutEditForm={props.closeWorkoutEditForm}
+            shouldShowErrorMessage={props.shouldShowErrorMessage}
           />
         ))}
       </ul>

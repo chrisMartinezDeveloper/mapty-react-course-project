@@ -1,8 +1,7 @@
 import React from "react";
-import { Component, createRef } from "react";
+import { validInputs, allPositive } from "./helpers";
+import { Component } from "react";
 import { ViewComponent } from "./View";
-import { Marker, Popup } from "react-leaflet";
-import Model from "./Model";
 import View from "./View";
 
 export class ControllerComponent extends Component {
@@ -15,6 +14,7 @@ export class ControllerComponent extends Component {
       shouldShowForm: false,
       shouldShowEditWorkoutForm: false,
       shouldShowElevation: false,
+      shouldShowErrorMessage: false,
       shouldFlyToMarker: [false, []],
       months: [
         "January",
@@ -67,24 +67,41 @@ export class ControllerComponent extends Component {
     let month = this.state.months[today.getMonth()];
     let day = today.getDate();
     let date = `${month} ${day}`;
+    // formDataArray - used for form data validation
+    let formDataArray = [distance, duration];
+    formDataArray.push(workoutType === "running" ? cadence : elevation);
+    let formData = {
+      type: workoutType,
+      distance: distance,
+      duration: duration,
+      cadence: cadence ? cadence : null,
+      elevation: elevation ? elevation : null,
+      pace: pace,
+      speed: speed,
+    };
 
-    this.setState((state) => {
-      workouts: state.workouts.push({
-        key: state.markers.slice(-1)[0].key,
-        discription: `${workoutType
-          .slice(0, 1)
-          .toUpperCase()}${workoutType.slice(1)} on ${date}`,
-        type: workoutType,
-        distance: +formElement.querySelector(".distance").value,
-        duration: +formElement.querySelector(".duration").value,
-        cadence: cadence ? cadence : null,
-        elevation: elevation ? elevation : null,
-        pace: pace,
-        speed: speed,
+    if ((validInputs(formDataArray), allPositive(formDataArray))) {
+      this.setState((state) => {
+        workouts: state.workouts.push({
+          key: state.markers.slice(-1)[0].key,
+          discription: `${workoutType
+            .slice(0, 1)
+            .toUpperCase()}${workoutType.slice(1)} on ${date}`,
+          type: workoutType,
+          distance: +formElement.querySelector(".distance").value,
+          duration: +formElement.querySelector(".duration").value,
+          cadence: cadence ? cadence : null,
+          elevation: elevation ? elevation : null,
+          pace: pace,
+          speed: speed,
+        });
       });
-    });
-    this.setState({ shouldShowElevation: false });
-    this.setState({ shouldShowForm: false });
+      this.setState({ shouldShowElevation: false });
+      this.setState({ shouldShowErrorMessage: false });
+      this.setState({ shouldShowForm: false });
+    } else {
+      this.setState({ shouldShowErrorMessage: true });
+    }
   }
 
   submitEditWorkoutForm(e) {
@@ -106,42 +123,52 @@ export class ControllerComponent extends Component {
         : null;
     let pace = (duration / distance).toFixed(2);
     let speed = (distance / (duration / 60)).toFixed(2);
+    // editFormDataArray - used for form data validation
+    let editFormDataArray = [distance, duration];
+    editFormDataArray.push(workoutType === "running" ? cadence : elevation);
     let editFormData = {
       type: workoutType,
-      distance: +workoutEditForm.querySelector(".distance").value,
-      duration: +workoutEditForm.querySelector(".duration").value,
+      distance: distance,
+      duration: duration,
       cadence: cadence ? cadence : null,
       elevation: elevation ? elevation : null,
       pace: pace,
       speed: speed,
     };
 
-    this.setState(function (state) {
-      let selectedWorkoutIndex = state.workouts.findIndex(
-        (workout) => workout.key === workoutId
-      );
+    if ((validInputs(editFormDataArray), allPositive(editFormDataArray))) {
+      this.setState(function (state) {
+        let selectedWorkoutIndex = state.workouts.findIndex(
+          (workout) => workout.key === workoutId
+        );
 
-      state.workouts[selectedWorkoutIndex].type = editFormData.type;
-      state.workouts[selectedWorkoutIndex].distance = editFormData.distance;
-      state.workouts[selectedWorkoutIndex].duration = editFormData.duration;
-      state.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
-      state.workouts[selectedWorkoutIndex].elevation = editFormData.elevation;
-      state.workouts[selectedWorkoutIndex].pace = editFormData.pace
-        ? editFormData.pace
-        : null;
-      state.workouts[selectedWorkoutIndex].speed = editFormData.speed
-        ? editFormData.speed
-        : null;
+        state.workouts[selectedWorkoutIndex].type = editFormData.type;
+        state.workouts[selectedWorkoutIndex].distance = editFormData.distance;
+        state.workouts[selectedWorkoutIndex].duration = editFormData.duration;
+        state.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
+        state.workouts[selectedWorkoutIndex].elevation = editFormData.elevation;
+        state.workouts[selectedWorkoutIndex].pace = editFormData.pace
+          ? editFormData.pace
+          : null;
+        state.workouts[selectedWorkoutIndex].speed = editFormData.speed
+          ? editFormData.speed
+          : null;
 
-      return {
-        workouts: state.workouts,
-      };
-    });
-
-    this.setState({ shouldShowEditWorkoutForm: false });
+        return {
+          workouts: state.workouts,
+        };
+      });
+      this.setState({ shouldShowEditWorkoutForm: false });
+      this.setState({ shouldShowErrorMessage: false });
+    } else {
+      workoutElement.style.height = "33vh";
+      this.setState({ shouldShowErrorMessage: true });
+    }
   }
 
   closeWorkoutForm() {
+    this.setState({ shouldShowEditWorkoutForm: false });
+    this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
     this.setState((state) => {
       markers: state.markers.splice(-1);
@@ -149,6 +176,8 @@ export class ControllerComponent extends Component {
   }
 
   closeWorkoutEditForm() {
+    this.setState({ shouldShowEditWorkoutForm: false });
+    this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
   }
 
@@ -214,6 +243,7 @@ export class ControllerComponent extends Component {
           submitWorkoutForm={this.submitWorkoutForm.bind(this)}
           closeWorkoutForm={this.closeWorkoutForm.bind(this)}
           closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
+          shouldShowErrorMessage={this.state.shouldShowErrorMessage}
           workouts={this.state.workouts}
           shouldFlyToMarker={this.state.shouldFlyToMarker}
           resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}

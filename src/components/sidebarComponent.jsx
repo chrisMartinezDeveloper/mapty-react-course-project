@@ -16,6 +16,7 @@ function SidebarComponent(props) {
           showElevation={props.showElevation}
           submitWorkoutForm={props.submitWorkoutForm}
           closeWorkoutForm={props.closeWorkoutForm}
+          shouldShowErrorMessage={props.shouldShowErrorMessage}
         />
       )}
 
@@ -30,6 +31,7 @@ function SidebarComponent(props) {
         workoutToEdit={props.workoutToEdit}
         submitEditWorkoutForm={props.submitEditWorkoutForm}
         closeWorkoutEditForm={props.closeWorkoutEditForm}
+        shouldShowErrorMessage={props.shouldShowErrorMessage}
       />
 
       <Copyright />

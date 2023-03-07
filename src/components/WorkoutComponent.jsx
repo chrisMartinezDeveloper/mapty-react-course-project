@@ -13,13 +13,8 @@ function WorkoutComponent({
   workoutToEdit,
   submitEditWorkoutForm,
   closeWorkoutEditForm,
+  shouldShowErrorMessage,
 }) {
-  const editLiStyle = {
-    height: "40%",
-    display: "flex",
-    padding: "0rem",
-  };
-
   return (
     <React.Fragment>
       {!shouldShowEditWorkoutForm && (
@@ -105,7 +100,6 @@ function WorkoutComponent({
       {shouldShowEditWorkoutForm && (
         <li
           className={`workout workout--${workout.type}`}
-          style={editLiStyle}
           data-id={workout.id}
           onClick={flyToMarker}
           id={coords}
@@ -164,6 +158,11 @@ function WorkoutComponent({
                   defaultValue={workoutToEdit ? workoutToEdit.elevation : ""}
                 />
               </div>
+            )}
+            {shouldShowErrorMessage && (
+              <p className="input__error__message edit">
+                Invalid Inputs: Please enter positive numbers only
+              </p>
             )}
             <div className="form__row edit submit__edit">
               <input type="submit" className="btn submit" />
