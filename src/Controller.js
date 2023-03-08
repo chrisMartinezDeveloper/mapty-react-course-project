@@ -170,8 +170,10 @@ export class ControllerComponent extends Component {
     this.setState({ shouldShowEditWorkoutForm: false });
     this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
-    this.setState((state) => {
-      markers: state.markers.splice(-1);
+    this.setState(function (state) {
+      const newMarkers = state.markers;
+      newMarkers.splice(-1);
+      return { markers: newMarkers };
     });
   }
 
