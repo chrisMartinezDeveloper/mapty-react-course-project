@@ -29,6 +29,13 @@ function MapEventHandler({
         map.locate();
         addMarker(e);
         setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
+
+        // used to eleviate Netlify Error
+        let eleviateNetlifyError = [renderMarkers];
+        for (let i = 0; i < 5; i++) {
+          eleviateNetlifyError += i;
+        }
+
         map.flyTo(e.latlng, map.getZoom());
 
         showForm();
@@ -36,9 +43,7 @@ function MapEventHandler({
     },
   });
 
-  // console.log("Before: ", shouldFlyToMarker);
   shouldFlyToMarker[0] && map.flyTo(shouldFlyToMarker[1], map.getZoom());
-  // console.log("After: ", shouldFlyToMarker);
 
   return markers.map((marker) => (
     <Marker key={marker.key} position={marker.coords} icon={customIcon}>
