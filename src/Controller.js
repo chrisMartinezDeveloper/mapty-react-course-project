@@ -162,7 +162,7 @@ export class ControllerComponent extends Component {
       this.setState({ shouldShowEditWorkoutForm: false });
       this.setState({ shouldShowErrorMessage: false });
     } else {
-      workoutElement.style.height = "24.7vh";
+      // workoutElement.style.height = "20rem";
       this.setState({ shouldShowErrorMessage: true });
     }
   }
