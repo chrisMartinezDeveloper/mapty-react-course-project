@@ -35,10 +35,11 @@ export class ControllerComponent extends Component {
   addMarker(e) {
     this.setState(function (state) {
       const newMarkers = state.markers;
-      newMarkers.concat({
+      newMarkers.push({
         key: `${e.latlng.lat}, ${e.latlng.lng}`,
         coords: e.latlng,
       });
+
       return { markers: newMarkers };
     });
   }
