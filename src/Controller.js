@@ -34,7 +34,7 @@ export class ControllerComponent extends Component {
 
   addMarker(e) {
     this.setState((state) => {
-      markers: state.markers.push({
+      markers: state.markers.concat({
         key: `${e.latlng.lat}, ${e.latlng.lng}`,
         coords: e.latlng,
       });
@@ -81,7 +81,7 @@ export class ControllerComponent extends Component {
 
     if ((validInputs(formDataArray), allPositive(formDataArray))) {
       this.setState((state) => {
-        workouts: state.workouts.push({
+        workouts: state.workouts.concat({
           key: state.markers.slice(-1)[0].key,
           discription: `${workoutType
             .slice(0, 1)
