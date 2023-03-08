@@ -2,7 +2,6 @@ import React from "react";
 import { validInputs, allPositive } from "./helpers";
 import { Component } from "react";
 import { ViewComponent } from "./View";
-import View from "./View";
 
 export class ControllerComponent extends Component {
   constructor(props) {
@@ -70,15 +69,15 @@ export class ControllerComponent extends Component {
     // formDataArray - used for form data validation
     let formDataArray = [distance, duration];
     formDataArray.push(workoutType === "running" ? cadence : elevation);
-    let formData = {
-      type: workoutType,
-      distance: distance,
-      duration: duration,
-      cadence: cadence ? cadence : null,
-      elevation: elevation ? elevation : null,
-      pace: pace,
-      speed: speed,
-    };
+    // let formData = {
+    //   type: workoutType,
+    //   distance: distance,
+    //   duration: duration,
+    //   cadence: cadence ? cadence : null,
+    //   elevation: elevation ? elevation : null,
+    //   pace: pace,
+    //   speed: speed,
+    // };
 
     if ((validInputs(formDataArray), allPositive(formDataArray))) {
       this.setState((state) => {
