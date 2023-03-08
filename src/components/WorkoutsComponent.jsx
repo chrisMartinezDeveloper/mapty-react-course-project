@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import WorkoutComponent from "./WorkoutComponent";
 import "../css/style.css";
 

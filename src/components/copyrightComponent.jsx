@@ -9,6 +9,7 @@ function Copyright() {
       <a
         className="twitter-link"
         target="_blank"
+        rel="noreferrer"
         href="https://twitter.com/jonasschmedtman"
       >
         Jonas Schmedtmann

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import logo from "../img/logo.png";
 import "../css/style.css";
 import WorkoutForm from "./workoutFormComponent";

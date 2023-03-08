@@ -7,7 +7,6 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
-import WorkoutForm from "./workoutFormComponent";
 import { MAP_ZOOM_LEVEL, COORDS } from "../config";
 import "../css/style.css";
 
@@ -22,7 +21,6 @@ function MapEventHandler({
   addMarker,
   showForm,
   shouldFlyToMarker,
-  resetShouldFlyToMarker,
 }) {
   const [renderMarkers, setRenderMarkers] = useState(0);
   const map = useMapEvents({
