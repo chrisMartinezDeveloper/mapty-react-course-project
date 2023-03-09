@@ -84,22 +84,25 @@ export class ControllerComponent extends Component {
 
     if ((validInputs(formDataArray), allPositive(formDataArray))) {
       this.setState(function (state) {
-        const newMarkers = state.markers;
-        let key = newMarkers.slice(-1)[0].key;
+        const newWorkouts = state.markers;
+        let key = newWorkouts.slice(-1)[0].key;
         return {
-          workouts: state.workouts.concat({
-            key: key,
-            discription: `${workoutType
-              .slice(0, 1)
-              .toUpperCase()}${workoutType.slice(1)} on ${date}`,
-            type: workoutType,
-            distance: +formElement.querySelector(".distance").value,
-            duration: +formElement.querySelector(".duration").value,
-            cadence: cadence ? cadence : null,
-            elevation: elevation ? elevation : null,
-            pace: pace,
-            speed: speed,
-          }),
+          workouts: [
+            {
+              key: key,
+              discription: `${workoutType
+                .slice(0, 1)
+                .toUpperCase()}${workoutType.slice(1)} on ${date}`,
+              type: workoutType,
+              distance: +formElement.querySelector(".distance").value,
+              duration: +formElement.querySelector(".duration").value,
+              cadence: cadence ? cadence : null,
+              elevation: elevation ? elevation : null,
+              pace: pace,
+              speed: speed,
+            },
+            ...state.workouts,
+          ],
         };
       });
       this.setState({ shouldShowElevation: false });
