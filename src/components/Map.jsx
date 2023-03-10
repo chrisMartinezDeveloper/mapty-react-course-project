@@ -1,5 +1,5 @@
 import { Icon } from "leaflet";
-import React, { Component, useState } from "react";
+import { Component, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -8,7 +8,6 @@ import {
   Popup,
 } from "react-leaflet";
 import { MAP_ZOOM_LEVEL, COORDS } from "../config";
-import "../css/style.css";
 
 const customIcon = new Icon({
   iconUrl: require("../img/marker-icon.png"),
@@ -46,7 +45,7 @@ function MapEventHandler({
   ));
 }
 
-class Map extends Component {
+export default class Map extends Component {
   render() {
     return (
       <div id="map">
@@ -84,5 +83,3 @@ class Map extends Component {
     );
   }
 }
-
-export default Map;

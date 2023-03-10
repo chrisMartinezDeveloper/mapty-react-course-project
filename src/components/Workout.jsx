@@ -1,7 +1,4 @@
-import React from "react";
-import "../css/style.css";
-
-function WorkoutComponent({
+export default function Workout({
   workout,
   flyToMarker,
   deleteWorkout,
@@ -14,16 +11,19 @@ function WorkoutComponent({
   shouldShowErrorMessage,
 }) {
   return (
-    <React.Fragment>
+    <>
       {workout.status === "view" && (
         <li
           className={`workout workout--${workout.type}`}
           data-key={workout.key}
-          onClick={flyToMarker}
-        >
+          onClick={flyToMarker}>
           <div className="workout__header">
-            <h2 className="workout__title">{workout.discription}</h2>
-            <p className="workout__delete-icon" onClick={deleteWorkout}>
+            <h2 className="workout__title">
+              {workout.discription}
+            </h2>
+            <p
+              className="workout__delete-icon"
+              onClick={deleteWorkout}>
               x
             </p>
           </div>
@@ -47,48 +47,62 @@ function WorkoutComponent({
               </span>
             </div>
             {workout.type === `running` && (
-              <React.Fragment>
+              <>
                 <div className="workout__details">
                   {/* <span className="workout__label">⚡️</span> */}
                   <span className="workout__label">Pace</span>
                   <span className="workout__value">
                     {workout.pace}
-                    <span className="workout__unit">min/km</span>
+                    <span className="workout__unit">
+                      min/km
+                    </span>
                   </span>
                 </div>
                 <div className="workout__details">
                   {/* <span className="workout__label">🦶🏼</span> */}
-                  <span className="workout__label">Cadence</span>
+                  <span className="workout__label">
+                    Cadence
+                  </span>
                   <span className="workout__value">
                     {workout.cadence}
-                    <span className="workout__unit">spm</span>
+                    <span className="workout__unit">
+                      spm
+                    </span>
                   </span>
                 </div>
-              </React.Fragment>
+              </>
             )}
             {workout.type === `cycling` && (
-              <React.Fragment>
+              <>
                 <div className="workout__details">
                   {/* <span className="workout__label">⚡️</span> */}
-                  <span className="workout__label">Speed</span>
+                  <span className="workout__label">
+                    Speed
+                  </span>
                   <span className="workout__value">
                     {workout.speed}
-                    <span className="workout__unit">km/h</span>
+                    <span className="workout__unit">
+                      km/h
+                    </span>
                   </span>
                 </div>
                 <div className="workout__details">
                   {/* <span className="workout__label">⛰</span> */}
-                  <span className="workout__label">Elevation</span>
+                  <span className="workout__label">
+                    Elevation
+                  </span>
                   <span className="workout__value">
                     {workout.elevation}
                     <span className="workout__unit">m</span>
                   </span>
                 </div>
-              </React.Fragment>
+              </>
             )}
           </div>
           <div className="btn__container">
-            <button className="btn workout__edit" onClick={showEditWorkoutForm}>
+            <button
+              className="btn workout__edit"
+              onClick={showEditWorkoutForm}>
               Edit
             </button>
           </div>
@@ -98,9 +112,10 @@ function WorkoutComponent({
         <li
           className={`workout workout--${workoutToEdit.type}`}
           data-key={workout.key}
-          onClick={flyToMarker}
-        >
-          <form className="form edit" onSubmit={submitEditWorkoutForm}>
+          onClick={flyToMarker}>
+          <form
+            className="form edit"
+            onSubmit={submitEditWorkoutForm}>
             <div className="form__row">
               <label className="form__label">Type</label>
               <select
@@ -112,8 +127,7 @@ function WorkoutComponent({
                       : "cycling"
                     : ""
                 }
-                onChange={showElevation}
-              >
+                onChange={showElevation}>
                 <option value="running">Running</option>
                 <option value="cycling">Cycling</option>
               </select>
@@ -123,7 +137,9 @@ function WorkoutComponent({
               <input
                 className="form__input distance"
                 placeholder="km"
-                defaultValue={workoutToEdit ? workoutToEdit.distance : ""}
+                defaultValue={
+                  workoutToEdit ? workoutToEdit.distance : ""
+                }
                 autoFocus
               />
             </div>
@@ -132,7 +148,9 @@ function WorkoutComponent({
               <input
                 className="form__input duration"
                 placeholder="min"
-                defaultValue={workoutToEdit ? workoutToEdit.duration : ""}
+                defaultValue={
+                  workoutToEdit ? workoutToEdit.duration : ""
+                }
               />
             </div>
             {!shouldShowElevation && (
@@ -141,7 +159,11 @@ function WorkoutComponent({
                 <input
                   className="form__input cadence"
                   placeholder="step/min"
-                  defaultValue={workoutToEdit ? workoutToEdit.cadence : ""}
+                  defaultValue={
+                    workoutToEdit
+                      ? workoutToEdit.cadence
+                      : ""
+                  }
                 />
               </div>
             )}
@@ -151,26 +173,31 @@ function WorkoutComponent({
                 <input
                   className="form__input elevation"
                   placeholder="meters"
-                  defaultValue={workoutToEdit ? workoutToEdit.elevation : ""}
+                  defaultValue={
+                    workoutToEdit
+                      ? workoutToEdit.elevation
+                      : ""
+                  }
                 />
               </div>
             )}
             {shouldShowErrorMessage && (
               <p className="input__error__message edit">
-                Invalid Inputs: Please enter positive numbers only
+                Invalid Inputs: Please enter positive numbers
+                only
               </p>
             )}
             <div className="form__row edit submit__edit">
               <input type="submit" className="btn submit" />
-              <button className="btn cancel" onClick={closeWorkoutEditForm}>
+              <button
+                className="btn cancel"
+                onClick={closeWorkoutEditForm}>
                 Cancel
               </button>
             </div>
           </form>
         </li>
       )}
-    </React.Fragment>
+    </>
   );
 }
-
-export default WorkoutComponent;

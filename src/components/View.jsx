@@ -1,9 +1,7 @@
-import React from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import SidebarComponent from "./components/sidebarComponent";
-import Map from "./components/mapComponent";
-import "./css/style.css";
+import Sidebar from "./Sidebar";
+import Map from "./Map";
 library.add(faXmark);
 
 /* ////////////// */
@@ -17,10 +15,10 @@ library.add(faXmark);
 // const inputCadence = document.querySelector(".form__input--cadence");
 // const inputElevation = document.querySelector(".form__input--elevation");
 
-export function ViewComponent(props) {
+export default function View(props) {
   return (
     <div className="View">
-      <SidebarComponent
+      <Sidebar
         shouldShowForm={props.shouldShowForm}
         shouldShowElevation={props.shouldShowElevation}
         showElevation={props.showElevation}

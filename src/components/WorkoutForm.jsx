@@ -1,7 +1,4 @@
-import React from "react";
-import "../css/style.css";
-
-function WorkoutForm(props) {
+export default function WorkoutForm(props) {
   return (
     <form className="form" onSubmit={props.submitWorkoutForm}>
       <div className="form__row">
@@ -49,5 +46,3 @@ function WorkoutForm(props) {
     </form>
   );
 }
-
-export default WorkoutForm;

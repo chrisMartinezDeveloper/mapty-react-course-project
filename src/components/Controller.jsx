@@ -1,9 +1,8 @@
-import React from "react";
-import { validInputs, allPositive } from "./helpers";
+import { validInputs, allPositive } from "../helpers";
 import { Component } from "react";
-import { ViewComponent } from "./View";
+import View from "./View";
 
-export class ControllerComponent extends Component {
+export default class Controller extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,11 +90,15 @@ export class ControllerComponent extends Component {
               key: key,
               discription: `${workoutType
                 .slice(0, 1)
-                .toUpperCase()}${workoutType.slice(1)} on ${date}`,
+                .toUpperCase()}${workoutType.slice(
+                1
+              )} on ${date}`,
               type: workoutType,
               status: "view",
-              distance: +formElement.querySelector(".distance").value,
-              duration: +formElement.querySelector(".duration").value,
+              distance:
+                +formElement.querySelector(".distance").value,
+              duration:
+                +formElement.querySelector(".duration").value,
               cadence: cadence ? cadence : null,
               elevation: elevation ? elevation : null,
               pace: pace,
@@ -160,20 +163,20 @@ export class ControllerComponent extends Component {
           (workout) => workout.key === workoutKey
         );
 
-        prevState.workouts[selectedWorkoutIndex].type = editFormData.type;
+        prevState.workouts[selectedWorkoutIndex].type =
+          editFormData.type;
         prevState.workouts[selectedWorkoutIndex].distance =
           editFormData.distance;
         prevState.workouts[selectedWorkoutIndex].duration =
           editFormData.duration;
-        prevState.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
+        prevState.workouts[selectedWorkoutIndex].cadence =
+          editFormData.cadence;
         prevState.workouts[selectedWorkoutIndex].elevation =
           editFormData.elevation;
-        prevState.workouts[selectedWorkoutIndex].pace = editFormData.pace
-          ? editFormData.pace
-          : null;
-        prevState.workouts[selectedWorkoutIndex].speed = editFormData.speed
-          ? editFormData.speed
-          : null;
+        prevState.workouts[selectedWorkoutIndex].pace =
+          editFormData.pace ? editFormData.pace : null;
+        prevState.workouts[selectedWorkoutIndex].speed =
+          editFormData.speed ? editFormData.speed : null;
 
         return {
           workouts: prevState.workouts,
@@ -235,7 +238,8 @@ export class ControllerComponent extends Component {
     this.setState({ workouts: workoutsCopy });
     this.setState({ workoutToEdit: selectedWorkout });
     this.setState({
-      shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
+      shouldShowElevation:
+        selectedWorkout.type === "cycling" ? true : false,
     });
   }
 
@@ -257,28 +261,26 @@ export class ControllerComponent extends Component {
 
   render() {
     return (
-      <React.StrictMode>
-        <ViewComponent
-          shouldShowForm={this.state.shouldShowForm}
-          shouldShowElevation={this.state.shouldShowElevation}
-          showElevation={this.showElevation.bind(this)}
-          submitWorkoutForm={this.submitWorkoutForm.bind(this)}
-          closeWorkoutForm={this.closeWorkoutForm.bind(this)}
-          closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
-          shouldShowErrorMessage={this.state.shouldShowErrorMessage}
-          workouts={this.state.workouts}
-          shouldFlyToMarker={this.state.shouldFlyToMarker}
-          resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
-          flyToMarker={this.flyToMarker.bind(this)}
-          deleteWorkout={this.deleteWorkout.bind(this)}
-          showEditWorkoutForm={this.showEditWorkoutForm.bind(this)}
-          workoutToEdit={this.state.workoutToEdit}
-          submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
-          showForm={this.showWorkoutForm.bind(this)}
-          markers={this.state.markers}
-          addMarker={this.addMarker.bind(this)}
-        />
-      </React.StrictMode>
+      <View
+        shouldShowForm={this.state.shouldShowForm}
+        shouldShowElevation={this.state.shouldShowElevation}
+        showElevation={this.showElevation.bind(this)}
+        submitWorkoutForm={this.submitWorkoutForm.bind(this)}
+        closeWorkoutForm={this.closeWorkoutForm.bind(this)}
+        closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
+        shouldShowErrorMessage={this.state.shouldShowErrorMessage}
+        workouts={this.state.workouts}
+        shouldFlyToMarker={this.state.shouldFlyToMarker}
+        resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
+        flyToMarker={this.flyToMarker.bind(this)}
+        deleteWorkout={this.deleteWorkout.bind(this)}
+        showEditWorkoutForm={this.showEditWorkoutForm.bind(this)}
+        workoutToEdit={this.state.workoutToEdit}
+        submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
+        showForm={this.showWorkoutForm.bind(this)}
+        markers={this.state.markers}
+        addMarker={this.addMarker.bind(this)}
+      />
     );
   }
 }
