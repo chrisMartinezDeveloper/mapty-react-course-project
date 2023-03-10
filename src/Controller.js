@@ -40,6 +40,7 @@ export class ControllerComponent extends Component {
     this.setState((prevState) => ({
       markers: [newMarker, ...prevState.markers],
     }));
+    this.setState({ shouldFlyToMarker: [false, []] });
   }
 
   showWorkoutForm() {
@@ -251,11 +252,6 @@ export class ControllerComponent extends Component {
     );
 
     this.setState({ workouts: filteredWorkoutsCopy });
-    // this.setState((state) => {
-    //   workouts: state.workouts.filter(
-    //     (workout) => workout.key !== workoutlement.id
-    //   );
-    // });
     this.setState({ markers: filteredMarkersCopy });
   }
 
