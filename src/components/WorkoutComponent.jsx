@@ -97,7 +97,7 @@ function WorkoutComponent({
       {workout.status === "edit" && (
         <li
           className={`workout workout--${workoutToEdit.type}`}
-          data-key={workoutToEdit.key}
+          data-key={workout.key}
           onClick={flyToMarker}
         >
           <form className="form edit" onSubmit={submitEditWorkoutForm}>

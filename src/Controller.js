@@ -117,6 +117,8 @@ export class ControllerComponent extends Component {
 
     let workoutElement = e.target.closest(".workout");
     let workoutKey = workoutElement.dataset.key;
+    console.log("Workout Element: ", workoutElement);
+    console.log("Workout Key: ", workoutKey);
     let workoutEditForm = e.target;
     let workoutType = workoutEditForm.querySelector(".type").value;
     let distance = +workoutEditForm.querySelector(".distance").value;
@@ -149,6 +151,7 @@ export class ControllerComponent extends Component {
       (workout) => workout.key === workoutKey
     );
     selectedWorkout.status = "view";
+    // console.log("Workouts Copoy: ", workoutsCopy);
 
     if ((validInputs(editFormDataArray), allPositive(editFormDataArray))) {
       this.setState(function (prevState) {
@@ -175,6 +178,7 @@ export class ControllerComponent extends Component {
           workouts: prevState.workouts,
         };
       });
+      this.setState({ workouts: workoutsCopy });
       this.setState({ shouldShowErrorMessage: false });
     } else {
       this.setState({ shouldShowErrorMessage: true });
@@ -226,14 +230,12 @@ export class ControllerComponent extends Component {
       (workout) => workout.key === workoutKey
     );
     selectedWorkout.status = "edit";
-    console.log("Workouts Copy: ", workoutsCopy);
 
     this.setState({ workouts: workoutsCopy });
     this.setState({ workoutToEdit: selectedWorkout });
     this.setState({
       shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
     });
-    this.setState({ shouldShowEditWorkoutForm: true });
   }
 
   deleteWorkout(e) {
