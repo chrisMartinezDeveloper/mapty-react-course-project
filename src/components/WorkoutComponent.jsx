@@ -3,13 +3,11 @@ import "../css/style.css";
 
 function WorkoutComponent({
   workout,
-  coords,
   flyToMarker,
   deleteWorkout,
-  editWorkout,
+  showEditWorkoutForm,
   shouldShowElevation,
   showElevation,
-  shouldShowEditWorkoutForm,
   workoutToEdit,
   submitEditWorkoutForm,
   closeWorkoutEditForm,
@@ -17,12 +15,11 @@ function WorkoutComponent({
 }) {
   return (
     <React.Fragment>
-      {!shouldShowEditWorkoutForm && (
+      {workout.status === "view" && (
         <li
           className={`workout workout--${workout.type}`}
           data-key={workout.key}
           onClick={flyToMarker}
-          // id={coords}
         >
           <div className="workout__header">
             <h2 className="workout__title">{workout.discription}</h2>
@@ -91,18 +88,17 @@ function WorkoutComponent({
             )}
           </div>
           <div className="btn__container">
-            <button className="btn workout__edit" onClick={editWorkout}>
+            <button className="btn workout__edit" onClick={showEditWorkoutForm}>
               Edit
             </button>
           </div>
         </li>
       )}
-      {shouldShowEditWorkoutForm && (
+      {workout.status === "edit" && (
         <li
-          className={`workout workout--${workout.type}`}
+          className={`workout workout--${workoutToEdit.type}`}
           data-key={workoutToEdit.key}
           onClick={flyToMarker}
-          // id={coords}
         >
           <form className="form edit" onSubmit={submitEditWorkoutForm}>
             <div className="form__row">

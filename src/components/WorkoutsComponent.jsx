@@ -9,14 +9,12 @@ function WorkoutsComponent(props) {
         {props.workouts.map((workout) => (
           <WorkoutComponent
             key={workout.key}
-            // coords={workout.key}
             workout={workout}
             flyToMarker={props.flyToMarker}
-            editWorkout={props.editWorkout}
+            showEditWorkoutForm={props.showEditWorkoutForm}
             deleteWorkout={props.deleteWorkout}
             shouldShowElevation={props.shouldShowElevation}
             showElevation={props.showElevation}
-            shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
             workoutToEdit={props.workoutToEdit}
             submitEditWorkoutForm={props.submitEditWorkoutForm}
             closeWorkoutEditForm={props.closeWorkoutEditForm}

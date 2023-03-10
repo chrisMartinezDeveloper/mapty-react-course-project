@@ -11,7 +11,6 @@ export class ControllerComponent extends Component {
       workouts: [],
       workoutToEdit: null,
       shouldShowForm: false,
-      shouldShowEditWorkoutForm: false,
       shouldShowElevation: false,
       shouldShowErrorMessage: false,
       shouldFlyToMarker: [false, []],
@@ -84,8 +83,7 @@ export class ControllerComponent extends Component {
     if ((validInputs(formDataArray), allPositive(formDataArray))) {
       this.setState(function (state) {
         const newMarkers = state.markers;
-        console.log("Markers: ", newMarkers);
-        let key = newMarkers.at(-1).key;
+        let key = newMarkers[0].key;
         return {
           workouts: [
             {
@@ -94,6 +92,7 @@ export class ControllerComponent extends Component {
                 .slice(0, 1)
                 .toUpperCase()}${workoutType.slice(1)} on ${date}`,
               type: workoutType,
+              status: "view",
               distance: +formElement.querySelector(".distance").value,
               duration: +formElement.querySelector(".duration").value,
               cadence: cadence ? cadence : null,
@@ -117,10 +116,9 @@ export class ControllerComponent extends Component {
     e.preventDefault();
 
     let workoutElement = e.target.closest(".workout");
-    let workoutId = workoutElement.id;
+    let workoutKey = workoutElement.dataset.key;
     let workoutEditForm = e.target;
     let workoutType = workoutEditForm.querySelector(".type").value;
-    console.log(workoutType);
     let distance = +workoutEditForm.querySelector(".distance").value;
     let duration = +workoutEditForm.querySelector(".duration").value;
     let cadence =
@@ -146,32 +144,39 @@ export class ControllerComponent extends Component {
       speed: speed,
     };
 
+    let workoutsCopy = this.state.workouts;
+    let selectedWorkout = workoutsCopy.find(
+      (workout) => workout.key === workoutKey
+    );
+    selectedWorkout.status = "view";
+
     if ((validInputs(editFormDataArray), allPositive(editFormDataArray))) {
-      this.setState(function (state) {
-        let selectedWorkoutIndex = state.workouts.findIndex(
-          (workout) => workout.key === workoutId
+      this.setState(function (prevState) {
+        let selectedWorkoutIndex = prevState.workouts.findIndex(
+          (workout) => workout.key === workoutKey
         );
 
-        state.workouts[selectedWorkoutIndex].type = editFormData.type;
-        state.workouts[selectedWorkoutIndex].distance = editFormData.distance;
-        state.workouts[selectedWorkoutIndex].duration = editFormData.duration;
-        state.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
-        state.workouts[selectedWorkoutIndex].elevation = editFormData.elevation;
-        state.workouts[selectedWorkoutIndex].pace = editFormData.pace
+        prevState.workouts[selectedWorkoutIndex].type = editFormData.type;
+        prevState.workouts[selectedWorkoutIndex].distance =
+          editFormData.distance;
+        prevState.workouts[selectedWorkoutIndex].duration =
+          editFormData.duration;
+        prevState.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
+        prevState.workouts[selectedWorkoutIndex].elevation =
+          editFormData.elevation;
+        prevState.workouts[selectedWorkoutIndex].pace = editFormData.pace
           ? editFormData.pace
           : null;
-        state.workouts[selectedWorkoutIndex].speed = editFormData.speed
+        prevState.workouts[selectedWorkoutIndex].speed = editFormData.speed
           ? editFormData.speed
           : null;
 
         return {
-          workouts: state.workouts,
+          workouts: prevState.workouts,
         };
       });
-      this.setState({ shouldShowEditWorkoutForm: false });
       this.setState({ shouldShowErrorMessage: false });
     } else {
-      // workoutElement.style.height = "20rem";
       this.setState({ shouldShowErrorMessage: true });
     }
   }
@@ -201,7 +206,7 @@ export class ControllerComponent extends Component {
 
   flyToMarker(e) {
     let workout = e.target.closest(".workout");
-    let id = workout.id.split(" ");
+    let id = workout.dataset.key.split(" ");
     let lat = +id[0].slice(0, -1);
     let lng = +id[1];
     let coords = [lat, lng];
@@ -213,33 +218,34 @@ export class ControllerComponent extends Component {
     this.setState({ shouldFlyToMarker: [false, []] });
   }
 
-  editWorkout(e) {
+  showEditWorkoutForm(e) {
     let workoutToEditElement = e.target.closest(".workout");
-    let workoutId = workoutToEditElement.dataset.key;
-    let selectedWorkout = this.state.workouts.find(
-      (workout) => workout.key === workoutId
+    let workoutKey = workoutToEditElement.dataset.key;
+    let workoutsCopy = this.state.workouts;
+    let selectedWorkout = workoutsCopy.find(
+      (workout) => workout.key === workoutKey
     );
+    selectedWorkout.status = "edit";
+    console.log("Workouts Copy: ", workoutsCopy);
 
-    console.log("Workout ID: ", workoutToEditElement.dataset.key);
-    console.log("Selected Workout: ", selectedWorkout);
-
+    this.setState({ workouts: workoutsCopy });
+    this.setState({ workoutToEdit: selectedWorkout });
     this.setState({
       shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
     });
-    this.setState({ workoutToEdit: selectedWorkout });
     this.setState({ shouldShowEditWorkoutForm: true });
   }
 
   deleteWorkout(e) {
-    let workoutlement = e.target.closest(".workout");
-    let workoutId = workoutlement.id;
+    let workoutElement = e.target.closest(".workout");
+    let workoutKey = workoutElement.dataset.key;
     let workoutsCopy = this.state.workouts;
     let filteredWorkoutsCopy = workoutsCopy.filter(
-      (workout) => workout.key !== workoutId
+      (workout) => workout.key !== workoutKey
     );
     let markersCopy = this.state.markers;
     let filteredMarkersCopy = markersCopy.filter(
-      (marker) => marker.key !== workoutId
+      (marker) => marker.key !== workoutKey
     );
 
     this.setState({ workouts: filteredWorkoutsCopy });
@@ -267,8 +273,7 @@ export class ControllerComponent extends Component {
           resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
           flyToMarker={this.flyToMarker.bind(this)}
           deleteWorkout={this.deleteWorkout.bind(this)}
-          editWorkout={this.editWorkout.bind(this)}
-          shouldShowEditWorkoutForm={this.state.shouldShowEditWorkoutForm}
+          showEditWorkoutForm={this.showEditWorkoutForm.bind(this)}
           workoutToEdit={this.state.workoutToEdit}
           submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
           showForm={this.showWorkoutForm.bind(this)}

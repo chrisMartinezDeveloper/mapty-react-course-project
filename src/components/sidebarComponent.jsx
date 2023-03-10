@@ -23,11 +23,10 @@ function SidebarComponent(props) {
       <Workouts
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
-        editWorkout={props.editWorkout}
+        showEditWorkoutForm={props.showEditWorkoutForm}
         deleteWorkout={props.deleteWorkout}
         shouldShowElevation={props.shouldShowElevation}
         showElevation={props.showElevation}
-        shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
         workoutToEdit={props.workoutToEdit}
         submitEditWorkoutForm={props.submitEditWorkoutForm}
         closeWorkoutEditForm={props.closeWorkoutEditForm}

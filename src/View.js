@@ -31,8 +31,7 @@ export function ViewComponent(props) {
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
         deleteWorkout={props.deleteWorkout}
-        editWorkout={props.editWorkout}
-        shouldShowEditWorkoutForm={props.shouldShowEditWorkoutForm}
+        showEditWorkoutForm={props.showEditWorkoutForm}
         workoutToEdit={props.workoutToEdit}
         submitEditWorkoutForm={props.submitEditWorkoutForm}
       />
