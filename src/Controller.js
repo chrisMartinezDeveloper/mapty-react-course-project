@@ -33,15 +33,14 @@ export class ControllerComponent extends Component {
   }
 
   addMarker(e) {
-    this.setState(function (state) {
-      const newMarkers = state.markers;
-      newMarkers.push({
-        key: `${e.latlng.lat}, ${e.latlng.lng}`,
-        coords: e.latlng,
-      });
+    const newMarker = {
+      key: `${e.latlng.lat}, ${e.latlng.lng}`,
+      coords: e.latlng,
+    };
 
-      return { markers: newMarkers };
-    });
+    this.setState((prevState) => ({
+      markers: [newMarker, ...prevState.markers],
+    }));
   }
 
   showWorkoutForm() {
@@ -84,8 +83,9 @@ export class ControllerComponent extends Component {
 
     if ((validInputs(formDataArray), allPositive(formDataArray))) {
       this.setState(function (state) {
-        const newWorkouts = state.markers;
-        let key = newWorkouts.slice(-1)[0].key;
+        const newMarkers = state.markers;
+        console.log("Markers: ", newMarkers);
+        let key = newMarkers.at(-1).key;
         return {
           workouts: [
             {
@@ -215,10 +215,13 @@ export class ControllerComponent extends Component {
 
   editWorkout(e) {
     let workoutToEditElement = e.target.closest(".workout");
-    let workoutId = workoutToEditElement.id;
+    let workoutId = workoutToEditElement.dataset.key;
     let selectedWorkout = this.state.workouts.find(
       (workout) => workout.key === workoutId
     );
+
+    console.log("Workout ID: ", workoutToEditElement.dataset.key);
+    console.log("Selected Workout: ", selectedWorkout);
 
     this.setState({
       shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,

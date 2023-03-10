@@ -20,9 +20,9 @@ function WorkoutComponent({
       {!shouldShowEditWorkoutForm && (
         <li
           className={`workout workout--${workout.type}`}
-          data-id={workout.id}
+          data-key={workout.key}
           onClick={flyToMarker}
-          id={coords}
+          // id={coords}
         >
           <div className="workout__header">
             <h2 className="workout__title">{workout.discription}</h2>
@@ -100,9 +100,9 @@ function WorkoutComponent({
       {shouldShowEditWorkoutForm && (
         <li
           className={`workout workout--${workout.type}`}
-          data-id={workout.id}
+          data-key={workoutToEdit.key}
           onClick={flyToMarker}
-          id={coords}
+          // id={coords}
         >
           <form className="form edit" onSubmit={submitEditWorkoutForm}>
             <div className="form__row">

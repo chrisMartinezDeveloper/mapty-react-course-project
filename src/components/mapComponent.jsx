@@ -22,7 +22,7 @@ function MapEventHandler({
   showForm,
   shouldFlyToMarker,
 }) {
-  const [renderMarkers, setRenderMarkers] = useState(0);
+  const [, setRenderMarkers] = useState(0);
   const map = useMapEvents({
     click(e) {
       if (!shouldShowForm) {
@@ -31,9 +31,9 @@ function MapEventHandler({
         setRenderMarkers((prevFnMarkers) => prevFnMarkers + 1);
 
         // used to eleviate Netlify Error for renderMarkers which is never used
-        for (let i = 0; i < renderMarkers + 1; i++) {
-          i++;
-        }
+        // for (let i = 0; i < renderMarkers + 1; i++) {
+        //   i++;
+        // }
 
         map.flyTo(e.latlng, map.getZoom());
 

@@ -9,7 +9,7 @@ function WorkoutsComponent(props) {
         {props.workouts.map((workout) => (
           <WorkoutComponent
             key={workout.key}
-            coords={workout.key}
+            // coords={workout.key}
             workout={workout}
             flyToMarker={props.flyToMarker}
             editWorkout={props.editWorkout}
