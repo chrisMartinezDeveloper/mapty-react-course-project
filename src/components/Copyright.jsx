@@ -1,8 +1,4 @@
-import React from "react";
-import "../css/style.css";
-
-// Stateless Functional Component
-function Copyright() {
+export default function Copyright() {
   return (
     <p className="copyright">
       &copy; Copyright by&nbsp;
@@ -19,5 +15,3 @@ function Copyright() {
     </p>
   );
 }
-
-export default Copyright;

@@ -1,11 +1,9 @@
-import React from "react";
 import logo from "../img/logo.png";
-import "../css/style.css";
-import WorkoutForm from "./workoutFormComponent";
-import Workouts from "./WorkoutsComponent";
-import Copyright from "./copyrightComponent";
+import WorkoutForm from "./WorkoutForm";
+import WorkoutList from "./WorkoutList";
+import Copyright from "./Copyright";
 
-function SidebarComponent(props) {
+export default function Sidebar(props) {
   return (
     <div className="sidebar">
       <img src={logo} alt="Logo" className="logo" />
@@ -20,7 +18,7 @@ function SidebarComponent(props) {
         />
       )}
 
-      <Workouts
+      <WorkoutList
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
         showEditWorkoutForm={props.showEditWorkoutForm}
@@ -37,5 +35,3 @@ function SidebarComponent(props) {
     </div>
   );
 }
-
-export default SidebarComponent;

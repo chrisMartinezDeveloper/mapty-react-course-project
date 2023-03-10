@@ -1,9 +1,7 @@
-import React from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import SidebarComponent from "./components/sidebarComponent";
-import Map from "./components/mapComponent";
-import "./css/style.css";
+import Sidebar from "./Sidebar";
+import Map from "./Map";
 library.add(faXmark);
 
 /* ////////////// */
@@ -17,34 +15,34 @@ library.add(faXmark);
 // const inputCadence = document.querySelector(".form__input--cadence");
 // const inputElevation = document.querySelector(".form__input--elevation");
 
-export function ViewComponent(props) {
-  return (
-    <div className="View">
-      <SidebarComponent
-        shouldShowForm={props.shouldShowForm}
-        shouldShowElevation={props.shouldShowElevation}
-        showElevation={props.showElevation}
-        submitWorkoutForm={props.submitWorkoutForm}
-        closeWorkoutForm={props.closeWorkoutForm}
-        closeWorkoutEditForm={props.closeWorkoutEditForm}
-        shouldShowErrorMessage={props.shouldShowErrorMessage}
-        workouts={props.workouts}
-        flyToMarker={props.flyToMarker}
-        deleteWorkout={props.deleteWorkout}
-        showEditWorkoutForm={props.showEditWorkoutForm}
-        workoutToEdit={props.workoutToEdit}
-        submitEditWorkoutForm={props.submitEditWorkoutForm}
-      />
-      <Map
-        showForm={props.showForm}
-        shouldShowForm={props.shouldShowForm}
-        markers={props.markers}
-        addMarker={props.addMarker}
-        shouldFlyToMarker={props.shouldFlyToMarker}
-        resetShouldFlyToMarker={props.resetShouldFlyToMarker}
-      />
-    </div>
-  );
+export default function View(props) {
+	return (
+		<div className="View">
+			<Sidebar
+				shouldShowForm={props.shouldShowForm}
+				shouldShowElevation={props.shouldShowElevation}
+				showElevation={props.showElevation}
+				submitWorkoutForm={props.submitWorkoutForm}
+				closeWorkoutForm={props.closeWorkoutForm}
+				closeWorkoutEditForm={props.closeWorkoutEditForm}
+				shouldShowErrorMessage={props.shouldShowErrorMessage}
+				workouts={props.workouts}
+				flyToMarker={props.flyToMarker}
+				deleteWorkout={props.deleteWorkout}
+				showEditWorkoutForm={props.showEditWorkoutForm}
+				workoutToEdit={props.workoutToEdit}
+				submitEditWorkoutForm={props.submitEditWorkoutForm}
+			/>
+			<Map
+				showForm={props.showForm}
+				shouldShowForm={props.shouldShowForm}
+				markers={props.markers}
+				addMarker={props.addMarker}
+				shouldFlyToMarker={props.shouldFlyToMarker}
+				resetShouldFlyToMarker={props.resetShouldFlyToMarker}
+			/>
+		</div>
+	);
 }
 
 // class View {
