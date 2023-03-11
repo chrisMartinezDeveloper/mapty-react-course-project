@@ -170,7 +170,7 @@ export default function Workout({
             )}
             {workout.status === "invalid form inputs" && (
               <p className="input__error__message edit">
-                Please Enter Numbers above 0
+                Please Enter Numbers above 0 for All Fields
               </p>
             )}
             <div className="form__row edit submit__edit">

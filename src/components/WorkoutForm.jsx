@@ -62,7 +62,9 @@ export default function WorkoutForm(props) {
         </div>
       )}
       {props.shouldShowErrorMessage && (
-        <p className="input__error__message">Please Enter Numbers above 0</p>
+        <p className="input__error__message">
+          Please Enter Numbers above 0 for All Fields
+        </p>
       )}
       <div className="form__row btnSubmit">
         <input type="submit" className="btn submit" />
