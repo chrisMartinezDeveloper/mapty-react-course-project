@@ -41,7 +41,7 @@ function MapEventHandler({
 
   return markers.map((marker) => (
     <Marker key={marker.key} position={marker.coords} icon={customIcon}>
-      <Popup>Hello</Popup>
+      {/* <Popup>Hello</Popup> */}
     </Marker>
   ));
 }
