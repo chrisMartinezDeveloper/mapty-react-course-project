@@ -1,11 +1,10 @@
-import React from "react";
 import logo from "../img/logo.png";
 import "../css/style.css";
-import WorkoutForm from "./workoutFormComponent";
-import Workouts from "./WorkoutsComponent";
-import Copyright from "./copyrightComponent";
+import WorkoutForm from "./WorkoutForm";
+import Workouts from "./Workouts";
+import Copyright from "./Copyright";
 
-function SidebarComponent(props) {
+export default function Sidebar(props) {
   return (
     <div className="sidebar">
       <img src={logo} alt="Logo" className="logo" />
@@ -25,17 +24,11 @@ function SidebarComponent(props) {
         flyToMarker={props.flyToMarker}
         showEditWorkoutForm={props.showEditWorkoutForm}
         deleteWorkout={props.deleteWorkout}
-        shouldShowElevation={props.shouldShowElevation}
-        showElevation={props.showElevation}
-        workoutToEdit={props.workoutToEdit}
         submitEditWorkoutForm={props.submitEditWorkoutForm}
         closeWorkoutEditForm={props.closeWorkoutEditForm}
-        shouldShowErrorMessage={props.shouldShowErrorMessage}
       />
 
       <Copyright />
     </div>
   );
 }
-
-export default SidebarComponent;

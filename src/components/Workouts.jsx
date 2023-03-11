@@ -1,29 +1,23 @@
-import React from "react";
-import WorkoutComponent from "./WorkoutComponent";
+import { Fragment } from "react";
+import Workout from "./Workout";
 import "../css/style.css";
 
-function WorkoutsComponent(props) {
+export default function Workouts(props) {
   return (
-    <React.Fragment>
+    <Fragment>
       <ul className="workouts">
         {props.workouts.map((workout) => (
-          <WorkoutComponent
+          <Workout
             key={workout.key}
             workout={workout}
             flyToMarker={props.flyToMarker}
             showEditWorkoutForm={props.showEditWorkoutForm}
             deleteWorkout={props.deleteWorkout}
-            shouldShowElevation={props.shouldShowElevation}
-            showElevation={props.showElevation}
-            workoutToEdit={props.workoutToEdit}
             submitEditWorkoutForm={props.submitEditWorkoutForm}
             closeWorkoutEditForm={props.closeWorkoutEditForm}
-            shouldShowErrorMessage={props.shouldShowErrorMessage}
           />
         ))}
       </ul>
-    </React.Fragment>
+    </Fragment>
   );
 }
-
-export default WorkoutsComponent;

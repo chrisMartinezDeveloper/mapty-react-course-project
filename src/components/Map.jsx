@@ -1,5 +1,5 @@
 import { Icon } from "leaflet";
-import React, { Component, useState } from "react";
+import { Component, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -46,43 +46,32 @@ function MapEventHandler({
   ));
 }
 
-class Map extends Component {
-  render() {
-    return (
-      <div id="map">
-        <MapContainer
-          center={COORDS}
-          zoom={MAP_ZOOM_LEVEL}
-          scrollWheelZoom={true}
-        >
-          {/* Default */}
-          {/* <TileLayer
+export default function Map(props) {
+  return (
+    <MapContainer center={COORDS} zoom={MAP_ZOOM_LEVEL} scrollWheelZoom={true}>
+      {/* Default */}
+      {/* <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           /> */}
-          {/* Jawg.dark */}
-          {/* <TileLayer
+      {/* Jawg.dark */}
+      {/* <TileLayer
             attribution='<a href="http:url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" //jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token={accessToken}"
             accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
           /> */}
-          <TileLayer
-            attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token={accessToken}"
-            accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
-          />
-          <MapEventHandler
-            showForm={this.props.showForm}
-            shouldShowForm={this.props.shouldShowForm}
-            markers={this.props.markers}
-            addMarker={this.props.addMarker}
-            shouldFlyToMarker={this.props.shouldFlyToMarker}
-            resetShouldFlyToMarker={this.props.resetShouldFlyToMarker}
-          />
-        </MapContainer>
-      </div>
-    );
-  }
+      <TileLayer
+        attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token={accessToken}"
+        accessToken="oAWFbGge6rAM4G7XaDxi34ZkmDxc7QSadqOBBGci1RGjwmZ49Yd2zibsUCsHGl1j"
+      />
+      <MapEventHandler
+        showForm={props.showForm}
+        shouldShowForm={props.shouldShowForm}
+        markers={props.markers}
+        addMarker={props.addMarker}
+        shouldFlyToMarker={props.shouldFlyToMarker}
+      />
+    </MapContainer>
+  );
 }
-
-export default Map;

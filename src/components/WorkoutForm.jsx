@@ -1,12 +1,13 @@
 import React from "react";
 import "../css/style.css";
 
-function WorkoutForm(props) {
+export default function WorkoutForm(props) {
   return (
     <form className="form" onSubmit={props.submitWorkoutForm}>
       <div className="form__row">
         <label className="form__label">Type</label>
         <select
+          name="type"
           className="form__input type"
           defaultValue="running"
           onChange={props.showElevation}
@@ -17,28 +18,51 @@ function WorkoutForm(props) {
       </div>
       <div className="form__row">
         <label className="form__label">Distance</label>
-        <input className="form__input distance" placeholder="km" autoFocus />
+        <input
+          name="distance"
+          className="form__input"
+          placeholder="km"
+          type="number"
+          min="0"
+          autoFocus
+        />
       </div>
       <div className="form__row">
         <label className="form__label">Duration</label>
-        <input className="form__input duration" placeholder="min" />
+        <input
+          name="duration"
+          className="form__input"
+          placeholder="min"
+          type="number"
+          min="0"
+        />
       </div>
       {!props.shouldShowElevation && (
         <div className="form__row">
           <label className="form__label">Cadence</label>
-          <input className="form__input cadence" placeholder="step/min" />
+          <input
+            name="cadence"
+            className="form__input"
+            placeholder="step/min"
+            type="number"
+            min="0"
+          />
         </div>
       )}
       {props.shouldShowElevation && (
         <div className="form__row">
           <label className="form__label">Elevation Gain</label>
-          <input className="form__input elevation" placeholder="meters" />
+          <input
+            name="elevation"
+            className="form__input"
+            placeholder="meters"
+            type="number"
+            min="0"
+          />
         </div>
       )}
       {props.shouldShowErrorMessage && (
-        <p className="input__error__message">
-          Invalid Inputs: Please enter positive numbers only
-        </p>
+        <p className="input__error__message">Please Enter Numbers above 0</p>
       )}
       <div className="form__row btnSubmit">
         <input type="submit" className="btn submit" />
@@ -49,5 +73,3 @@ function WorkoutForm(props) {
     </form>
   );
 }
-
-export default WorkoutForm;

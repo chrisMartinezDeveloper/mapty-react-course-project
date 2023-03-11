@@ -1,10 +1,12 @@
-import React from "react";
-import { validInputs, allPositive } from "./helpers";
+import { StrictMode } from "react";
+import { validInputs } from "./helpers";
 import { Component } from "react";
-import { ViewComponent } from "./View";
+import View from "./View";
 
 export class ControllerComponent extends Component {
   constructor(props) {
+    console.log("Welcome to Mapty!");
+
     super(props);
     this.state = {
       markers: [],
@@ -14,25 +16,11 @@ export class ControllerComponent extends Component {
       shouldShowElevation: false,
       shouldShowErrorMessage: false,
       shouldFlyToMarker: [false, []],
-      months: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
     };
   }
 
   addMarker(e) {
-    const newMarker = {
+    let newMarker = {
       key: `${e.latlng.lat}, ${e.latlng.lng}`,
       coords: e.latlng,
     };
@@ -47,170 +35,163 @@ export class ControllerComponent extends Component {
     this.setState({ shouldShowForm: true });
   }
 
+  showElevation(e) {
+    this.setState({
+      shouldShowElevation: e.currentTarget.value === "cycling" ? true : false,
+    });
+  }
+
   submitWorkoutForm(e) {
     e.preventDefault();
 
-    const formElement = e.target.closest("form");
-    let workoutType = formElement.querySelector(".type").value;
-    let distance = +formElement.querySelector(".distance").value;
-    let duration = +formElement.querySelector(".duration").value;
-    let cadence =
-      workoutType === "running"
-        ? +formElement.querySelector(".cadence").value
-        : null;
+    let formData = new FormData(e.currentTarget);
+    let workoutType = formData.get("type");
+    let distance = +formData.get("distance") || null;
+    let duration = +formData.get("duration") || null;
+    let cadence = workoutType === "running" ? +formData.get("cadence") : null;
     let elevation =
-      workoutType === "cycling"
-        ? +formElement.querySelector(".elevation").value
-        : null;
-    let pace = (duration / distance).toFixed(2);
-    let speed = (distance / (duration / 60)).toFixed(2);
-    let today = new Date();
-    let month = this.state.months[today.getMonth()];
-    let day = today.getDate();
-    let date = `${month} ${day}`;
-    // formDataArray - used for form data validation
-    let formDataArray = [distance, duration];
-    formDataArray.push(workoutType === "running" ? cadence : elevation);
-    // let formData = {
-    //   type: workoutType,
-    //   distance: distance,
-    //   duration: duration,
-    //   cadence: cadence ? cadence : null,
-    //   elevation: elevation ? elevation : null,
-    //   pace: pace,
-    //   speed: speed,
-    // };
+      workoutType === "cycling" ? +formData.get("elevation") : null;
+    let pace = (duration / distance).toFixed(2) || null;
+    let speed = (distance / (duration / 60)).toFixed(2) || null;
+    let date = new Date().toLocaleString("en-US", {
+      month: "long",
+      day: "2-digit",
+    });
 
-    if ((validInputs(formDataArray), allPositive(formDataArray))) {
-      this.setState(function (state) {
-        const newMarkers = state.markers;
-        let key = newMarkers[0].key;
-        return {
-          workouts: [
-            {
-              key: key,
-              discription: `${workoutType
-                .slice(0, 1)
-                .toUpperCase()}${workoutType.slice(1)} on ${date}`,
-              type: workoutType,
-              status: "view",
-              distance: +formElement.querySelector(".distance").value,
-              duration: +formElement.querySelector(".duration").value,
-              cadence: cadence ? cadence : null,
-              elevation: elevation ? elevation : null,
-              pace: pace,
-              speed: speed,
-            },
-            ...state.workouts,
-          ],
-        };
-      });
-      this.setState({ shouldShowElevation: false });
-      this.setState({ shouldShowErrorMessage: false });
-      this.setState({ shouldShowForm: false });
-    } else {
-      this.setState({ shouldShowErrorMessage: true });
-    }
-  }
+    if (!validInputs([distance, duration, cadence ?? elevation]))
+      return this.setState({ shouldShowErrorMessage: true });
 
-  submitEditWorkoutForm(e) {
-    e.preventDefault();
-
-    let workoutElement = e.target.closest(".workout");
-    let workoutKey = workoutElement.dataset.key;
-    console.log("Workout Element: ", workoutElement);
-    console.log("Workout Key: ", workoutKey);
-    let workoutEditForm = e.target;
-    let workoutType = workoutEditForm.querySelector(".type").value;
-    let distance = +workoutEditForm.querySelector(".distance").value;
-    let duration = +workoutEditForm.querySelector(".duration").value;
-    let cadence =
-      workoutType === "running"
-        ? +workoutEditForm.querySelector(".cadence").value
-        : null;
-    let elevation =
-      workoutType === "cycling"
-        ? +workoutEditForm.querySelector(".elevation").value
-        : null;
-    let pace = (duration / distance).toFixed(2);
-    let speed = (distance / (duration / 60)).toFixed(2);
-    // editFormDataArray - used for form data validation
-    let editFormDataArray = [distance, duration];
-    editFormDataArray.push(workoutType === "running" ? cadence : elevation);
-    let editFormData = {
-      type: workoutType,
-      distance: distance,
-      duration: duration,
-      cadence: cadence ? cadence : null,
-      elevation: elevation ? elevation : null,
-      pace: pace,
-      speed: speed,
-    };
-
-    let workoutsCopy = this.state.workouts;
-    let selectedWorkout = workoutsCopy.find(
-      (workout) => workout.key === workoutKey
-    );
-    selectedWorkout.status = "view";
-    // console.log("Workouts Copoy: ", workoutsCopy);
-
-    if ((validInputs(editFormDataArray), allPositive(editFormDataArray))) {
-      this.setState(function (prevState) {
-        let selectedWorkoutIndex = prevState.workouts.findIndex(
-          (workout) => workout.key === workoutKey
-        );
-
-        prevState.workouts[selectedWorkoutIndex].type = editFormData.type;
-        prevState.workouts[selectedWorkoutIndex].distance =
-          editFormData.distance;
-        prevState.workouts[selectedWorkoutIndex].duration =
-          editFormData.duration;
-        prevState.workouts[selectedWorkoutIndex].cadence = editFormData.cadence;
-        prevState.workouts[selectedWorkoutIndex].elevation =
-          editFormData.elevation;
-        prevState.workouts[selectedWorkoutIndex].pace = editFormData.pace
-          ? editFormData.pace
-          : null;
-        prevState.workouts[selectedWorkoutIndex].speed = editFormData.speed
-          ? editFormData.speed
-          : null;
-
-        return {
-          workouts: prevState.workouts,
-        };
-      });
-      this.setState({ workouts: workoutsCopy });
-      this.setState({ shouldShowErrorMessage: false });
-    } else {
-      this.setState({ shouldShowErrorMessage: true });
-    }
+    this.setState((prevState) => {
+      let markersCopy = prevState.markers;
+      let key = markersCopy[0].key;
+      return {
+        workouts: [
+          {
+            key,
+            status: "view",
+            type: workoutType,
+            date,
+            distance,
+            duration,
+            cadence,
+            elevation,
+            pace,
+            speed,
+          },
+          ...prevState.workouts,
+        ],
+      };
+    });
+    this.setState({ shouldShowElevation: false });
+    this.setState({ shouldShowErrorMessage: false });
+    this.setState({ shouldShowForm: false });
   }
 
   closeWorkoutForm() {
     this.setState({ shouldShowEditWorkoutForm: false });
     this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
-    this.setState(function (state) {
-      const newMarkers = state.markers;
-      newMarkers.splice(-1);
-      return { markers: newMarkers };
+    this.setState(function (prevState) {
+      let markersCopy = prevState.markers;
+      markersCopy.splice(-1);
+      return { markers: markersCopy };
     });
   }
 
-  closeWorkoutEditForm() {
-    this.setState({ shouldShowEditWorkoutForm: false });
+  showEditWorkoutForm(e) {
+    let workoutToEditElement = e.currentTarget.closest(".workout");
+    let workoutKey = workoutToEditElement.dataset.key;
+    // let workoutsCopy = this.state.workouts;
+    // let selectedWorkout = workoutsCopy.find(
+    //   (workout) => workout.key === workoutKey
+    // );
+    // selectedWorkout.status = "edit";
+
+    this.setState((prevState) => {
+      let workoutsCopy = prevState.workouts;
+      let selectedWorkout = prevState.workouts.find(
+        (workout) => workout.key === workoutKey
+      );
+      selectedWorkout.status = "edit";
+
+      return {
+        workouts: workoutsCopy,
+      };
+    });
+    // this.setState({ workoutToEdit: selectedWorkout });
+    // this.setState({
+    //   shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
+    // });
+  }
+
+  submitEditWorkoutForm(e) {
+    e.preventDefault();
+
+    let workoutElement = e.currentTarget.closest(".workout");
+    let workoutKey = workoutElement.dataset.key;
+    let formData = new FormData(e.currentTarget);
+    let workoutType = formData.get("type");
+    let distance = +formData.get("distance") || null;
+    let duration = +formData.get("duration") || null;
+    let cadence = workoutType === "running" ? +formData.get("cadence") : null;
+    let elevation =
+      workoutType === "cycling" ? +formData.get("elevation") : null;
+    let pace = (duration / distance).toFixed(2) || null;
+    let speed = (distance / (duration / 60)).toFixed(2) || null;
+
+    if (!validInputs([distance, duration, cadence ?? elevation]))
+      return this.setState((prevState) => {
+        let workoutsCopy = prevState.workouts;
+        let selectedWorkout = prevState.workouts.find(
+          (workout) => workout.key === workoutKey
+        );
+        selectedWorkout.status = "invalid form inputs";
+
+        return {
+          workouts: workoutsCopy,
+        };
+      });
+
+    this.setState((prevState) => {
+      let workoutsCopy = prevState.workouts;
+      let selectedWorkout = prevState.workouts.find(
+        (workout) => workout.key === workoutKey
+      );
+
+      selectedWorkout.type = workoutType;
+      selectedWorkout.status = "view";
+      selectedWorkout.distance = distance;
+      selectedWorkout.duration = duration;
+      selectedWorkout.cadence = cadence;
+      selectedWorkout.elevation = elevation;
+      selectedWorkout.pace = pace;
+      selectedWorkout.speed = speed;
+
+      return {
+        workouts: workoutsCopy,
+      };
+    });
+    this.setState({ shouldShowErrorMessage: false });
+  }
+
+  closeWorkoutEditForm(e) {
+    this.setState((prevState) => {
+      let workoutElement = e.target.closest(".workout");
+      let workoutKey = workoutElement.dataset.key;
+      let workoutsCopy = prevState.workouts;
+      let selectedWorkout = prevState.workouts.find(
+        (workout) => workout.key === workoutKey
+      );
+      selectedWorkout.status = "view";
+
+      return { workouts: workoutsCopy };
+    });
     this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
   }
 
-  showElevation(e) {
-    this.setState({
-      shouldShowElevation: e.target.value === "cycling" ? true : false,
-    });
-  }
-
   flyToMarker(e) {
-    let workout = e.target.closest(".workout");
+    let workout = e.currentTarget.closest(".workout");
     let id = workout.dataset.key.split(" ");
     let lat = +id[0].slice(0, -1);
     let lng = +id[1];
@@ -219,28 +200,8 @@ export class ControllerComponent extends Component {
     this.setState({ shouldFlyToMarker: [true, coords] });
   }
 
-  resetShouldFlyToMarker() {
-    this.setState({ shouldFlyToMarker: [false, []] });
-  }
-
-  showEditWorkoutForm(e) {
-    let workoutToEditElement = e.target.closest(".workout");
-    let workoutKey = workoutToEditElement.dataset.key;
-    let workoutsCopy = this.state.workouts;
-    let selectedWorkout = workoutsCopy.find(
-      (workout) => workout.key === workoutKey
-    );
-    selectedWorkout.status = "edit";
-
-    this.setState({ workouts: workoutsCopy });
-    this.setState({ workoutToEdit: selectedWorkout });
-    this.setState({
-      shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
-    });
-  }
-
   deleteWorkout(e) {
-    let workoutElement = e.target.closest(".workout");
+    let workoutElement = e.currentTarget.closest(".workout");
     let workoutKey = workoutElement.dataset.key;
     let workoutsCopy = this.state.workouts;
     let filteredWorkoutsCopy = workoutsCopy.filter(
@@ -257,28 +218,29 @@ export class ControllerComponent extends Component {
 
   render() {
     return (
-      <React.StrictMode>
-        <ViewComponent
-          shouldShowForm={this.state.shouldShowForm}
-          shouldShowElevation={this.state.shouldShowElevation}
+      <StrictMode>
+        <View
+          workouts={this.state.workouts}
+          markers={this.state.markers}
+          // Workout Form
+          showForm={this.showWorkoutForm.bind(this)}
           showElevation={this.showElevation.bind(this)}
           submitWorkoutForm={this.submitWorkoutForm.bind(this)}
-          closeWorkoutForm={this.closeWorkoutForm.bind(this)}
-          closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
+          shouldShowForm={this.state.shouldShowForm}
+          shouldShowElevation={this.state.shouldShowElevation}
           shouldShowErrorMessage={this.state.shouldShowErrorMessage}
-          workouts={this.state.workouts}
-          shouldFlyToMarker={this.state.shouldFlyToMarker}
-          resetShouldFlyToMarker={this.resetShouldFlyToMarker.bind(this)}
-          flyToMarker={this.flyToMarker.bind(this)}
+          closeWorkoutForm={this.closeWorkoutForm.bind(this)}
           deleteWorkout={this.deleteWorkout.bind(this)}
+          // Workout Edit Form
           showEditWorkoutForm={this.showEditWorkoutForm.bind(this)}
-          workoutToEdit={this.state.workoutToEdit}
           submitEditWorkoutForm={this.submitEditWorkoutForm.bind(this)}
-          showForm={this.showWorkoutForm.bind(this)}
-          markers={this.state.markers}
+          closeWorkoutEditForm={this.closeWorkoutEditForm.bind(this)}
+          // Markers
           addMarker={this.addMarker.bind(this)}
+          flyToMarker={this.flyToMarker.bind(this)}
+          shouldFlyToMarker={this.state.shouldFlyToMarker}
         />
-      </React.StrictMode>
+      </StrictMode>
     );
   }
 }

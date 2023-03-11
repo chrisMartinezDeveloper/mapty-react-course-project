@@ -1,20 +1,17 @@
-import React from "react";
+import { Fragment } from "react";
 import "../css/style.css";
 
-function WorkoutComponent({
+export default function Workout({
   workout,
   flyToMarker,
   deleteWorkout,
   showEditWorkoutForm,
-  shouldShowElevation,
   showElevation,
-  workoutToEdit,
   submitEditWorkoutForm,
   closeWorkoutEditForm,
-  shouldShowErrorMessage,
 }) {
   return (
-    <React.Fragment>
+    <Fragment>
       {workout.status === "view" && (
         <li
           className={`workout workout--${workout.type}`}
@@ -22,7 +19,9 @@ function WorkoutComponent({
           onClick={flyToMarker}
         >
           <div className="workout__header">
-            <h2 className="workout__title">{workout.discription}</h2>
+            <h2 className="workout__title">
+              <span>{workout.type}</span> on {workout.date}
+            </h2>
             <p className="workout__delete-icon" onClick={deleteWorkout}>
               x
             </p>
@@ -47,7 +46,7 @@ function WorkoutComponent({
               </span>
             </div>
             {workout.type === `running` && (
-              <React.Fragment>
+              <Fragment>
                 <div className="workout__details">
                   {/* <span className="workout__label">⚡️</span> */}
                   <span className="workout__label">Pace</span>
@@ -64,10 +63,10 @@ function WorkoutComponent({
                     <span className="workout__unit">spm</span>
                   </span>
                 </div>
-              </React.Fragment>
+              </Fragment>
             )}
             {workout.type === `cycling` && (
-              <React.Fragment>
+              <Fragment>
                 <div className="workout__details">
                   {/* <span className="workout__label">⚡️</span> */}
                   <span className="workout__label">Speed</span>
@@ -84,7 +83,7 @@ function WorkoutComponent({
                     <span className="workout__unit">m</span>
                   </span>
                 </div>
-              </React.Fragment>
+              </Fragment>
             )}
           </div>
           <div className="btn__container">
@@ -94,9 +93,10 @@ function WorkoutComponent({
           </div>
         </li>
       )}
-      {workout.status === "edit" && (
+      {(workout.status === "edit" ||
+        workout.status === "invalid form inputs") && (
         <li
-          className={`workout workout--${workoutToEdit.type}`}
+          className={`workout workout--${workout.type}`}
           data-key={workout.key}
           onClick={flyToMarker}
         >
@@ -104,10 +104,11 @@ function WorkoutComponent({
             <div className="form__row">
               <label className="form__label">Type</label>
               <select
+                name="type"
                 className="form__input type"
                 defaultValue={
-                  workoutToEdit
-                    ? workoutToEdit.type === "running"
+                  workout
+                    ? workout.type === "running"
                       ? "running"
                       : "cycling"
                     : ""
@@ -121,43 +122,55 @@ function WorkoutComponent({
             <div className="form__row edit">
               <label className="form__label">Distance</label>
               <input
-                className="form__input distance"
+                name="distance"
+                className="form__input"
                 placeholder="km"
-                defaultValue={workoutToEdit ? workoutToEdit.distance : ""}
+                defaultValue={workout ? workout.distance : ""}
+                type="number"
+                min="0"
                 autoFocus
               />
             </div>
             <div className="form__row edit">
               <label className="form__label">Duration</label>
               <input
-                className="form__input duration"
+                name="duration"
+                className="form__input"
                 placeholder="min"
-                defaultValue={workoutToEdit ? workoutToEdit.duration : ""}
+                defaultValue={workout ? workout.duration : ""}
+                type="number"
+                min="0"
               />
             </div>
-            {!shouldShowElevation && (
+            {workout.type === "running" && (
               <div className="form__row edit">
                 <label className="form__label">Cadence</label>
                 <input
-                  className="form__input cadence"
+                  name="cadence"
+                  className="form__input"
                   placeholder="step/min"
-                  defaultValue={workoutToEdit ? workoutToEdit.cadence : ""}
+                  defaultValue={workout ? workout.cadence : ""}
+                  type="number"
+                  min="0"
                 />
               </div>
             )}
-            {shouldShowElevation && (
+            {workout.type === "cycling" && (
               <div className="form__row edit">
                 <label className="form__label">Elev Gain</label>
                 <input
-                  className="form__input elevation"
+                  name="elevation"
+                  className="form__input"
                   placeholder="meters"
-                  defaultValue={workoutToEdit ? workoutToEdit.elevation : ""}
+                  defaultValue={workout ? workout.elevation : ""}
+                  type="number"
+                  min="0"
                 />
               </div>
             )}
-            {shouldShowErrorMessage && (
+            {workout.status === "invalid form inputs" && (
               <p className="input__error__message edit">
-                Invalid Inputs: Please enter positive numbers only
+                Please Enter Numbers above 0
               </p>
             )}
             <div className="form__row edit submit__edit">
@@ -169,8 +182,6 @@ function WorkoutComponent({
           </form>
         </li>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 }
-
-export default WorkoutComponent;

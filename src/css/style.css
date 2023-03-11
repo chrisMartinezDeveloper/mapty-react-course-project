@@ -61,8 +61,8 @@ a:visited {
 /* SIDEBAR           */
 /* ///////////////// */
 .sidebar {
+  width: 21%;
   height: 100%;
-  width: 20%;
   flex-basis: 50rem;
   background-color: var(--color-dark--1);
   border-radius: 1rem 0rem 0rem 1rem;
@@ -79,109 +79,112 @@ a:visited {
   margin-bottom: 4rem;
 }
 
-.workouts {
-  width: 100%;
-  height: 77vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
-  overflow-y: scroll;
-  overflow-x: hidden;
+/* ///////////////// */
+/* MAP               */
+/* ///////////////// */
+.leaflet-container {
+  width: 79%;
+  height: 100%;
+  border-radius: 0rem 1rem 1rem 0rem;
 }
 
-.workouts::-webkit-scrollbar {
-  width: 100%;
-  height: auto;
-  overflow: auto;
-}
-
-.workout {
-  width: 87%;
-  /* height: 400px; */
-  background-color: var(--color-dark--2);
+/* Popup width is defined in JS using options */
+.leaflet-popup .leaflet-popup-content-wrapper {
+  background-color: var(--color-dark--1);
+  color: var(--color-light--2);
   border-radius: 5px;
-  padding: 1.5rem 2.25rem;
-  margin-bottom: 1.75rem;
-  cursor: pointer;
-
-  transition: ease-out 0.3s;
-
-  /* display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 33% 33% 33%; */
-  /* gap: 0.75rem 1.5rem; */
-
-  /* overflow-x: auto; */
-  /* overflow-y: hidden; */
-  scroll-behavior: smooth;
-}
-.workout--running {
-  border-left: 5px solid var(--color-brand--2);
-}
-.workout--cycling {
-  border-left: 5px solid var(--color-brand--1);
+  padding-right: 0.6rem;
 }
 
-.workout__header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.workout__title {
-  text-align: start;
-  width: 90%;
-  font-size: 1.7rem;
-  font-weight: 600;
-}
-
-.workout__delete-icon {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 10%;
-  text-align: end;
-  height: 1.6rem;
+.leaflet-popup .leaflet-popup-content {
   font-size: 1.5rem;
 }
 
-.workout__data {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 1.2rem 0rem 1.8rem 0rem;
+.leaflet-popup .leaflet-popup-tip {
+  background-color: var(--color-dark--1);
 }
 
-.workout__details {
+.running-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--2);
+}
+.cycling-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--1);
+}
+
+/* ///////////////// */
+/* FORM              */
+/* ///////////////// */
+.form {
+  width: 87%;
+  height: 27rem;
+  background-color: var(--color-dark--2);
+  border-radius: 5px;
+  padding: 1.2rem 1.8rem 1.3rem 1.8rem;
+  margin-bottom: 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1rem;
+
+  /* Match height and activity boxes */
+  /* height: 15rem; */
+  /* transition: all 0.5s, transform 1ms; */
+  /* transition: ease-out 0.3s; */
+}
+
+.form.edit {
+  width: 100%;
+  height: 100%;
+  padding: 0rem;
+  margin: 0rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.7rem 0.5rem;
+  transition: ease-out 0.3s, transform 1ms;
+}
+
+.input__error__message {
+  grid-column: 1 / -1;
+  font-size: 1.3rem;
+  color: rgb(255, 136, 136);
+  padding: 0.5rem 0rem 0rem 0rem;
+}
+
+.input__error__message.edit {
+  grid-column: 1 / -1;
+  font-size: 1.3rem;
+  color: rgb(255, 136, 136);
+  padding: 0.5rem 0rem 0rem 0rem;
+}
+
+.form__row {
   display: flex;
+  align-items: flex-start;
+  justify-content: center;
   flex-direction: column;
-  align-items: baseline;
-  flex-grow: 0;
-  margin: 0.4rem 2.3rem 0rem 0rem;
 }
 
-.workout__label {
+.form__label {
+  width: 100%;
+  /* flex: 0 0 43%; */
   font-size: 1.4rem;
-  color: var(--color-light--1);
-  margin-right: 0.2rem;
-  height: 1.8rem;
+  font-weight: 600;
+  padding-bottom: 0.15rem;
 }
 
-.workout__value {
-  font-size: 1.8rem;
-  margin-right: 0.5rem;
+.form__input {
+  width: 90%;
+  padding: 0.3rem 0.8rem;
+  font-family: inherit;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--color-light--3);
+  transition: all 0.2s;
 }
 
-.workout__unit {
-  font-size: 1.1rem;
-  color: var(--color-light--1);
-  text-transform: uppercase;
-  font-weight: 800;
-  margin-left: 0.5rem;
+.form__input:focus {
+  outline: none;
+  background-color: #fff;
 }
 
 .btn__container {
@@ -251,101 +254,111 @@ a:visited {
   grid-column: span 2;
 }
 
-.form {
+/* ///////////////// */
+/* Workout           */
+/* ///////////////// */
+.workouts {
+  width: 100%;
+  height: 77vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.workouts::-webkit-scrollbar {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+}
+
+.workout {
   width: 87%;
-  height: 27rem;
   background-color: var(--color-dark--2);
   border-radius: 5px;
-  padding: 1.2rem 1.8rem 1.3rem 1.8rem;
+  padding: 1.5rem 2.25rem;
   margin-bottom: 1.75rem;
-
-  /* width: 150%; */
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem 1rem;
-
-  /* Match height and activity boxes */
-  /* height: 15rem; */
-  /* transition: all 0.5s, transform 1ms; */
-  /* transition: ease-out 0.3s; */
+  cursor: pointer;
+  transition: ease-out 0.3s;
+  scroll-behavior: smooth;
+}
+.workout--running {
+  border-left: 5px solid var(--color-brand--2);
+}
+.workout--cycling {
+  border-left: 5px solid var(--color-brand--1);
 }
 
-.form.edit {
+.workout__header {
   width: 100%;
-  height: 16rem;
-  padding: 0rem;
-  margin: 0rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.7rem 0.5rem;
-  transition: ease-out 0.3s, transform 1ms;
-}
-
-.input__error__message {
-  grid-column: 1 / -1;
-  font-size: 1.3rem;
-  color: rgb(255, 136, 136);
-  padding: 0.5rem 0rem 0rem 0rem;
-}
-
-.input__error__message.edit {
-  grid-column: 1 / -1;
-  font-size: 1.3rem;
-  color: rgb(255, 136, 136);
-  padding: 0.5rem 0rem 0rem 0rem;
-}
-
-/* .form_row.edit {
-  height: 33%;
-} */
-
-/* .form.hidden {
-  transform: translateY(-30rem);
-  height: 0;
-  padding: 0 2.25rem;
-  margin-bottom: 0;
-  opacity: 0;
-} */
-
-.form__row {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
 }
 
-/* .form__row--hidden {
-  display: none;
-} */
-
-.form__label {
-  width: 100%;
-  /* flex: 0 0 43%; */
-  font-size: 1.4rem;
-  font-weight: 600;
-  padding-bottom: 0.15rem;
-}
-
-.form__input {
+.workout__title {
+  text-align: start;
   width: 90%;
-  padding: 0.3rem 0.8rem;
-  font-family: inherit;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.workout__title > span {
+  text-transform: capitalize;
+}
+
+.workout__delete-icon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 10%;
+  text-align: end;
+  height: 1.6rem;
+  font-size: 1.5rem;
+}
+
+.workout__data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1.2rem 0rem 1.8rem 0rem;
+}
+
+.workout__details {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  flex-grow: 0;
+  margin: 0.4rem 2.3rem 0rem 0rem;
+}
+
+.workout__label {
   font-size: 1.4rem;
-  border: none;
-  border-radius: 3px;
-  background-color: var(--color-light--3);
-  transition: all 0.2s;
+  color: var(--color-light--1);
+  margin-right: 0.2rem;
+  height: 1.8rem;
 }
 
-.form__input:focus {
-  outline: none;
-  background-color: #fff;
+.workout__value {
+  font-size: 1.8rem;
+  margin-right: 0.5rem;
 }
 
-/* .form__btn {
-  display: none;
-} */
+.workout__unit {
+  font-size: 1.1rem;
+  color: var(--color-light--1);
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-left: 0.5rem;
+}
 
+/* ///////////////// */
+/* COPYWRITE         */
+/* ///////////////// */
 .copyright {
   margin: 1rem 5rem 3rem 5rem;
   font-size: 1.3rem;
@@ -362,43 +375,4 @@ a:visited {
 .twitter-link:hover,
 .twitter-link:active {
   color: var(--color-light--2);
-}
-
-/* ///////////////// */
-/* MAP               */
-/* ///////////////// */
-#map {
-  width: 80%;
-  height: 100%;
-}
-
-.leaflet-container {
-  /* flex: 1; */
-  width: 100%;
-  height: 100%;
-  border-radius: 0rem 1rem 1rem 0rem;
-  /* background-color: var(--color-light--1); */
-}
-
-/* Popup width is defined in JS using options */
-.leaflet-popup .leaflet-popup-content-wrapper {
-  background-color: var(--color-dark--1);
-  color: var(--color-light--2);
-  border-radius: 5px;
-  padding-right: 0.6rem;
-}
-
-.leaflet-popup .leaflet-popup-content {
-  font-size: 1.5rem;
-}
-
-.leaflet-popup .leaflet-popup-tip {
-  background-color: var(--color-dark--1);
-}
-
-.running-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--2);
-}
-.cycling-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--1);
 }
