@@ -5,7 +5,7 @@ import {
   TileLayer,
   useMapEvents,
   Marker,
-  Popup,
+  // Popup,
 } from "react-leaflet";
 import { MAP_ZOOM_LEVEL, COORDS } from "../config";
 import "../css/style.css";
