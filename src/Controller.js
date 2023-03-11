@@ -220,6 +220,7 @@ export class ControllerComponent extends Component {
     return (
       <StrictMode>
         <View
+          // State Variables
           workouts={this.state.workouts}
           markers={this.state.markers}
           // Workout Form
