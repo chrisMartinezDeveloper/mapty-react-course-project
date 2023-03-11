@@ -88,7 +88,6 @@ export class ControllerComponent extends Component {
   }
 
   closeWorkoutForm() {
-    this.setState({ shouldShowEditWorkoutForm: false });
     this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
     this.setState(function (prevState) {
@@ -101,11 +100,6 @@ export class ControllerComponent extends Component {
   showEditWorkoutForm(e) {
     let workoutToEditElement = e.currentTarget.closest(".workout");
     let workoutKey = workoutToEditElement.dataset.key;
-    // let workoutsCopy = this.state.workouts;
-    // let selectedWorkout = workoutsCopy.find(
-    //   (workout) => workout.key === workoutKey
-    // );
-    // selectedWorkout.status = "edit";
 
     this.setState((prevState) => {
       let workoutsCopy = prevState.workouts;
@@ -118,10 +112,6 @@ export class ControllerComponent extends Component {
         workouts: workoutsCopy,
       };
     });
-    // this.setState({ workoutToEdit: selectedWorkout });
-    // this.setState({
-    //   shouldShowElevation: selectedWorkout.type === "cycling" ? true : false,
-    // });
   }
 
   submitEditWorkoutForm(e) {
@@ -171,7 +161,6 @@ export class ControllerComponent extends Component {
         workouts: workoutsCopy,
       };
     });
-    this.setState({ shouldShowErrorMessage: false });
   }
 
   closeWorkoutEditForm(e) {
@@ -186,18 +175,6 @@ export class ControllerComponent extends Component {
 
       return { workouts: workoutsCopy };
     });
-    this.setState({ shouldShowErrorMessage: false });
-    this.setState({ shouldShowForm: false });
-  }
-
-  flyToMarker(e) {
-    let workout = e.currentTarget.closest(".workout");
-    let id = workout.dataset.key.split(" ");
-    let lat = +id[0].slice(0, -1);
-    let lng = +id[1];
-    let coords = [lat, lng];
-
-    this.setState({ shouldFlyToMarker: [true, coords] });
   }
 
   deleteWorkout(e) {
@@ -214,6 +191,16 @@ export class ControllerComponent extends Component {
 
     this.setState({ workouts: filteredWorkoutsCopy });
     this.setState({ markers: filteredMarkersCopy });
+  }
+
+  flyToMarker(e) {
+    let workout = e.currentTarget.closest(".workout");
+    let id = workout.dataset.key.split(" ");
+    let lat = +id[0].slice(0, -1);
+    let lng = +id[1];
+    let coords = [lat, lng];
+
+    this.setState({ shouldFlyToMarker: [true, coords] });
   }
 
   render() {
