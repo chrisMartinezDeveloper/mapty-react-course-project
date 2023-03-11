@@ -1,5 +1,5 @@
 import { Icon } from "leaflet";
-import { Component, useState } from "react";
+import { useState } from "react";
 import {
   MapContainer,
   TileLayer,
