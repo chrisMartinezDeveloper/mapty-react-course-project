@@ -1,21 +1,21 @@
 class Model {
-  async initializeDB(database) {
-    try {
-      let dbRequest = await window.indexedDB.open("maptyDB", 1);
-      let result = dbRequest.readyState || null;
-      let errorMessage = dbRequest.error.message || null;
-      let request = {
-        result,
-        errorMessage,
-      };
+  // async initializeDB(database) {
+  //   try {
+  //     let dbRequest = await window.indexedDB.open("maptyDB", 1);
+  //     let result = dbRequest.readyState || null;
+  //     let errorMessage = dbRequest.error.message || null;
+  //     let request = {
+  //       result,
+  //       errorMessage,
+  //     };
 
-      console.log("Request: ", request);
+  //     console.log("Request: ", request);
 
-      return request;
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  }
+  //     return request;
+  //   } catch (error) {
+  //     console.log("Error: ", error);
+  //   }
+  // }
 
   // Saves the workouts to local storage
   setLocalStorage(workouts, markers) {

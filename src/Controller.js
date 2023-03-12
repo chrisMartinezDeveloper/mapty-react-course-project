@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { validInputs } from "./helpers";
 import { Component } from "react";
-import Model from "./Model";
+// import Model from "./Model";
 import View from "./View";
 
 export class ControllerComponent extends Component {
