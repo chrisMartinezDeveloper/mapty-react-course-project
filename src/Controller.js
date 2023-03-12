@@ -1,14 +1,19 @@
 import { StrictMode } from "react";
 import { validInputs } from "./helpers";
 import { Component } from "react";
+import Model from "./Model";
 import View from "./View";
 
 export class ControllerComponent extends Component {
   constructor(props) {
     console.log("Welcome to Mapty!");
-
     super(props);
+
+    // let maptyDBRequest = Model.initializeDB();
+
     this.state = {
+      // maptyDB: maptyDBRequest.result || null,
+      // dbErrorMessage: maptyDBRequest.errorMessage || null,
       markers: [],
       workouts: [],
       workoutToEdit: null,
@@ -17,10 +22,14 @@ export class ControllerComponent extends Component {
       shouldShowErrorMessage: false,
       shouldFlyToMarker: [false, []],
     };
+
+    // console.log("DB: ", this.state.maptyDB);
+    // console.log("Error Mesage: ", this.state.dbErrorMessage);
+    // Model.setLocalStorage(this.state.workouts, this.state.markers);
   }
 
   addMarker(e) {
-    let newMarker = {
+    const newMarker = {
       key: `${e.latlng.lat}, ${e.latlng.lng}`,
       coords: e.latlng,
     };
@@ -44,16 +53,16 @@ export class ControllerComponent extends Component {
   submitWorkoutForm(e) {
     e.preventDefault();
 
-    let formData = new FormData(e.currentTarget);
-    let workoutType = formData.get("type");
-    let distance = +formData.get("distance") || null;
-    let duration = +formData.get("duration") || null;
-    let cadence = workoutType === "running" ? +formData.get("cadence") : null;
-    let elevation =
+    const formData = new FormData(e.currentTarget);
+    const workoutType = formData.get("type");
+    const distance = +formData.get("distance") || null;
+    const duration = +formData.get("duration") || null;
+    const cadence = workoutType === "running" ? +formData.get("cadence") : null;
+    const elevation =
       workoutType === "cycling" ? +formData.get("elevation") : null;
-    let pace = (duration / distance).toFixed(2) || null;
-    let speed = (distance / (duration / 60)).toFixed(2) || null;
-    let date = new Date().toLocaleString("en-US", {
+    const pace = (duration / distance).toFixed(2) || null;
+    const speed = (distance / (duration / 60)).toFixed(2) || null;
+    const date = new Date().toLocaleString("en-US", {
       month: "long",
       day: "2-digit",
     });
@@ -62,8 +71,8 @@ export class ControllerComponent extends Component {
       return this.setState({ shouldShowErrorMessage: true });
 
     this.setState((prevState) => {
-      let markersCopy = prevState.markers;
-      let key = markersCopy[0].key;
+      const markersCopy = prevState.markers;
+      const key = markersCopy[0].key;
       return {
         workouts: [
           {
@@ -91,19 +100,19 @@ export class ControllerComponent extends Component {
     this.setState({ shouldShowErrorMessage: false });
     this.setState({ shouldShowForm: false });
     this.setState(function (prevState) {
-      let markersCopy = prevState.markers;
-      markersCopy.splice(-1);
+      const markersCopy = prevState.markers;
+      markersCopy.splice(0, 1);
       return { markers: markersCopy };
     });
   }
 
   showEditWorkoutForm(e) {
-    let workoutToEditElement = e.currentTarget.closest(".workout");
-    let workoutKey = workoutToEditElement.dataset.key;
+    const workoutToEditElement = e.currentTarget.closest(".workout");
+    const workoutKey = workoutToEditElement.dataset.key;
 
     this.setState((prevState) => {
-      let workoutsCopy = prevState.workouts;
-      let selectedWorkout = prevState.workouts.find(
+      const workoutsCopy = prevState.workouts;
+      const selectedWorkout = prevState.workouts.find(
         (workout) => workout.key === workoutKey
       );
       selectedWorkout.status = "edit";
@@ -117,22 +126,22 @@ export class ControllerComponent extends Component {
   submitEditWorkoutForm(e) {
     e.preventDefault();
 
-    let workoutElement = e.currentTarget.closest(".workout");
-    let workoutKey = workoutElement.dataset.key;
-    let formData = new FormData(e.currentTarget);
-    let workoutType = formData.get("type");
-    let distance = +formData.get("distance") || null;
-    let duration = +formData.get("duration") || null;
-    let cadence = workoutType === "running" ? +formData.get("cadence") : null;
-    let elevation =
+    const workoutElement = e.currentTarget.closest(".workout");
+    const workoutKey = workoutElement.dataset.key;
+    const formData = new FormData(e.currentTarget);
+    const workoutType = formData.get("type");
+    const distance = +formData.get("distance") || null;
+    const duration = +formData.get("duration") || null;
+    const cadence = workoutType === "running" ? +formData.get("cadence") : null;
+    const elevation =
       workoutType === "cycling" ? +formData.get("elevation") : null;
-    let pace = (duration / distance).toFixed(2) || null;
-    let speed = (distance / (duration / 60)).toFixed(2) || null;
+    const pace = (duration / distance).toFixed(2) || null;
+    const speed = (distance / (duration / 60)).toFixed(2) || null;
 
     if (!validInputs([distance, duration, cadence ?? elevation]))
       return this.setState((prevState) => {
-        let workoutsCopy = prevState.workouts;
-        let selectedWorkout = prevState.workouts.find(
+        const workoutsCopy = prevState.workouts;
+        const selectedWorkout = prevState.workouts.find(
           (workout) => workout.key === workoutKey
         );
         selectedWorkout.status = "invalid form inputs";
@@ -143,8 +152,8 @@ export class ControllerComponent extends Component {
       });
 
     this.setState((prevState) => {
-      let workoutsCopy = prevState.workouts;
-      let selectedWorkout = prevState.workouts.find(
+      const workoutsCopy = prevState.workouts;
+      const selectedWorkout = prevState.workouts.find(
         (workout) => workout.key === workoutKey
       );
 
@@ -165,10 +174,10 @@ export class ControllerComponent extends Component {
 
   closeWorkoutEditForm(e) {
     this.setState((prevState) => {
-      let workoutElement = e.target.closest(".workout");
-      let workoutKey = workoutElement.dataset.key;
-      let workoutsCopy = prevState.workouts;
-      let selectedWorkout = prevState.workouts.find(
+      const workoutElement = e.target.closest(".workout");
+      const workoutKey = workoutElement.dataset.key;
+      const workoutsCopy = prevState.workouts;
+      const selectedWorkout = prevState.workouts.find(
         (workout) => workout.key === workoutKey
       );
       selectedWorkout.status = "view";
@@ -178,14 +187,14 @@ export class ControllerComponent extends Component {
   }
 
   deleteWorkout(e) {
-    let workoutElement = e.currentTarget.closest(".workout");
-    let workoutKey = workoutElement.dataset.key;
-    let workoutsCopy = this.state.workouts;
-    let filteredWorkoutsCopy = workoutsCopy.filter(
+    const workoutElement = e.currentTarget.closest(".workout");
+    const workoutKey = workoutElement.dataset.key;
+    const workoutsCopy = this.state.workouts;
+    const filteredWorkoutsCopy = workoutsCopy.filter(
       (workout) => workout.key !== workoutKey
     );
-    let markersCopy = this.state.markers;
-    let filteredMarkersCopy = markersCopy.filter(
+    const markersCopy = this.state.markers;
+    const filteredMarkersCopy = markersCopy.filter(
       (marker) => marker.key !== workoutKey
     );
 
@@ -194,11 +203,11 @@ export class ControllerComponent extends Component {
   }
 
   flyToMarker(e) {
-    let workout = e.currentTarget.closest(".workout");
-    let id = workout.dataset.key.split(" ");
-    let lat = +id[0].slice(0, -1);
-    let lng = +id[1];
-    let coords = [lat, lng];
+    const workout = e.currentTarget.closest(".workout");
+    const id = workout.dataset.key.split(" ");
+    const lat = +id[0].slice(0, -1);
+    const lng = +id[1];
+    const coords = [lat, lng];
 
     this.setState({ shouldFlyToMarker: [true, coords] });
   }

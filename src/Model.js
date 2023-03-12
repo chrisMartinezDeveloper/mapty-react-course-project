@@ -1,6 +1,24 @@
 class Model {
+  async initializeDB(database) {
+    try {
+      let dbRequest = await window.indexedDB.open("maptyDB", 1);
+      let result = dbRequest.readyState || null;
+      let errorMessage = dbRequest.error.message || null;
+      let request = {
+        result,
+        errorMessage,
+      };
+
+      console.log("Request: ", request);
+
+      return request;
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
   // Saves the workouts to local storage
-  setLocalStorage() {
+  setLocalStorage(workouts, markers) {
     // Browser provided API
     // Only to be used for small amounts of data
     // Bad because it is Blocking
