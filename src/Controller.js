@@ -119,6 +119,7 @@ export class ControllerComponent extends Component {
 
       return {
         workouts: workoutsCopy,
+        shouldShowElevation: selectedWorkout.type === "running" ? false : true,
       };
     });
   }
