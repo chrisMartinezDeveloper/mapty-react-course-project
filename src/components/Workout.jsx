@@ -6,6 +6,7 @@ export default function Workout({
   flyToMarker,
   deleteWorkout,
   showEditWorkoutForm,
+  shouldShowElevation,
   showElevation,
   submitEditWorkoutForm,
   closeWorkoutEditForm,
@@ -142,7 +143,7 @@ export default function Workout({
                 min="0"
               />
             </div>
-            {workout.type === "running" && (
+            {!shouldShowElevation && (
               <div className="form__row edit">
                 <label className="form__label">Cadence</label>
                 <input
@@ -155,7 +156,7 @@ export default function Workout({
                 />
               </div>
             )}
-            {workout.type === "cycling" && (
+            {shouldShowElevation && (
               <div className="form__row edit">
                 <label className="form__label">Elev Gain</label>
                 <input

@@ -23,6 +23,8 @@ export default function Sidebar(props) {
         workouts={props.workouts}
         flyToMarker={props.flyToMarker}
         showEditWorkoutForm={props.showEditWorkoutForm}
+        shouldShowElevation={props.shouldShowElevation}
+        showElevation={props.showElevation}
         deleteWorkout={props.deleteWorkout}
         submitEditWorkoutForm={props.submitEditWorkoutForm}
         closeWorkoutEditForm={props.closeWorkoutEditForm}

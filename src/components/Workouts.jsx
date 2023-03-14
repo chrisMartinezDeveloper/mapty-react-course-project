@@ -12,6 +12,8 @@ export default function Workouts(props) {
             workout={workout}
             flyToMarker={props.flyToMarker}
             showEditWorkoutForm={props.showEditWorkoutForm}
+            shouldShowElevation={props.shouldShowElevation}
+            showElevation={props.showElevation}
             deleteWorkout={props.deleteWorkout}
             submitEditWorkoutForm={props.submitEditWorkoutForm}
             closeWorkoutEditForm={props.closeWorkoutEditForm}
